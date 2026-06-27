@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, time
 from typing import Optional
 
 class Food(BaseModel):
@@ -11,6 +11,7 @@ class Food(BaseModel):
     quantity: int
     status: str
     expiry_time: Optional[datetime] = None
+    best_before_time: Optional[time] = None
 
     class Config:
         from_attributes = True
@@ -18,6 +19,7 @@ class Food(BaseModel):
 class FoodUpdate(BaseModel):
     price: float
     quantity: int
+
 
     class Config:
         from_attributes = True
