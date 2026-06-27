@@ -1,0 +1,58 @@
+<mxfile host="65bd71144e">
+    <diagram id="architecture" name="Architecture">
+        <mxGraphModel dx="960" dy="563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="browser" value="Browser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#424242;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="130" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="react" value="React / Vite App&#xa;TypeScript" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="180" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="client" value="Supabase Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="180" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="supabase" value="Supabase" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="770" y="90" width="260" height="420" as="geometry"/>
+                </mxCell>
+                <mxCell id="postgres" value="Supabase Postgres" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;" parent="1" vertex="1">
+                    <mxGeometry x="815" y="130" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="rls" value="RLS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;" parent="1" vertex="1">
+                    <mxGeometry x="815" y="220" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="tables" value="Tables" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#ffffff;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="815" y="300" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="merchants" value="merchants" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                    <mxGeometry x="20" y="40" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="campaigns" value="campaigns" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                    <mxGeometry x="20" y="70" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="orders" value="orders" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                    <mxGeometry x="20" y="100" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="impact-events" value="impact_events" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                    <mxGeometry x="20" y="130" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="browser-react" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="browser" target="react" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="react-client" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="react" target="client" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="client-postgres" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="client" target="postgres" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="postgres-rls" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="postgres" target="rls" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rls-tables" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="rls" target="tables" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
