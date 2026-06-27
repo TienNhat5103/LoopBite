@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
 
 class Orders(BaseModel):
     id: Optional[int] = None  # Sơ đồ của bạn đang để kiểu int8 cho id đơn hàng
@@ -10,3 +10,13 @@ class Orders(BaseModel):
 
     class Config:
         from_attributes = True
+        
+# Model đại diện cho từng món ăn được truyền lên trong giỏ hàng
+class CartItemInput(BaseModel):
+    food_id: int
+    quantity: int
+
+# Model chính nhận vào khi gọi API POST Create Order
+class OrderCreateRequest(BaseModel):
+    purchase_type: Optional[str] = "delivery"  # Mặc định là giao hàng, hoặc 'takeaway'...
+    items: List[CartItemInput]

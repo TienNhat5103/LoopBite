@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from typing import List
 from database import supabase
-from models import Merchants
+from models import Merchants, Food
 
 router = APIRouter(prefix="/api/v1/merchants", tags=["Merchants CRUD"])
 
@@ -17,6 +17,29 @@ def get_merchant_by_id(merchant_id: int):
         raise HTTPException(status_code=404, detail="Không tìm thấy cửa hàng")
     return response.data[0]
 
+@router.get("/merchant_food/{merchant_id}", response_model=List[Food])
+def get_food_by_merchant(merchant_id: int):
+    try:
+        # Thực hiện câu lệnh lọc dữ liệu theo cột merchant_id 
+        # Đồng thời sắp xếp luôn theo ID tăng dần để món ăn không bị nhảy lung tung khi sửa
+        response = (
+            supabase
+            .table("food")
+            .select("*")
+            .eq("merchant_id", merchant_id)
+            .order("id", desc=False)
+            .execute()
+        )
+        
+        # Nếu quán này chưa có món nào, trả về mảng rỗng [] thay vì báo lỗi để Frontend dễ xử lý
+        return response.data
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+            detail=f"Lỗi lấy danh sách món theo cửa hàng: {str(e)}"
+        )
+        
 @router.post("/", response_model=Merchants, status_code=201)
 def create_merchant(merchant_data: Merchants):
     data = merchant_data.model_dump(exclude_none=True)
