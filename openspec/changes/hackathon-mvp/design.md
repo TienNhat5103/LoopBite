@@ -9,7 +9,7 @@ This MVP is a two-sided React + Vite + TypeScript web app backed only by Supabas
 - Ship the required five routes with a simple, reliable happy path.
 - Store merchants, campaigns, orders, and impact events in Supabase Postgres.
 - Use Supabase RLS to protect merchant-owned data and user-created orders.
-- Keep the UI demo-friendly with clear empty, loading, error, and success states.
+- Keep the UI demo-friendly with clear empty, loading, error, and success states. 
 
 **Non-Goals:**
 
