@@ -264,6 +264,46 @@ section[data-testid="stSidebarNav"] {display: none;}
     font-size: 0.78rem;
     color: #374151;
 }
+.detail-photo {
+    min-height: 10rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #E6F7EE 0%, #FFF7E0 100%);
+    color: #007A2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 0.85rem;
+}
+.note-box {
+    background: #FFFDF5;
+    border: 1px solid #F6D58A;
+    border-radius: 10px;
+    padding: 0.75rem;
+    color: #4B3A08;
+    font-size: 0.88rem;
+    margin-top: 0.75rem;
+}
+.review-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #EEF2F7;
+    font-size: 0.92rem;
+}
+.review-row:last-child {
+    border-bottom: 0;
+}
+.review-label {
+    color: var(--text-gray);
+}
+.review-value {
+    color: var(--text-dark);
+    font-weight: 700;
+    text-align: right;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -286,6 +326,14 @@ if "user_lng" not in st.session_state:
     st.session_state.user_lng = 106.7009
 if "selected_food" not in st.session_state:
     st.session_state.selected_food = None
+if "selected_quantity" not in st.session_state:
+    st.session_state.selected_quantity = 1
+if "pickup_method" not in st.session_state:
+    st.session_state.pickup_method = "Pick up at store"
+if "payment_method" not in st.session_state:
+    st.session_state.payment_method = "Pay at counter"
+if "active_reservation" not in st.session_state:
+    st.session_state.active_reservation = None
 
 
 def navigate(page_name: str):
@@ -416,7 +464,14 @@ def load_nearby_results(keyword):
 
 def choose_food(item):
     st.session_state.selected_food = item
+    st.session_state.selected_quantity = 1
+    st.session_state.pickup_method = "Pick up at store"
+    st.session_state.payment_method = "Pay at counter"
     navigate("FoodDetail")
+
+
+def make_pickup_code():
+    return f"LB-{random.randint(1000, 9999)}"
 
 def render_mode_switch():
     st.markdown(
@@ -615,7 +670,7 @@ def page_user_results():
 
 
 # ============================================================
-# PAGE: FOOD DETAIL LANDING
+# PAGE: FOOD DETAIL
 # ============================================================
 def page_food_detail():
     item = st.session_state.selected_food
@@ -624,6 +679,13 @@ def page_food_detail():
         if st.button("Back to results", use_container_width=True):
             navigate("UserResults")
         return
+
+    stock = max(1, int(item.get("quantity") or 1))
+    if st.session_state.selected_quantity > stock:
+        st.session_state.selected_quantity = stock
+
+    savings = max(0, int(item.get("original_price") or 0) - int(item.get("price") or 0))
+    discount = int((savings / int(item.get("original_price") or 1)) * 100) if item.get("original_price") else 0
 
     st.markdown(
         f"""
@@ -635,27 +697,119 @@ def page_food_detail():
 """,
         unsafe_allow_html=True,
     )
+
     st.markdown(
         f"""
 <div class="result-card">
-    <div class="result-title">Food Detail starts here</div>
-    <div class="result-meta" style="margin-top:0.35rem;">Task 3 will expand this into the full item detail and reservation entry screen.</div>
+    <div class="detail-photo">{category_icon(item['category'])}</div>
+    <div class="result-title">{item['name']}</div>
+    <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
     <div class="price-row">
         <span class="rescue-price">{vnd(item['price'])}</span>
         <span class="original-price">{vnd(item['original_price'])}</span>
     </div>
+    <div class="result-meta">Save {vnd(savings)}{f' ({discount}% off)' if discount else ''}</div>
     <div class="info-grid">
+        <div class="info-pill">Category: {item['category']}</div>
+        <div class="info-pill">Qty left: {stock}</div>
         <div class="info-pill">Pickup: {item['pickup_window']}</div>
         <div class="info-pill">{item['best_before']}</div>
-        <div class="info-pill">Qty left: {item['quantity']}</div>
-        <div class="info-pill">{item['category']}</div>
     </div>
+    <div class="note-box"><strong>Merchant quality note:</strong><br>{item['quality_note']}</div>
 </div>
 """,
         unsafe_allow_html=True,
     )
-    if st.button("Back to results", use_container_width=True):
-        navigate("UserResults")
+
+    st.number_input(
+        "Quantity to reserve",
+        min_value=1,
+        max_value=stock,
+        step=1,
+        key="selected_quantity",
+    )
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Back to results", use_container_width=True):
+            navigate("UserResults")
+    with c2:
+        if st.button("Reserve", type="primary", use_container_width=True):
+            navigate("ReservationReview")
+
+
+# ============================================================
+# PAGE: RESERVATION REVIEW
+# ============================================================
+def page_reservation_review():
+    item = st.session_state.selected_food
+    if not item:
+        st.warning("Choose a rescue food item first.")
+        if st.button("Back to search", use_container_width=True):
+            navigate("UserHome")
+        return
+
+    quantity = int(st.session_state.selected_quantity or 1)
+    total = int(float(item.get("price") or 0) * quantity)
+
+    st.markdown(
+        """
+<div class="user-hero">
+    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
+    <h1>Review reservation</h1>
+    <p>Confirm pickup and payment before holding this rescue item.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        f"""
+<div class="result-card">
+    <div class="result-title">{item['name']}</div>
+    <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
+    <div class="review-row"><span class="review-label">Quantity</span><span class="review-value">{quantity}</span></div>
+    <div class="review-row"><span class="review-label">Pickup window</span><span class="review-value">{item['pickup_window']}</span></div>
+    <div class="review-row"><span class="review-label">Best-before</span><span class="review-value">{item['best_before']}</span></div>
+    <div class="review-row"><span class="review-label">Unit price</span><span class="review-value">{vnd(item['price'])}</span></div>
+    <div class="review-row"><span class="review-label">Total</span><span class="review-value">{vnd(total)}</span></div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    pickup_options = ["Pick up at store", "Mock delivery (demo only)"]
+    st.radio("Pickup method", pickup_options, key="pickup_method")
+    if st.session_state.pickup_method.startswith("Mock delivery"):
+        st.info("Delivery is shown for demo only. Store pickup is the MVP path.")
+
+    payment_options = ["Pay at counter", "Mock online payment"]
+    st.radio("Payment method", payment_options, key="payment_method")
+    if st.session_state.payment_method == "Mock online payment":
+        st.info("Online payment is mocked for the hackathon demo.")
+
+    existing = st.session_state.active_reservation
+    if existing and existing.get("item", {}).get("id") == item.get("id"):
+        st.success(f"Reservation held. Pickup code: {existing['pickup_code']}")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Back to item", use_container_width=True):
+            navigate("FoodDetail")
+    with c2:
+        if st.button("Confirm reservation", type="primary", use_container_width=True):
+            st.session_state.active_reservation = {
+                "pickup_code": make_pickup_code(),
+                "status": "Reserved",
+                "item": item,
+                "quantity": quantity,
+                "pickup_method": st.session_state.pickup_method,
+                "payment_method": st.session_state.payment_method,
+                "total": total,
+                "customer": "Demo customer",
+            }
+            st.success(f"Reserved. Pickup code: {st.session_state.active_reservation['pickup_code']}")
+            st.info("Task 5 will turn this into the full confirmation page.")
 
 # ============================================================
 # BOTTOM NAV
@@ -1106,13 +1260,14 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
-USER_ROUTES = {"UserHome", "UserResults", "FoodDetail"}
+USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview"}
 MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
 
 ROUTES = {
     "UserHome": page_user_home,
     "UserResults": page_user_results,
     "FoodDetail": page_food_detail,
+    "ReservationReview": page_reservation_review,
     "Dashboard": page_dashboard,
     "Post": page_post,
     "Published": page_published,
