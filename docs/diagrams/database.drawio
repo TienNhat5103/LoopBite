@@ -7,42 +7,26 @@
                 <mxCell id="merchants" value="merchants" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#e3f2fd;strokeColor=#1565c0;" parent="1" vertex="1">
                     <mxGeometry x="80" y="100" width="230" height="180" as="geometry"/>
                 </mxCell>
-                <mxCell id="merchants-fields" value="id PK&#xa;name&#xa;description&#xa;logo_url&#xa;created_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="merchants" vertex="1">
+                <mxCell id="merchants-fields" value="id PK&#xa;name&#xa;merchant_type&#xa;address&#xa;latitude&#xa;longitude&#xa;logo_url&#xa;created_at&#xa;updated_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="merchants" vertex="1">
                     <mxGeometry x="16" y="44" width="198" height="116" as="geometry"/>
                 </mxCell>
-                <mxCell id="campaigns" value="campaigns" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#e8f5e9;strokeColor=#2e7d32;" parent="1" vertex="1">
-                    <mxGeometry x="430" y="80" width="260" height="250" as="geometry"/>
+                <mxCell id="listings" value="listings" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#e8f5e9;strokeColor=#2e7d32;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="60" width="300" height="330" as="geometry"/>
                 </mxCell>
-                <mxCell id="campaigns-fields" value="id PK&#xa;merchant_id FK&#xa;title&#xa;description&#xa;image_url&#xa;original_price&#xa;discounted_price&#xa;donation_rate&#xa;is_published&#xa;created_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="campaigns" vertex="1">
-                    <mxGeometry x="16" y="44" width="228" height="190" as="geometry"/>
+                <mxCell id="listings-fields" value="id PK&#xa;merchant_id FK&#xa;item_name&#xa;image_url&#xa;food_category&#xa;risk_group&#xa;quantity&#xa;original_price&#xa;rescue_price&#xa;pickup_start_time&#xa;pickup_end_time&#xa;best_before&#xa;consume_before&#xa;quality_note&#xa;status&#xa;created_at&#xa;updated_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="listings" vertex="1">
+                    <mxGeometry x="16" y="44" width="268" height="270" as="geometry"/>
                 </mxCell>
                 <mxCell id="orders" value="orders" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#fff8e1;strokeColor=#f9a825;" parent="1" vertex="1">
-                    <mxGeometry x="805" y="105" width="230" height="205" as="geometry"/>
+                    <mxGeometry x="805" y="95" width="250" height="260" as="geometry"/>
                 </mxCell>
-                <mxCell id="orders-fields" value="id PK&#xa;campaign_id FK&#xa;quantity&#xa;unit_price&#xa;total_amount&#xa;created_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="orders" vertex="1">
-                    <mxGeometry x="16" y="44" width="198" height="140" as="geometry"/>
+                <mxCell id="orders-fields" value="id PK&#xa;listing_id FK&#xa;quantity&#xa;amount&#xa;fulfillment_method&#xa;payment_method&#xa;payment_status&#xa;order_status&#xa;pickup_code&#xa;created_at&#xa;updated_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="orders" vertex="1">
+                    <mxGeometry x="16" y="44" width="218" height="195" as="geometry"/>
                 </mxCell>
-                <mxCell id="impact-events" value="impact_events" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#fce4ec;strokeColor=#ad1457;" parent="1" vertex="1">
-                    <mxGeometry x="805" y="430" width="230" height="205" as="geometry"/>
-                </mxCell>
-                <mxCell id="impact-fields" value="id PK&#xa;order_id FK UNIQUE&#xa;campaign_id FK&#xa;donation_amount&#xa;description&#xa;created_at" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;" parent="impact-events" vertex="1">
-                    <mxGeometry x="16" y="44" width="198" height="140" as="geometry"/>
-                </mxCell>
-                <mxCell id="merchant-campaign-edge" value="1 to many" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;" parent="1" source="merchants" target="campaigns" edge="1">
+                <mxCell id="merchant-listing-edge" value="1 to many" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;" parent="1" source="merchants" target="listings" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="campaign-order-edge" value="1 to many" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;" parent="1" source="campaigns" target="orders" edge="1">
+                <mxCell id="listing-order-edge" value="1 to many" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;" parent="1" source="listings" target="orders" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="order-impact-edge" value="1 to 1" style="endArrow=ERone;startArrow=ERone;html=1;rounded=0;" parent="1" source="orders" target="impact-events" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="campaign-impact-edge" value="1 to many" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;" parent="1" source="campaigns" target="impact-events" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="560" y="535"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

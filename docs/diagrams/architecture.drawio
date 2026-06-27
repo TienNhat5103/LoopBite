@@ -28,13 +28,13 @@
                 <mxCell id="merchants" value="merchants" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
                     <mxGeometry x="20" y="40" width="130" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="campaigns" value="campaigns" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                <mxCell id="listings" value="listings" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
                     <mxGeometry x="20" y="70" width="130" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="orders" value="orders" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
                     <mxGeometry x="20" y="100" width="130" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="impact-events" value="impact_events" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
+                <mxCell id="impact-events" value="pickup codes" style="text;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;align=left;" parent="tables" vertex="1">
                     <mxGeometry x="20" y="130" width="130" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="browser-react" value="" style="endArrow=block;html=1;rounded=0;" parent="1" source="browser" target="react" edge="1">

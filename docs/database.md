@@ -2,9 +2,17 @@
 
 ## 1. Database Overview
 
-The MVP uses Supabase Postgres as the only backend data store and API source. The demo relies on curated seed data for merchants and low-risk rescue food listings, while `orders` are created live during the demo.
+The MVP uses Supabase Postgres as the only backend data store and API source for both the LoopBite user app and LoopBite Merchant app. The demo relies on curated seed data for merchants and low-risk rescue food listings, while `orders` are created live during the demo.
 
 There is no FastAPI service, admin dashboard, impact dashboard, or real payment data in the MVP database.
+
+The finalized MVP data model is:
+
+- `merchants`: Pickup locations and seller profile data.
+- `listings`: Merchant-posted low-risk rescue food inventory.
+- `orders`: User reservations and merchant pickup confirmation state.
+
+`profiles` is optional and should only be added if Supabase Auth is introduced during implementation.
 
 ## 2. Food Scope Constraints
 
@@ -77,8 +85,11 @@ The MVP avoids high-risk fresh cooked meals, raw meat, seafood, dairy-heavy item
 - `merchant_type`: Merchant type such as mini supermarket, bakery, convenience store, or small shop.
 - `description`: Short merchant summary.
 - `address`: Merchant pickup address.
+- `latitude`: Optional pickup latitude for nearby search and Map view.
+- `longitude`: Optional pickup longitude for nearby search and Map view.
 - `logo_url`: Optional merchant logo.
 - `created_at`: Creation timestamp.
+- `updated_at`: Last update timestamp.
 
 ### listings
 
@@ -117,7 +128,71 @@ The MVP avoids high-risk fresh cooked meals, raw meat, seafood, dairy-heavy item
 - `created_at`: Creation timestamp.
 - `updated_at`: Last update timestamp.
 
-## 5. Visibility and Reservation Rules
+## 5. Field Constraints
+
+### merchants
+
+- `name` is required.
+- `merchant_type` is required and must represent a target merchant type: mini supermarket, bakery, convenience store, or small shop.
+- `address` is required for receipt and pickup instructions.
+- `latitude` and `longitude` are optional for MVP but required for distance sorting and Map positioning.
+
+### listings
+
+- `merchant_id`, `item_name`, `food_category`, `risk_group`, `quantity`, `original_price`, `rescue_price`, `pickup_start_time`, `pickup_end_time`, `quality_note`, and `status` are required.
+- `risk_group` defaults to `low_risk_quality_based`.
+- `quantity` must be greater than or equal to 0.
+- `original_price` and `rescue_price` must be greater than or equal to 0.
+- `rescue_price` should be less than or equal to `original_price`.
+- `pickup_end_time` must be later than `pickup_start_time`.
+- At least one of `best_before` or `consume_before` should be present for user-facing quality guidance.
+- `fulfillment_options` must include `pickup`; `delivery_mock` is optional only if time allows.
+- `payment_options` must include `pay_at_counter`; `pay_online_mock` is optional.
+
+### orders
+
+- `listing_id`, `quantity`, `amount`, `fulfillment_method`, `payment_method`, `payment_status`, `order_status`, and `pickup_code` are required.
+- `quantity` must be greater than 0.
+- `amount` is calculated at reservation time from listing `rescue_price`.
+- `pickup_code` must be generated when an order is created and must not be empty.
+- New user reservations start with `order_status = reserved`.
+- `pay_at_counter` starts with `payment_status = unpaid`.
+- `pay_online_mock` may use `payment_status = mock_paid`.
+
+## 6. User App Database Contract
+
+The user app reads only eligible public listings and merchant pickup data needed for discovery, item detail, checkout, and receipt.
+
+### User App Reads
+
+- Search and Map + List view reads `listings` joined with `merchants`.
+- Item detail reads one eligible `listings` row joined with its `merchants` row.
+- Receipt reads one `orders` row joined with `listings` and `merchants`.
+
+### User App Writes
+
+- Checkout inserts an `orders` row for an eligible listing.
+- Checkout reserves quantity logically at order creation time.
+- The user app does not update merchant listing content.
+- The user app does not mark orders as `picked_up`.
+
+## 7. Merchant App Database Contract
+
+The merchant app owns listing management and pickup completion for its own listings.
+
+### Merchant App Reads
+
+- My Listings reads `listings` filtered by `merchant_id`.
+- Listing order views read `orders` joined with `listings` filtered by the merchant's own listings.
+
+### Merchant App Writes
+
+- Post rescue item inserts a `listings` row.
+- Publish listing sets `status = published` only for valid low-risk listings.
+- Merchant listing edits update only the merchant's own `listings`.
+- Confirm pickup verifies `pickup_code`, sets `order_status = picked_up`, decreases listing `quantity`, and sets listing `status = sold_out` when quantity reaches 0.
+
+## 8. Visibility and Reservation Rules
 
 - A listing appears in the user app only when `status = published`, `quantity > 0`, the pickup window is still valid, and `risk_group = low_risk_quality_based`.
 - Listing `food_category` must be one of `bakery`, `packaged_food`, `dry_noodles`, `cereal`, `snack`, `sealed_drink`, or `other_low_risk`.
@@ -127,7 +202,54 @@ The MVP avoids high-risk fresh cooked meals, raw meat, seafood, dairy-heavy item
 - Confirmed pickup decreases listing quantity.
 - If listing quantity reaches zero, listing status becomes `sold_out`.
 
-## 6. Optional Future Table
+## 9. Recommended Views or Query Shapes
+
+### public_rescue_listings
+
+Use a view or shared query shape for the user app that returns only eligible public listings:
+
+- `listing_id`
+- `merchant_id`
+- `merchant_name`
+- `merchant_address`
+- `latitude`
+- `longitude`
+- `item_name`
+- `image_url`
+- `food_category`
+- `risk_group`
+- `quantity`
+- `original_price`
+- `rescue_price`
+- `pickup_start_time`
+- `pickup_end_time`
+- `best_before`
+- `consume_before`
+- `quality_note`
+- `fulfillment_options`
+- `payment_options`
+- `status`
+
+### merchant_listing_orders
+
+Use a view or shared query shape for the merchant app that returns a merchant's listings with order counts and active reservations:
+
+- listing fields needed for My Listings
+- `reserved_order_count`
+- `picked_up_order_count`
+- latest reserved order details when needed for pickup handling
+
+## 10. Indexes
+
+- `listings(merchant_id)` for My Listings.
+- `listings(status, food_category)` for public filtering.
+- `listings(pickup_start_time, pickup_end_time)` for pickup-window filtering.
+- `listings(rescue_price)` for price filtering.
+- `orders(listing_id)` for merchant order lookup.
+- `orders(order_status)` for active reservation lookup.
+- `orders(pickup_code)` for pickup confirmation lookup.
+
+## 11. Optional Future Table
 
 ### profiles
 
@@ -138,12 +260,12 @@ Add `profiles` only if Supabase Auth is introduced later.
 - `merchant_id`: Optional link to `merchants.id`.
 - `created_at`: Creation timestamp.
 
-## 7. Relationships
+## 12. Relationships
 
 - `merchants` 1-* `listings`
 - `listings` 1-* `orders`
 
-## 8. RLS Plan
+## 13. RLS Plan
 
 ### Demo-Friendly Policies
 
@@ -161,7 +283,7 @@ Add `profiles` only if Supabase Auth is introduced later.
 - Validate pickup confirmation and quantity updates through trusted server-side functions.
 - Separate public listing access from private merchant operations.
 
-## 9. Seed Data Plan
+## 14. Seed Data Plan
 
 - Create 2-3 merchants across bakeries, convenience stores, mini supermarkets, or small shops.
 - Create 4-6 low-risk listings across those merchants.
@@ -171,13 +293,13 @@ Add `profiles` only if Supabase Auth is introduced later.
 - Do not seed dashboard data.
 - Create orders live during the demo instead of seeding them.
 
-## 10. Amount Formula
+## 15. Amount Formula
 
 ```text
 amount = quantity * rescue_price
 ```
 
-## 11. Expected SQL Files
+## 16. Expected SQL Files
 
 - `supabase/migrations/001_initial_schema.sql`
 - `supabase/seed.sql`
