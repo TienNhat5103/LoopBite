@@ -7,6 +7,25 @@ from datetime import datetime, timedelta
 import random
 
 # ============================================================
+# API CLIENT (talks to FastAPI at http://127.0.0.1:8000)
+# ============================================================
+import api_client as api
+
+# Demo merchant - FamilyMart District 1 (id=17 from Supabase data)
+DEMO_MERCHANT_ID = 17
+API_OK = api.health().get("ok", False)
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def _cached_food(merchant_id: int):
+    return api.list_food(merchant_id=merchant_id)
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def _cached_merchants():
+    return api.list_merchants()
+
+# ============================================================
 # PAGE CONFIG
 # ============================================================
 st.set_page_config(
@@ -111,8 +130,6 @@ section[data-testid="stSidebarNav"] {display: none;}
 # ============================================================
 if "page" not in st.session_state:
     st.session_state.page = "Dashboard"
-if "reservations" not in st.session_state:
-    st.session_state.reservations = []
 
 
 def navigate(page_name: str):
@@ -146,13 +163,31 @@ def render_bottom_nav():
 # ============================================================
 def page_dashboard():
     # Top bar with greeting
+    merchant = api.get_merchant(DEMO_MERCHANT_ID) or {}
+    merchant_name = merchant.get("name", "FamilyMart")
+    merchant_addr = merchant.get("address", "")
+
+    # API status banner
+    if not API_OK:
+        st.error("🔴 Backend offline. Không thể kết nối http://127.0.0.1:8000")
+
+    # Load real data from API
+    foods = _cached_food(DEMO_MERCHANT_ID)
+    available_foods = [f for f in foods if (f.get("quantity") or 0) > 0]
+    low_stock = sorted(
+        [f for f in available_foods if (f.get("quantity") or 0) <= 3],
+        key=lambda x: x.get("quantity") or 0,
+    )
+    total_items = sum((f.get("quantity") or 0) for f in available_foods)
+    total_value = sum((f.get("price") or 0) * (f.get("quantity") or 0) for f in available_foods)
+
     st.markdown(
-        """
+        f"""
 <div class="top-bar">
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
             <div style="font-size:0.875rem; opacity:0.9;">Good Morning 👋</div>
-            <div style="font-size:1.25rem; font-weight:700;">FamilyMart - District 1</div>
+            <div style="font-size:1.25rem; font-weight:700;">{merchant_name} - District 1</div>
         </div>
         <div style="font-size:1.75rem;">🔔</div>
     </div>
@@ -166,88 +201,75 @@ def page_dashboard():
 
     c1, c2 = st.columns(2)
     with c1:
-        st.metric("Rescued Items", "12", "+3")
+        st.metric("Available Items", str(total_items), f"{len(available_foods)} listings")
     with c2:
-        st.metric("Revenue Saved", "450K", "+120K")
+        st.metric("Listing Value", api.fmt_vnd_short(total_value), "")
 
     c3, c4 = st.columns(2)
     with c3:
-        st.metric("Active Listings", "5", "")
+        st.metric("Active Listings", str(len(available_foods)), "")
     with c4:
-        st.metric("Pending Pickup", "2", "")
+        st.metric("Low Stock", str(len(low_stock)), "")
 
     st.divider()
 
-    # New reservations
-    st.markdown("### 🔔 New Reservation Requests")
+    # Active listings preview (real data)
+    st.markdown("### 📦 Active Listings")
 
-    new_reqs = [
-        {
-            "id": 1,
-            "customer": "Nguyễn Văn A",
-            "items": "3 Onigiri, 2 Sandwich",
-            "time": "10 mins ago",
-            "total": "85,000đ",
-        },
-        {
-            "id": 2,
-            "customer": "Trần Thị B",
-            "items": "1 Bento Set",
-            "time": "25 mins ago",
-            "total": "45,000đ",
-        },
-    ]
-
-    for req in new_reqs:
-        st.markdown(
-            f"""
+    if not available_foods:
+        st.info("Chưa có món nào. Tap ➕ để đăng món mới!")
+    else:
+        for food in available_foods[:5]:
+            emoji = api.category_emoji(food.get("category", ""))
+            remaining = api.time_until(food.get("expiry_time"))
+            st.markdown(
+                f"""
 <div class="food-card">
-    <div style="display:flex; justify-content:space-between; align-items:start;">
+    <div style="display:flex; align-items:center; gap:0.75rem;">
+        <div style="font-size:2.5rem;">{emoji}</div>
         <div style="flex:1;">
-            <div style="font-weight:600;">{req['customer']}</div>
-            <div style="font-size:0.875rem; color:#6B7280; margin-top:0.25rem;">
-                {req['items']}
-            </div>
-            <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">
-                {req['time']}
+            <div style="font-weight:600;">{food.get('name', '—')}</div>
+            <div style="font-size:0.8rem; color:#6B7280;">
+                Qty: {food.get('quantity', 0)} · ⏰ {remaining}
             </div>
         </div>
         <div style="text-align:right;">
-            <div style="font-weight:700; color:#00A040;">{req['total']}</div>
-            <span class="badge badge-warn" style="margin-top:0.25rem;">Pending</span>
+            <div style="font-weight:700; color:#00A040;">{api.fmt_vnd_short(food.get('price', 0))}</div>
+            <span class="badge badge-active" style="margin-top:0.25rem;">Active</span>
         </div>
     </div>
 </div>
 """,
-            unsafe_allow_html=True,
-        )
-
-        ca, cb = st.columns(2)
-        with ca:
-            if st.button("✓ Accept", key=f"acc_{req['id']}", type="primary"):
-                st.success(f"Accepted {req['customer']}'s reservation")
-        with cb:
-            if st.button("✗ Decline", key=f"dec_{req['id']}"):
-                st.warning(f"Declined {req['customer']}'s reservation")
+                unsafe_allow_html=True,
+            )
 
     st.divider()
 
-    # Low stock alerts
+    # Low stock alerts (real data)
     st.markdown("### ⚠️ Low Stock Alert")
-    st.markdown(
-        """
+    if not low_stock:
+        st.success("✅ All listings have healthy stock")
+    else:
+        for food in low_stock[:3]:
+            emoji = api.category_emoji(food.get("category", ""))
+            remaining = api.time_until(food.get("expiry_time"))
+            st.markdown(
+                f"""
 <div class="food-card" style="border-left: 4px solid #F4A261;">
     <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-            <div style="font-weight:600;">Onigiri - Salmon</div>
-            <div style="font-size:0.875rem; color:#6B7280;">Expires in 2 hours</div>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="font-size:2rem;">{emoji}</div>
+            <div>
+                <div style="font-weight:600;">{food.get('name', '—')}</div>
+                <div style="font-size:0.875rem; color:#6B7280;">⏰ {remaining}</div>
+            </div>
         </div>
-        <span class="badge badge-danger">2 left</span>
+        <span class="badge badge-danger">{food.get('quantity', 0)} left</span>
     </div>
 </div>
 """,
-        unsafe_allow_html=True,
-    )
+                unsafe_allow_html=True,
+            )
 
     render_bottom_nav()
 
@@ -314,12 +336,33 @@ def page_post():
             navigate("Dashboard")
     with cc:
         if st.button("✓ Publish Listing", type="primary", use_container_width=True):
-            if food_name:
-                st.success("✅ Listing published!")
-                st.balloons()
-                navigate("Dashboard")
-            else:
+            if not food_name.strip():
                 st.error("Please enter food name")
+            elif not API_OK:
+                st.error("🔴 Backend offline. Cannot publish.")
+            else:
+                # Map category emoji to plain text label
+                cat_label = category.split(" ", 1)[-1] if " " in category else category
+                exp_dt = datetime.combine(exp_date, exp_time)
+                payload = {
+                    "merchant_id": DEMO_MERCHANT_ID,
+                    "name": food_name.strip(),
+                    "category": cat_label,
+                    "price": float(rescue_price),
+                    "quantity": int(quantity),
+                    "status": "available",
+                    "expiry_time": exp_dt.isoformat(),
+                }
+                result = api.create_food(payload)
+                if result:
+                    _cached_food.clear()
+                    st.success(f"✅ Published: {result.get('name')} (id={result.get('id')})")
+                    st.balloons()
+                    import time as _t
+                    _t.sleep(1)
+                    navigate("Published")
+                else:
+                    st.error("Failed to publish. Check backend logs.")
 
     render_bottom_nav()
 
@@ -337,22 +380,33 @@ def page_published():
         unsafe_allow_html=True,
     )
 
-    tabs = st.tabs(["🔵 All", "🟡 Pending", "🟢 Confirmed"])
+    if not API_OK:
+        st.error("🔴 Backend offline. Không thể tải listings.")
 
+    # Load from API
+    foods = _cached_food(DEMO_MERCHANT_ID)
+    available = [f for f in foods if (f.get("quantity") or 0) > 0]
+
+    # Normalize to UI shape
     listings = [
-        {"id": 1, "name": "Onigiri Salmon", "qty": 2, "price": "15K", "exp": "2h", "status": "Confirmed", "emoji": "🍙"},
-        {"id": 2, "name": "Sandwich Egg Mayo", "qty": 4, "price": "12K", "exp": "5h", "status": "Pending", "emoji": "🥪"},
-        {"id": 3, "name": "Bento Set A", "qty": 1, "price": "45K", "exp": "3h", "status": "Confirmed", "emoji": "🍱"},
-        {"id": 4, "name": "Caesar Salad", "qty": 3, "price": "25K", "exp": "6h", "status": "Pending", "emoji": "🥗"},
-        {"id": 5, "name": "Melon Bread", "qty": 5, "price": "10K", "exp": "8h", "status": "Confirmed", "emoji": "🍞"},
+        {
+            "id": f.get("id"),
+            "name": f.get("name", "—"),
+            "qty": f.get("quantity", 0),
+            "price": api.fmt_vnd_short(f.get("price", 0)),
+            "exp": api.time_until(f.get("expiry_time")),
+            "status": "Active",
+            "emoji": api.category_emoji(f.get("category", "")),
+        }
+        for f in available
     ]
+
+    tabs = st.tabs([f"🔵 All ({len(listings)})", f"🟢 Active ({len(listings)})"])
 
     with tabs[0]:
         render_listings(listings, prefix="all")
     with tabs[1]:
-        render_listings([l for l in listings if l["status"] == "Pending"], prefix="pend")
-    with tabs[2]:
-        render_listings([l for l in listings if l["status"] == "Confirmed"], prefix="conf")
+        render_listings(listings, prefix="active")
 
     render_bottom_nav()
 
@@ -389,126 +443,7 @@ def render_listings(listings, prefix=""):
         )
 
         if st.button("View Details", key=f"view_{prefix}_{item['id']}"):
-            navigate("Reservation")
-
-
-# ============================================================
-# PAGE: RESERVATION DETAILS
-# ============================================================
-def page_reservation():
-    st.markdown(
-        """
-<div class="top-bar">
-    <h2 style="margin:0; color:white;">📄 Reservation Details</h2>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    if st.button("← Back"):
-        navigate("Published")
-
-    # Reservation header
-    st.markdown(
-        """
-<div class="food-card" style="border-left: 4px solid #00A040;">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-            <div style="font-size:0.75rem; color:#6B7280;">Order #FM-2024-001</div>
-            <div style="font-weight:700; font-size:1.1rem; margin-top:0.25rem;">
-                Nguyễn Văn A
-            </div>
-        </div>
-        <span class="badge badge-active">Confirmed</span>
-    </div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    # Customer info
-    st.markdown("### 👤 Customer Info")
-    st.markdown(
-        """
-<div class="food-card">
-    <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="font-size:2.5rem;">👤</div>
-        <div>
-            <div style="font-weight:600;">Nguyễn Văn A</div>
-            <div style="font-size:0.8rem; color:#6B7280;">📞 0901-234-567</div>
-        </div>
-    </div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    # Order items
-    st.markdown("### 🛒 Order Items")
-    items = [
-        {"name": "Onigiri Salmon", "qty": 3, "price": "15,000đ"},
-        {"name": "Sandwich Egg Mayo", "qty": 2, "price": "12,000đ"},
-    ]
-
-    for item in items:
-        st.markdown(
-            f"""
-<div class="food-card">
-    <div style="display:flex; justify-content:space-between;">
-        <div>
-            <div style="font-weight:600;">{item['name']}</div>
-            <div style="font-size:0.8rem; color:#6B7280;">Qty: {item['qty']}</div>
-        </div>
-        <div style="font-weight:600;">{item['price']}</div>
-    </div>
-</div>
-""",
-            unsafe_allow_html=True,
-        )
-
-    # Total
-    st.markdown(
-        """
-<div class="food-card" style="background:#E6F7EE;">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-weight:700;">Total</div>
-        <div style="font-weight:700; font-size:1.25rem; color:#00A040;">69,000đ</div>
-    </div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    # Pickup info
-    st.markdown("### ⏰ Pickup Time")
-    st.info("Today, 14:30 - 15:00")
-
-    st.markdown("### 📍 Pickup Location")
-    st.markdown(
-        """
-<div class="food-card">
-    <div style="font-size:0.875rem;">
-        🏪 FamilyMart - District 1<br>
-        📍 20 Lê Thánh Tôn, P. Sài Gòn, Tp. HCM
-    </div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    st.divider()
-
-    # Action buttons
-    ca, cb = st.columns(2)
-    with ca:
-        if st.button("📞 Call", use_container_width=True):
-            st.info("Calling 0901-234-567...")
-    with cb:
-        if st.button("✓ Mark Completed", type="primary", use_container_width=True):
-            st.success("Order completed!")
-            navigate("Completed")
-
-    render_bottom_nav()
+            pass
 
 
 # ============================================================
@@ -524,43 +459,51 @@ def page_completed():
         unsafe_allow_html=True,
     )
 
-    completed = [
-        {"id": 1, "name": "Bento Set A", "customer": "Lê Văn C", "time": "2 hours ago", "amount": "45,000đ"},
-        {"id": 2, "name": "Onigiri x5", "customer": "Phạm Thị D", "time": "Yesterday", "amount": "75,000đ"},
-        {"id": 3, "name": "Sandwich x3", "customer": "Hoàng Văn E", "time": "Yesterday", "amount": "36,000đ"},
-        {"id": 4, "name": "Salad Mix", "customer": "Vũ Thị F", "time": "2 days ago", "amount": "50,000đ"},
-    ]
+    if not API_OK:
+        st.error("🔴 Backend offline.")
+
+    # Load foods and treat expired ones as "completed" sales (heuristic)
+    foods = _cached_food(DEMO_MERCHANT_ID)
+    sold = [f for f in foods if (f.get("quantity") or 0) == 0]
+    total_revenue = sum((f.get("price") or 0) * 5 for f in sold)  # demo multiplier
+    total_items_sold = len(sold) * 5
 
     # Summary
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.metric("Orders", "12")
+        st.metric("Listings Closed", str(len(sold)))
     with c2:
-        st.metric("Items", "47")
+        st.metric("Items Sold", str(total_items_sold))
     with c3:
-        st.metric("Revenue", "1.2M")
+        st.metric("Revenue", api.fmt_vnd_short(total_revenue))
 
     st.divider()
 
-    for order in completed:
-        st.markdown(
-            f"""
+    if not sold:
+        st.info("Chưa có đơn hoàn thành.")
+    else:
+        for order in sold[:20]:
+            st.markdown(
+                f"""
 <div class="food-card">
     <div style="display:flex; justify-content:space-between; align-items:start;">
-        <div>
-            <div style="font-weight:600;">{order['name']}</div>
-            <div style="font-size:0.875rem; color:#6B7280;">👤 {order['customer']}</div>
-            <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">{order['time']}</div>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="font-size:2rem;">{api.category_emoji(order.get('category', ''))}</div>
+            <div>
+                <div style="font-weight:600;">{order.get('name', '—')}</div>
+                <div style="font-size:0.875rem; color:#6B7280;">📦 FamilyMart - District 1</div>
+                <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">{api.time_until(order.get('expiry_time'))}</div>
+            </div>
         </div>
         <div style="text-align:right;">
-            <div style="font-weight:700; color:#00A040;">{order['amount']}</div>
-            <span class="badge badge-gray" style="margin-top:0.25rem;">✓ Done</span>
+            <div style="font-weight:700; color:#00A040;">{api.fmt_vnd_short(order.get('price', 0))}</div>
+            <span class="badge badge-gray" style="margin-top:0.25rem;">✓ Sold</span>
         </div>
     </div>
 </div>
 """,
-            unsafe_allow_html=True,
-        )
+                unsafe_allow_html=True,
+            )
 
     render_bottom_nav()
 
@@ -569,8 +512,12 @@ def page_completed():
 # PAGE: PROFILE
 # ============================================================
 def page_profile():
+    merchant = api.get_merchant(DEMO_MERCHANT_ID) or {}
+    merchant_name = merchant.get("name", "FamilyMart")
+    merchant_addr = merchant.get("address", "")
+
     st.markdown(
-        """
+        f"""
 <div class="top-bar">
     <h2 style="margin:0; color:white;">👤 Profile</h2>
 </div>
@@ -580,26 +527,32 @@ def page_profile():
 
     # Store info
     st.markdown(
-        """
+        f"""
 <div class="food-card" style="text-align:center; padding:1.5rem;">
     <div style="font-size:4rem;">🏪</div>
     <div style="font-weight:700; font-size:1.25rem; margin-top:0.5rem;">
-        FamilyMart - District 1
+        {merchant_name} - District 1
     </div>
-    <div style="font-size:0.875rem; color:#6B7280;">Merchant ID: FM-D1-001</div>
+    <div style="font-size:0.875rem; color:#6B7280;">Merchant ID: FM-{DEMO_MERCHANT_ID:03d}</div>
+    <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">📍 {merchant_addr or "—"}</div>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
+    # Live stats from API
+    foods = _cached_food(DEMO_MERCHANT_ID)
+    total_listings = len(foods)
+    total_qty = sum((f.get("quantity") or 0) for f in foods)
+
     st.markdown("### 📊 This Month")
     c1, c2 = st.columns(2)
     with c1:
-        st.metric("Total Sales", "3.2M")
-        st.metric("Items Sold", "127")
+        st.metric("Total Listings", str(total_listings))
+        st.metric("Total Items", str(total_qty))
     with c2:
-        st.metric("CO₂ Saved", "85kg")
-        st.metric("Customers", "63")
+        st.metric("API Status", "🟢 Online" if API_OK else "🔴 Offline")
+        st.metric("Backend", "127.0.0.1:8000")
 
     st.divider()
 
@@ -638,7 +591,6 @@ ROUTES = {
     "Dashboard": page_dashboard,
     "Post": page_post,
     "Published": page_published,
-    "Reservation": page_reservation,
     "Completed": page_completed,
     "Profile": page_profile,
 }

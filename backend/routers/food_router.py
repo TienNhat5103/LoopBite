@@ -47,12 +47,15 @@ def create_food(food_data: Food):
         food_dict = food_data.model_dump(exclude_none=True)
         if "id" in food_dict:
             del food_dict["id"]
-            
+        # Serialize datetime -> ISO string để supabase client chấp nhận
+        if "expiry_time" in food_dict and food_dict["expiry_time"] is not None:
+            food_dict["expiry_time"] = food_dict["expiry_time"].isoformat()
+
         response = supabase.table("food").insert(food_dict).execute()
         return response.data[0]
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, 
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Lỗi thêm món ăn: {str(e)}"
         )
 
@@ -69,6 +72,8 @@ def update_food(food_id: int, food_data: Food):
             )
 
         food_dict = food_data.model_dump(exclude_none=True, exclude={"id"})
+        if "expiry_time" in food_dict and food_dict["expiry_time"] is not None:
+            food_dict["expiry_time"] = food_dict["expiry_time"].isoformat()
         response = supabase.table("food").update(food_dict).eq("id", food_id).execute()
         return response.data[0]
     except HTTPException as http_ex:

@@ -1,3 +1,5 @@
+﻿import sys
+sys.stdout.reconfigure(encoding='utf-8')
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from middlewares.cors import apply_cors_middleware
@@ -6,22 +8,22 @@ from database import supabase
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # --- Đoạn code này sẽ chạy NGAY KHI SERVER KHỞI ĐỘNG ---
+    # --- Äoáº¡n code nÃ y sáº½ cháº¡y NGAY KHI SERVER KHá»žI Äá»˜NG ---
     print("\n" + "="*50)
-    print("Đang kiểm tra kết nối tới Supabase...")
+    print("Äang kiá»ƒm tra káº¿t ná»‘i tá»›i Supabase...")
     try:
-        # Gửi một request cực nhẹ tới hệ thống Auth của Supabase để check connection
+        # Gá»­i má»™t request cá»±c nháº¹ tá»›i há»‡ thá»‘ng Auth cá»§a Supabase Ä‘á»ƒ check connection
         supabase.auth.get_session()
-        print("👉 KẾT NỐI SUPABASE: THÀNH CÔNG! 🎉")
+        print("ðŸ‘‰ Káº¾T Ná»I SUPABASE: THÃ€NH CÃ”NG! ðŸŽ‰")
     except Exception as e:
-        print("❌ KẾT NỐI SUPABASE: THẤT BẠI! 🛠️")
-        print(f"Chi tiết lỗi: {e}")
+        print("âŒ Káº¾T Ná»I SUPABASE: THáº¤T Báº I! ðŸ› ï¸")
+        print(f"Chi tiáº¿t lá»—i: {e}")
     print("="*50 + "\n")
     
     yield
 
 def create_app() -> FastAPI:
-    # Gắn lifespan vào đây để FastAPI kích hoạt khi chạy uvicorn
+    # Gáº¯n lifespan vÃ o Ä‘Ã¢y Ä‘á»ƒ FastAPI kÃ­ch hoáº¡t khi cháº¡y uvicorn
     app = FastAPI(lifespan=lifespan) 
     
     app = apply_cors_middleware(app)
