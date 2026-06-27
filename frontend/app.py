@@ -945,68 +945,54 @@ def page_pickup_confirmation():
 # ============================================================
 def render_bottom_nav():
     pages = [
-        ("Dashboard", "🏠"),
-        ("Post", "➕"),
-        ("Published", "📋"),
-        ("Completed", "✅"),
-        ("Profile", "👤"),
+        ("Dashboard", "Home"),
+        ("Post", "Post"),
+        ("Published", "List"),
+        ("Completed", "Done"),
+        ("Profile", "Profile"),
     ]
     cols = st.columns(len(pages))
-    for col, (name, icon) in zip(cols, pages):
+    for col, (name, label_text) in zip(cols, pages):
         with col:
             is_active = st.session_state.page == name
-            label = f"**{icon}**" if is_active else icon
+            label = f"**{label_text}**" if is_active else label_text
             if st.button(label, key=f"nav_{name}", use_container_width=True):
                 navigate(name)
 
-
-# ============================================================
-# PAGE: DASHBOARD
-# ============================================================
 def page_dashboard():
-    # Top bar with greeting
     merchant = api.get_merchant(DEMO_MERCHANT_ID) or {}
-    merchant_name = merchant.get("name", "FamilyMart")
-    merchant_addr = merchant.get("address", "")
+    merchant_name = merchant.get("name", "LoopBite Merchant")
 
-    # API status banner
-    if not API_OK:
-        st.error("🔴 Backend offline. Không thể kết nối http://127.0.0.1:8000")
-
-    # Load real data from API
-    foods = _cached_food(DEMO_MERCHANT_ID)
+    foods = merchant_food_items()
     available_foods = [f for f in foods if (f.get("quantity") or 0) > 0]
-    low_stock = sorted(
-        [f for f in available_foods if (f.get("quantity") or 0) <= 3],
-        key=lambda x: x.get("quantity") or 0,
-    )
+    low_stock = sorted([f for f in available_foods if (f.get("quantity") or 0) <= 3], key=lambda x: x.get("quantity") or 0)
     total_items = sum((f.get("quantity") or 0) for f in available_foods)
     total_value = sum((f.get("price") or 0) * (f.get("quantity") or 0) for f in available_foods)
+
+    if not API_OK:
+        st.warning("Backend offline. Demo data and session-state listings are still available.")
 
     st.markdown(
         f"""
 <div class="top-bar">
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-            <div style="font-size:0.875rem; opacity:0.9;">Good Morning 👋</div>
-            <div style="font-size:1.25rem; font-weight:700;">{merchant_name} - District 1</div>
+            <div style="font-size:0.875rem; opacity:0.9;">LoopBite Merchant Portal</div>
+            <div style="font-size:1.25rem; font-weight:700;">{merchant_name}</div>
         </div>
-        <div style="font-size:1.75rem;">🔔</div>
+        <div style="font-size:1.75rem; font-weight:800;">LB</div>
     </div>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    # Stats cards
-    st.markdown("### 📊 Today Overview")
-
+    st.markdown("### Today Overview")
     c1, c2 = st.columns(2)
     with c1:
         st.metric("Available Items", str(total_items), f"{len(available_foods)} listings")
     with c2:
-        st.metric("Listing Value", api.fmt_vnd_short(total_value), "")
-
+        st.metric("Listing Value", vnd(total_value), "")
     c3, c4 = st.columns(2)
     with c3:
         st.metric("Active Listings", str(len(available_foods)), "")
@@ -1014,8 +1000,6 @@ def page_dashboard():
         st.metric("Low Stock", str(len(low_stock)), "")
 
     st.divider()
-
-    # New reservation queue from the user demo flow
     st.markdown("### New Reservation")
     reservation = st.session_state.active_reservation
     if reservation:
@@ -1059,29 +1043,24 @@ def page_dashboard():
         )
 
     st.divider()
-
-    # Active listings preview (real data)
-    st.markdown("### 📦 Active Listings")
-
+    st.markdown("### Active Listings")
     if not available_foods:
-        st.info("Chưa có món nào. Tap ➕ để đăng món mới!")
+        st.info("No active listings yet. Use Post to create one.")
     else:
         for food in available_foods[:5]:
-            emoji = api.category_emoji(food.get("category", ""))
+            icon = category_icon(food.get("category", ""))
             remaining = api.time_until(food.get("expiry_time"))
             st.markdown(
                 f"""
 <div class="food-card">
     <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="font-size:2.5rem;">{emoji}</div>
+        <div style="width:2.5rem; height:2.5rem; border-radius:10px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800;">{icon}</div>
         <div style="flex:1;">
-            <div style="font-weight:600;">{food.get('name', '—')}</div>
-            <div style="font-size:0.8rem; color:#6B7280;">
-                Qty: {food.get('quantity', 0)} · ⏰ {remaining}
-            </div>
+            <div style="font-weight:600;">{food.get('name', '-')}</div>
+            <div style="font-size:0.8rem; color:#6B7280;">Qty: {food.get('quantity', 0)} - {remaining}</div>
         </div>
         <div style="text-align:right;">
-            <div style="font-weight:700; color:#00A040;">{api.fmt_vnd_short(food.get('price', 0))}</div>
+            <div style="font-weight:700; color:#00A040;">{vnd(food.get('price', 0))}</div>
             <span class="badge badge-active" style="margin-top:0.25rem;">Active</span>
         </div>
     </div>
@@ -1091,24 +1070,22 @@ def page_dashboard():
             )
 
     st.divider()
-
-    # Low stock alerts (real data)
-    st.markdown("### ⚠️ Low Stock Alert")
+    st.markdown("### Low Stock Alert")
     if not low_stock:
-        st.success("✅ All listings have healthy stock")
+        st.success("All listings have healthy stock")
     else:
         for food in low_stock[:3]:
-            emoji = api.category_emoji(food.get("category", ""))
+            icon = category_icon(food.get("category", ""))
             remaining = api.time_until(food.get("expiry_time"))
             st.markdown(
                 f"""
 <div class="food-card" style="border-left: 4px solid #F4A261;">
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="font-size:2rem;">{emoji}</div>
+            <div style="width:2.3rem; height:2.3rem; border-radius:10px; background:#FFF7E0; color:#6B4B00; display:flex; align-items:center; justify-content:center; font-weight:800;">{icon}</div>
             <div>
-                <div style="font-weight:600;">{food.get('name', '—')}</div>
-                <div style="font-size:0.875rem; color:#6B7280;">⏰ {remaining}</div>
+                <div style="font-weight:600;">{food.get('name', '-')}</div>
+                <div style="font-size:0.875rem; color:#6B7280;">{remaining}</div>
             </div>
         </div>
         <span class="badge badge-danger">{food.get('quantity', 0)} left</span>
@@ -1120,10 +1097,6 @@ def page_dashboard():
 
     render_bottom_nav()
 
-
-# ============================================================
-# PAGE: POST RESCUE ITEM
-# ============================================================
 def page_post():
     st.markdown(
         """
@@ -1254,67 +1227,54 @@ def page_published():
     st.markdown(
         """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">📋 Active Listings</h2>
+    <h2 style="margin:0; color:white;">Active Listings</h2>
 </div>
 """,
         unsafe_allow_html=True,
     )
-
     if not API_OK:
-        st.error("🔴 Backend offline. Không thể tải listings.")
+        st.warning("Backend offline. Showing demo listings if available.")
 
-    # Load from API
-    foods = _cached_food(DEMO_MERCHANT_ID)
+    foods = merchant_food_items()
     available = [f for f in foods if (f.get("quantity") or 0) > 0]
-
-    # Normalize to UI shape
     listings = [
         {
             "id": f.get("id"),
-            "name": f.get("name", "—"),
+            "name": f.get("name", "-"),
             "qty": f.get("quantity", 0),
-            "price": api.fmt_vnd_short(f.get("price", 0)),
+            "price": vnd(f.get("price", 0)),
             "exp": api.time_until(f.get("expiry_time")),
             "status": "Active",
-            "emoji": api.category_emoji(f.get("category", "")),
+            "icon": category_icon(f.get("category", "")),
         }
         for f in available
     ]
 
-    tabs = st.tabs([f"🔵 All ({len(listings)})", f"🟢 Active ({len(listings)})"])
-
+    tabs = st.tabs([f"All ({len(listings)})", f"Active ({len(listings)})"])
     with tabs[0]:
         render_listings(listings, prefix="all")
     with tabs[1]:
         render_listings(listings, prefix="active")
-
     render_bottom_nav()
 
 
 def render_listings(listings, prefix=""):
     if not listings:
-        st.info("No listings yet. Tap ➕ to create one!")
+        st.info("No listings yet. Use Post to create one.")
         return
-
     for item in listings:
-        status_class = "badge-active" if item["status"] == "Confirmed" else "badge-warn"
-
         st.markdown(
             f"""
 <div class="food-card">
     <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="font-size:2.5rem;">{item['emoji']}</div>
+        <div style="width:2.5rem; height:2.5rem; border-radius:10px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800;">{item['icon']}</div>
         <div style="flex:1;">
             <div style="font-weight:600;">{item['name']}</div>
-            <div style="font-size:0.8rem; color:#6B7280;">
-                Qty: {item['qty']} · ⏰ {item['exp']} left
-            </div>
+            <div style="font-size:0.8rem; color:#6B7280;">Qty: {item['qty']} - {item['exp']}</div>
         </div>
         <div style="text-align:right;">
             <div style="font-weight:700; color:#00A040;">{item['price']}</div>
-            <span class="badge {status_class}" style="margin-top:0.25rem;">
-                {item['status']}
-            </span>
+            <span class="badge badge-active" style="margin-top:0.25rem;">{item['status']}</span>
         </div>
     </div>
 </div>
@@ -1322,129 +1282,123 @@ def render_listings(listings, prefix=""):
             unsafe_allow_html=True,
         )
 
-        if st.button("View Details", key=f"view_{prefix}_{item['id']}"):
-            pass
-
-
-# ============================================================
-# PAGE: COMPLETED
-# ============================================================
 def page_completed():
     st.markdown(
         """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">✅ Completed Orders</h2>
+    <h2 style="margin:0; color:white;">Completed Orders</h2>
 </div>
 """,
         unsafe_allow_html=True,
     )
-
-    if not API_OK:
-        st.error("🔴 Backend offline.")
-
-    # Load foods and treat expired ones as "completed" sales (heuristic)
-    foods = _cached_food(DEMO_MERCHANT_ID)
+    foods = merchant_food_items()
     sold = [f for f in foods if (f.get("quantity") or 0) == 0]
-    total_revenue = sum((f.get("price") or 0) * 5 for f in sold)  # demo multiplier
-    total_items_sold = len(sold) * 5
+    reservation = st.session_state.active_reservation
+    picked_up = [reservation] if reservation and reservation.get("status") == "Picked Up" else []
+    total_revenue = sum((f.get("price") or 0) * 5 for f in sold) + sum(r.get("total", 0) for r in picked_up)
+    total_items_sold = len(sold) * 5 + sum(r.get("quantity", 0) for r in picked_up)
 
-    # Summary
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.metric("Listings Closed", str(len(sold)))
+        st.metric("Orders", str(len(sold) + len(picked_up)))
     with c2:
-        st.metric("Items Sold", str(total_items_sold))
+        st.metric("Items", str(total_items_sold))
     with c3:
-        st.metric("Revenue", api.fmt_vnd_short(total_revenue))
+        st.metric("Revenue", vnd(total_revenue))
 
     st.divider()
-
-    if not sold:
-        st.info("Chưa có đơn hoàn thành.")
-    else:
-        for order in sold[:20]:
-            st.markdown(
-                f"""
+    if not sold and not picked_up:
+        st.info("No completed orders yet.")
+    for reservation in picked_up:
+        item = reservation["item"]
+        st.markdown(
+            f"""
 <div class="food-card">
     <div style="display:flex; justify-content:space-between; align-items:start;">
-        <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="font-size:2rem;">{api.category_emoji(order.get('category', ''))}</div>
-            <div>
-                <div style="font-weight:600;">{order.get('name', '—')}</div>
-                <div style="font-size:0.875rem; color:#6B7280;">📦 FamilyMart - District 1</div>
-                <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">{api.time_until(order.get('expiry_time'))}</div>
-            </div>
+        <div>
+            <div style="font-weight:600;">{item.get('name', '-')}</div>
+            <div style="font-size:0.875rem; color:#6B7280;">Pickup code {reservation['pickup_code']}</div>
+            <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">Qty {reservation['quantity']} - Picked Up</div>
         </div>
         <div style="text-align:right;">
-            <div style="font-weight:700; color:#00A040;">{api.fmt_vnd_short(order.get('price', 0))}</div>
-            <span class="badge badge-gray" style="margin-top:0.25rem;">✓ Sold</span>
+            <div style="font-weight:700; color:#00A040;">{vnd(reservation['total'])}</div>
+            <span class="badge badge-gray" style="margin-top:0.25rem;">Picked Up</span>
         </div>
     </div>
 </div>
 """,
-                unsafe_allow_html=True,
-            )
-
+            unsafe_allow_html=True,
+        )
+    for order in sold[:20]:
+        st.markdown(
+            f"""
+<div class="food-card">
+    <div style="display:flex; justify-content:space-between; align-items:start;">
+        <div>
+            <div style="font-weight:600;">{order.get('name', '-')}</div>
+            <div style="font-size:0.875rem; color:#6B7280;">LoopBite Merchant</div>
+            <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">{api.time_until(order.get('expiry_time'))}</div>
+        </div>
+        <div style="text-align:right;">
+            <div style="font-weight:700; color:#00A040;">{vnd(order.get('price', 0))}</div>
+            <span class="badge badge-gray" style="margin-top:0.25rem;">Sold</span>
+        </div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
     render_bottom_nav()
 
-
-# ============================================================
-# PAGE: PROFILE
-# ============================================================
 def page_profile():
     merchant = api.get_merchant(DEMO_MERCHANT_ID) or {}
-    merchant_name = merchant.get("name", "FamilyMart")
-    merchant_addr = merchant.get("address", "")
+    merchant_name = merchant.get("name", "LoopBite Merchant")
+    merchant_addr = merchant.get("address", "District 1 pickup point")
 
     st.markdown(
-        f"""
+        """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">👤 Profile</h2>
+    <h2 style="margin:0; color:white;">Profile</h2>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    # Store info
     st.markdown(
         f"""
 <div class="food-card" style="text-align:center; padding:1.5rem;">
-    <div style="font-size:4rem;">🏪</div>
-    <div style="font-weight:700; font-size:1.25rem; margin-top:0.5rem;">
-        {merchant_name} - District 1
-    </div>
+    <div style="font-size:3rem; font-weight:900; color:#007A2F;">LB</div>
+    <div style="font-weight:700; font-size:1.25rem; margin-top:0.5rem;">{merchant_name}</div>
     <div style="font-size:0.875rem; color:#6B7280;">Merchant ID: FM-{DEMO_MERCHANT_ID:03d}</div>
-    <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">📍 {merchant_addr or "—"}</div>
+    <div style="font-size:0.75rem; color:#9CA3AF; margin-top:0.25rem;">{merchant_addr or '-'}</div>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    # Live stats from API
-    foods = _cached_food(DEMO_MERCHANT_ID)
+    foods = merchant_food_items()
     total_listings = len(foods)
     total_qty = sum((f.get("quantity") or 0) for f in foods)
 
-    st.markdown("### 📊 This Month")
+    st.markdown("### This Month")
     c1, c2 = st.columns(2)
     with c1:
         st.metric("Total Listings", str(total_listings))
         st.metric("Total Items", str(total_qty))
     with c2:
-        st.metric("API Status", "🟢 Online" if API_OK else "🔴 Offline")
+        st.metric("API Status", "Online" if API_OK else "Offline")
         st.metric("Backend", "127.0.0.1:8000")
 
     st.divider()
 
-    # Menu items
     menu = [
-        ("🏪", "Store Information"),
-        ("📍", "Locations (3)"),
-        ("💰", "Payout Settings"),
-        ("🔔", "Notifications"),
-        ("❓", "Help & Support"),
-        ("⚙️", "Settings"),
-        ("🚪", "Logout"),
+        ("Store", "Store Information"),
+        ("Pin", "Locations (3)"),
+        ("Pay", "Payout Settings"),
+        ("Bell", "Notifications"),
+        ("Help", "Help & Support"),
+        ("Gear", "Settings"),
+        ("Exit", "Logout"),
     ]
 
     for icon, label in menu:
@@ -1452,9 +1406,9 @@ def page_profile():
             f"""
 <div class="food-card" style="padding:0.75rem 1rem;">
     <div style="display:flex; align-items:center; gap:0.75rem;">
-        <div style="font-size:1.5rem;">{icon}</div>
+        <div style="width:2.25rem; color:#007A2F; font-weight:800;">{icon}</div>
         <div style="flex:1; font-weight:500;">{label}</div>
-        <div style="color:#9CA3AF;">›</div>
+        <div style="color:#9CA3AF;">&gt;</div>
     </div>
 </div>
 """,
@@ -1462,7 +1416,6 @@ def page_profile():
         )
 
     render_bottom_nav()
-
 
 # ============================================================
 # ROUTER
