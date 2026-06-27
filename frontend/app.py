@@ -366,6 +366,10 @@ if "payment_method" not in st.session_state:
     st.session_state.payment_method = "Pay at counter"
 if "active_reservation" not in st.session_state:
     st.session_state.active_reservation = None
+if "mock_listings" not in st.session_state:
+    st.session_state.mock_listings = []
+if "quantity_overrides" not in st.session_state:
+    st.session_state.quantity_overrides = {}
 
 
 def navigate(page_name: str):
@@ -505,6 +509,49 @@ def choose_food(item):
 def make_pickup_code():
     return f"LB-{random.randint(1000, 9999)}"
 
+
+def apply_quantity_override(item):
+    item_id = str(item.get("id"))
+    if item_id in st.session_state.quantity_overrides:
+        updated = dict(item)
+        updated["quantity"] = st.session_state.quantity_overrides[item_id]
+        return updated
+    return item
+
+
+def merchant_food_items():
+    foods = _cached_food(DEMO_MERCHANT_ID) if API_OK else []
+    combined = list(foods) + list(st.session_state.mock_listings)
+    return [apply_quantity_override(food) for food in combined]
+
+
+def add_mock_listing(payload, original_price=None, pickup_window=None, quality_note=None):
+    listing = dict(payload)
+    listing["id"] = f"mock-merchant-{len(st.session_state.mock_listings) + 1}"
+    listing["original_price"] = original_price or int(float(payload.get("price") or 0) * 1.8)
+    listing["pickup_window"] = pickup_window or "Today 20:00-22:00"
+    listing["quality_note"] = quality_note or "Merchant-confirmed rescue item for same-day pickup."
+    listing["source"] = "mock"
+    st.session_state.mock_listings.append(listing)
+    return listing
+
+
+def confirm_pickup():
+    reservation = st.session_state.active_reservation
+    if not reservation:
+        return
+    item = dict(reservation["item"])
+    item_id = str(item.get("id"))
+    current_qty = int(st.session_state.quantity_overrides.get(item_id, item.get("quantity") or 0))
+    new_qty = max(0, current_qty - int(reservation.get("quantity") or 1))
+    st.session_state.quantity_overrides[item_id] = new_qty
+    item["quantity"] = new_qty
+    reservation["item"] = item
+    reservation["status"] = "Picked Up"
+    st.session_state.active_reservation = reservation
+    if st.session_state.selected_food and str(st.session_state.selected_food.get("id")) == item_id:
+        st.session_state.selected_food = item
+
 def render_mode_switch():
     st.markdown(
         """
@@ -606,7 +653,7 @@ def page_user_home():
 # ============================================================
 def page_user_results():
     keyword = st.session_state.user_search_query.strip() or "pastry"
-    results = load_nearby_results(keyword)
+    results = [apply_quantity_override(item) for item in load_nearby_results(keyword)]
 
     st.markdown(
         f"""
@@ -972,7 +1019,9 @@ def page_dashboard():
     st.markdown("### New Reservation")
     reservation = st.session_state.active_reservation
     if reservation:
-        order_item = reservation["item"]
+        order_item = apply_quantity_override(reservation["item"])
+        status_class = "badge-gray" if reservation["status"] == "Picked Up" else "badge-active"
+        stock_label = "Sold Out" if int(order_item.get("quantity") or 0) == 0 else f"{order_item.get('quantity', 0)} left"
         st.markdown(
             f"""
 <div class="reservation-card">
@@ -982,18 +1031,23 @@ def page_dashboard():
             <div class="result-title" style="margin-top:0.25rem;">{order_item['name']}</div>
             <div class="result-meta">{reservation['customer']} - Qty {reservation['quantity']}</div>
         </div>
-        <span class="badge badge-active">{reservation['status']}</span>
+        <span class="badge {status_class}">{reservation['status']}</span>
     </div>
     <div class="info-grid">
         <div class="info-pill">Pickup: {order_item['pickup_window']}</div>
         <div class="info-pill">Total: {vnd(reservation['total'])}</div>
         <div class="info-pill">Payment: {reservation['payment_method']}</div>
-        <div class="info-pill">Store pickup</div>
+        <div class="info-pill">Stock after pickup: {stock_label}</div>
     </div>
 </div>
 """,
             unsafe_allow_html=True,
         )
+        if reservation["status"] == "Picked Up":
+            st.success("Pickup confirmed. Order status is Picked Up.")
+        elif st.button("Confirm Pickup", type="primary", use_container_width=True):
+            confirm_pickup()
+            st.rerun()
     else:
         st.markdown(
             """
@@ -1074,51 +1128,60 @@ def page_post():
     st.markdown(
         """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">➕ Post Rescue Item</h2>
+    <h2 style="margin:0; color:white;">Post Rescue Item</h2>
     <p style="margin:0.25rem 0 0 0; font-size:0.875rem; opacity:0.9;">
-        Save food, save the planet 🌍
+        Publish surplus food in under 60 seconds.
     </p>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    st.markdown("### Food Details")
-
-    food_name = st.text_input("Food Name *", placeholder="e.g., Onigiri Salmon")
+    st.markdown("### Item basics")
+    food_name = st.text_input("Food name *", placeholder="e.g., Butter Croissant Rescue Box")
     col1, col2 = st.columns(2)
     with col1:
         category = st.selectbox(
             "Category *",
-            ["🍙 Onigiri", "🥪 Sandwich", "🍱 Bento", "🥗 Salad", "🍞 Bread", "🥤 Drink", "Other"],
+            ["Pastry", "Bread", "Noodles", "Snacks", "Packaged meal", "Drink", "Other"],
         )
     with col2:
         quantity = st.number_input("Quantity *", min_value=1, max_value=100, value=3)
 
+    st.markdown("### Pricing")
     col3, col4 = st.columns(2)
     with col3:
-        original_price = st.number_input("Original Price (đ) *", min_value=0, value=35000, step=1000)
+        original_price = st.number_input("Original price (VND) *", min_value=0, value=42000, step=1000)
     with col4:
-        rescue_price = st.number_input("Rescue Price (đ) *", min_value=0, value=15000, step=1000)
+        rescue_price = st.number_input("Rescue price (VND) *", min_value=0, value=18000, step=1000)
 
     discount = int((1 - rescue_price / original_price) * 100) if original_price > 0 else 0
     if discount > 0:
-        st.success(f"💰 Discount: {discount}% off")
+        st.success(f"Discount: {discount}% off")
 
-    st.markdown("### ⏰ Expiration")
-    exp_date = st.date_input("Best before date", datetime.now() + timedelta(hours=4))
-    exp_time = st.time_input("Best before time", datetime.now() + timedelta(hours=4))
+    st.markdown("### Pickup and best-before")
+    exp_date = st.date_input("Best-before date *", datetime.now() + timedelta(hours=4))
+    t1, t2 = st.columns(2)
+    with t1:
+        pickup_start = st.time_input("Pickup start *", datetime.now() + timedelta(hours=2))
+    with t2:
+        pickup_end = st.time_input("Pickup end *", datetime.now() + timedelta(hours=4))
+    best_before_time = st.time_input("Best-before time *", datetime.now() + timedelta(hours=5))
 
-    st.markdown("### 📸 Photo")
-    uploaded = st.file_uploader("Upload food photo", type=["jpg", "jpeg", "png"])
+    st.markdown("### Notes")
+    uploaded = st.file_uploader("Food photo", type=["jpg", "jpeg", "png"])
     if uploaded:
         st.image(uploaded, caption="Preview", use_container_width=True)
 
-    st.markdown("### 📝 Description")
-    description = st.text_area(
-        "Additional notes",
-        placeholder="e.g., Packed this morning, still fresh...",
+    quality_note = st.text_area(
+        "Quality note *",
+        placeholder="e.g., Baked this morning, packed after display period.",
         height=80,
+    )
+    buyer_note = st.text_area(
+        "Note for buyers",
+        placeholder="e.g., Please pick up at the counter and show the pickup code.",
+        height=70,
     )
 
     st.divider()
@@ -1128,37 +1191,61 @@ def page_post():
         if st.button("Cancel", use_container_width=True):
             navigate("Dashboard")
     with cc:
-        if st.button("✓ Publish Listing", type="primary", use_container_width=True):
+        if st.button("Publish Listing", type="primary", use_container_width=True):
+            errors = []
             if not food_name.strip():
-                st.error("Please enter food name")
-            elif not API_OK:
-                st.error("🔴 Backend offline. Cannot publish.")
+                errors.append("Food name is required.")
+            if original_price <= 0:
+                errors.append("Original price must be greater than 0.")
+            if rescue_price <= 0:
+                errors.append("Rescue price must be greater than 0.")
+            if rescue_price >= original_price:
+                errors.append("Rescue price must be lower than original price.")
+            if pickup_end <= pickup_start:
+                errors.append("Pickup end must be after pickup start.")
+            if not quality_note.strip():
+                errors.append("Quality note is required.")
+
+            if errors:
+                for error in errors:
+                    st.error(error)
             else:
-                # Map category emoji to plain text label
-                cat_label = category.split(" ", 1)[-1] if " " in category else category
-                exp_dt = datetime.combine(exp_date, exp_time)
+                exp_dt = datetime.combine(exp_date, best_before_time)
+                pickup_window = f"Today {pickup_start.strftime('%H:%M')}-{pickup_end.strftime('%H:%M')}"
                 payload = {
                     "merchant_id": DEMO_MERCHANT_ID,
                     "name": food_name.strip(),
-                    "category": cat_label,
+                    "category": category,
                     "price": float(rescue_price),
                     "quantity": int(quantity),
                     "status": "available",
                     "expiry_time": exp_dt.isoformat(),
                 }
-                result = api.create_food(payload)
+
+                result = api.create_food(payload) if API_OK else None
                 if result:
                     _cached_food.clear()
-                    st.success(f"✅ Published: {result.get('name')} (id={result.get('id')})")
-                    st.balloons()
-                    import time as _t
-                    _t.sleep(1)
-                    navigate("Published")
+                    result["original_price"] = int(original_price)
+                    result["pickup_window"] = pickup_window
+                    result["quality_note"] = quality_note.strip()
+                    st.success(f"Published via API: {result.get('name')}")
                 else:
-                    st.error("Failed to publish. Check backend logs.")
+                    result = add_mock_listing(
+                        payload,
+                        original_price=int(original_price),
+                        pickup_window=pickup_window,
+                        quality_note=quality_note.strip(),
+                    )
+                    st.success(f"Published in demo mode: {result.get('name')}")
+
+                if buyer_note.strip():
+                    st.caption(f"Buyer note: {buyer_note.strip()}")
+                st.balloons()
+                import time as _t
+                _t.sleep(1)
+                navigate("Published")
 
     render_bottom_nav()
-
 
 # ============================================================
 # PAGE: PUBLISHED (ACTIVE LISTINGS)
