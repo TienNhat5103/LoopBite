@@ -1,0 +1,5966 @@
+[
+  {
+    "name": "Miếng gà chiên tiêu Pe-Bo-Chi",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xúc xích heo xông khói lớn",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xúc xích hồ lô bò phô mai (5pcs/xiên)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xúc xích xông khói",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gà xiên que sốt Teriyaki",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Takoyaki SET",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Set Yêu Thích",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sushi Set Cá Ngừ Mayo & Trứng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sushi Set California Tobiko",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 32000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Sushi Cá Ngừ Mayo",
+    "origin": "Việt Nam",
+    "expiryDate": "2025-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Sushi Thanh Cua & Tobiko",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Sushi Tôm Xốt Cay & Tobiko",
+    "origin": "Việt Nam",
+    "expiryDate": "2025-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sushi",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Combo Yêu Thích Hotpot",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 40000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bún Tươi Ba Khánh",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bò viên TVS",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bắp cải cuộn tôm",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cá viên lớn",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 5000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả cá bọc trứng cút",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả cá hấp",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đậu hũ cá",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đậu hủ cá phô mai Hokkaido (renew)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hải sản viên nhân trứng cá",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sò điệp surimi lớn",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Thanh cua ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tôm surimi",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 5000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Viên cua hoàng đế",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xúc xích bạch tuộc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xúc xích hotpot",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh bao nhân thịt heo trứng muối",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh hấp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Famiman 120g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh hấp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh giò nhân gà 2 trứng cút",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh hấp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Trắng Quê Nhà",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Bò Cay Kiểu Nhật",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 46000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Gà Tẩm Bột Chiên Xù",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 45000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Cà Ri Nhật & Cốt Lết Chiên Xù",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 62000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Chiên Phủ Trứng Và Hải Sản",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Chiên Xúc Xích Xốt Cay & Phô Mai Mozzarella",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Trộn Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 40000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Americano đá 12oz",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống Fami",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Chiên Trứng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Americano nóng 10oz",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống Fami",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Americano nóng 10oz",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống Fami",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Gà Chiên Xốt Bơ Tỏi",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê đen đá - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Thịt Heo Xào Cay Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 41000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Nghêu & Thịt Xào Cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo ly - XL size",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 40000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo ly - L size ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea chanh ly - L size",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea chanh ly - XL size",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea trà vải hương lài - L size",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea trà vải hương lài - XL size",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì Xào Thịt Vịt BBQ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì Ý Bò Bằm",
+    "origin": "Việt Nam ",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì Ý Tôm Xốt Kem Phô Mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì Ý Xúc Xích Xông Khói Xốt Rau củ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì Hảo Hảo xào khô tôm chua ngọt 75g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 5000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì SiuKay vị bò 127g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì xào khô Indomie Mì Goreng vị sườn 80g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Bacon & Phô Mai Hokkaido",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì xào khô Indomie Mì Goreng 85g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Cá Hồi Nướng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì ly CayKay bị bò 66g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì SiuKay bị hải sản 128g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì ly Modern lẩu Thái Tôm 67g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Ly Hảo Hảo tôm chua cay 67g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Cá Hồi Nướng Mayo",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Cá Hồi Xốt Teriyaki",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bát Kool Spaghetti xốt bò bằm 105g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Cá ngừ Mayo",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Thanh Cua Mayo",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-24T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Tôm Xào Cay Mayonnaise",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-18T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh mì Sandwich lạt (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 32000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Cá Ngừ & Trứng Mayonnaise",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Dăm Bông & Phô Mai Hokkaido",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Ebikatsu & trứng mayo tobiko",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich gà cay phô mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Hỗn Hợp",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Nguyên Cám Cà Nướng Mật Ong",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Nguyên Cám Thanh Cua & Salad Trứng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Nguyên Cám Thịt Nướng Bulgogi, xà lách, cà chua",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Tôm xốt bơ tỏi & trứng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Trứng chiên & Xúc Xích Xông Khói",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Trứng Mayonnaise",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sandwich Trứng Ốp la & Xúc Xích Tỏi",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cháo Hải Sản & Nấm",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cháo Thịt Kho Nấm",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sandwich",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gimbap Kim Chi & Phô Mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức ăn phụ",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cá hộp Ba cô gái loại - Easy open ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dầu Cooking Oil Tường An 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 75000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dầu nành nguyên chất Simply 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 87000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "DH - Muối ớt chanh Nha Trang",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước mắm Nam Ngư 3in1 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tương TTT Nhất Ca 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tương Cà Chai Nhựa Pet 270",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tương Ớt Chai Nhựa Pet 270",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TUDD giàu năng lượng Milo hũ 400g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 95000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ đóng hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia 333",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Heineken lon bạc 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Heineken lon cao 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Red Horse 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Sài Gòn Lager lon 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Tiger Crystal lon 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Salad bông cải xanh xà lách giòn & ức gà",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 36000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Salad",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bia Tiger lon 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Salad cải xoăn tôm và trứng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Salad",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu Good Day 360ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 66000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Salad gạo lứt thịt xông khói & rau củ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Salad",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Salad mini bắp cải trộn",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Salad",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu Good Day Đào 360ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 66000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Truyền Thống",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu Good Day Dâu 360ml 13.5%",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 66000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu Good Day Dâu 360ml 13.5%",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 66000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mousse Chanh leo (FG)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Que Thịt Nướng Sả",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu Good Day Việt Quất 360ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 66000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Que Pate Nướng Cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Panna Cotta vị Xoài (FG)",
+    "origin": "Việt Nam ",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Rượu mùi Good Day hương socola bạc hà 360ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 70000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Que Gà Xốt Cay Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TNT - Chè Khoai đậu bí 140g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Que Gà Gà Ngũ Vị",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sapporo Premium lon bạc 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 70000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TNT - Chè môn sáp 140g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TNT - Chè bắp 140g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Nem Nướng Jambon",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TNT - Chè bưởi 140g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Tráng miệng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Strongbow dâu đen lon 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì dừa lưới (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Strongbow dâu đỏ lon 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Su Kem (I)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tiger lon cao 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bia, rượu",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì Bánh Tôm & Phô Mai Cheddar",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh mì",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bông Lan Chuối (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Hawaii Khoai Tây 1/2 ổ (Y)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Đậu đỏ mới (Y)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh crepe tiramisu",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Dorayaki nhân kem sữa Hokkaido",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đan Mạch Bơ nhỏ (A_TB)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đan Mạch custard",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dorayaki nhân Sô Cô La (I)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chà bông kẹp (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chà bông hotdog (A_TB)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh xốp Phô Mai (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì cua mini (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Mì lạt mini nhỏ (A)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh ngọt",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa trái cây Nutriboost dâu 297ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa hương bánh quy Nutriboost 297ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa trái cây Nutriboost dâu 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lothamilk - Sữa tươi TC đường đen 250ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lothamilk - Trà sữa trân châu 250ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa Bắp Thái Sơn 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa hương Dưa Lưới - Binggrae 200ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa hương Chuối - Binggrae 200ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa uống lên men Yakult 65ml*5",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa đậu nành Fami bịch 200ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa chua Đường VNM 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "SG - Sữa chua nếp cẩm 120g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa chua Nha Đam VNM 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa chua VNM lựu đỏ ít đường 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo lon 240ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo lúa mạch nắp vặn 210ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo nắp vặn Hương Bạc Hà 200ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Milo nước 180ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa Thanh Trùng VNM DUONG Fino 220ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa Thanh Trùng VNM IT DUONG Fino 220ml",
+    "origin": "Việt Nam ",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa Thanh Trùng VNM KO DUONG Fino 220ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa Đặc NSPN Xanh 380g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "IDP - Malto Socola 180ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "IDP - Malto Socola Bạc Hà 180ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Betagen SCU cam 140ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Betagen SCU tự nhiên 140ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "VNM - SCA Nha đam ít đường 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Yogurt ăn TH vị nha đam 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Yogurt ăn TH vị việt quất 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sữa",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Aquafina 5L\t",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Aquafina 1500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Aquafina 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "C+ soda chanh - bổ sung vitamin C 350ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Coca-Cola chai 390ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Coca-Cola giảm đường chai 1.5L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Coca-Cola giảm đường chai 600ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Coca-Cola zero chai 600ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dasani 1.5L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dasani 510ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Fuzetea + trà đào và hạt chia 450ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hồng trà C2 vị đào 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hồng trà C2 vị Vải 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "ICE + Hương đào 490ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "LaVie 1.5L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "LaVie 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "LaVie 5L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước dưa hấu nha đam 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 33000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước Gạo Buổi sáng 1.5L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 88000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước Gạo Buổi sáng 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 41000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Lipovitan Honey",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Monster 355ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Red bull vitamin và kẽm 250ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Redbull",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Rockstar lon 250ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước trà xanh C2 hương chanh 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi Cola chai 600ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Seiryu 1000ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sprite pet 600ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting dâu lon cao 320ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting Straw Pet 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting Vàng Pet 330ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TEA + Plus Trà ô long 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TEA + Plus Trà ô long 450ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tea Break trà sữa 345ml ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Thức uống bổ sung ion Pocari Sweat 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà bí đao Wonderfarm 440ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà C2 Chanh tuyết Bạc Hà Freeze 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà đen C2 hương dâu anh đào Freeze 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô Long Không đường Tea + Plus 450ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô Long vị chanh Tea + Plus 450ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà olong vị chanh Tea + Plus 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Sữa Mr Brown 580ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Tắc Mật Ong Cozy 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Thanh Nhiệt Dr Thanh 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Xanh Không Độ Chanh 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Twister Cam chai 1L",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa highlands hộp 180ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Highlands cà phê sữa lon 235ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Latte - Trà sữa 480ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Goodmood - Nước uống vị sữa chua 455ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà mật ong Hoa Lài 585ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 32000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nescafe cà phê Latte hộp 180ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Thức uống bổ sung ion Pocari Sweat 900ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Thức uống",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh gạo AN vị tảo biển 111.3g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Karo phô mai hoàng kim (26g x 6 gói)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 42000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Karo trứng tươi chà bông (26g x 6 gói)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 42000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh ngọt nhân trứng muối Đài Loan 180g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 63000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Pillows nhân dừa 85g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Acnes - Giấy Thấm Dầu",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "BC Colgate Slimsoft charcoal",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 58000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "BG Attack khử mùi hương Anh Đào 360g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "BG OMO comfort tinh dầu thơm nồng nàn 360g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "BG OMO comfort tinh dầu thơm nồng nàn 720g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 38000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bông tẩy trang Helen Harper 80m",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 44000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bông tẩy trang Silcot 82 pcs",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 45000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Closeup KDR Kim cương 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dao cạo Blue II Plus (gói 2 cây)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dầu gội X-MEN-BOSS intense 180gr",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 85000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Abi Bánh tráng bơ 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Abi Bánh tráng phô mai 80g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Abi Bánh tráng sa tế cay 80g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bột ngọt 400g L2 Ajinomoto",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 42000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê truyền thống Highlands 200g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 72000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cozy - Trà đào (25 túi) 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 36000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "CP - XXTT Red (40g x 5)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "G7 3 in 1 hộp 20 gói 16g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 72000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "G - Da cá vị trứng muối 25g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hạt hướng dương chacheer vị dừa 130g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hạt mỗi ngày - Daily nuts 25g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hey Yo chân gà bách thảo 40g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nescafe 3in1 Đậm đà hài hòa (20pcs*17g)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 75000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa trân châu Hoàng Gia 416g (8 ly)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 89000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "XXTT heo Visssan 70g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Khác",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack Da cá hồi tôm nướng muối ớt 25g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack da cá hồi vị phô mai 25g (new)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Pillows nhân socola 85g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-04-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh que Dorkbua vị thịt xông khói 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh que Dorkbua vị truyền thống 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh quế Poca nhân kem ổi hồng 115g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh quế Poca nhân kem trứng muối 115g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bento snack mực vị cay ngọt 18g",
+    "origin": "Thai Lan",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bento snack mực vị cay Thái 18g",
+    "origin": "Thái Lan",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Choco Pie 12P",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 62000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chupa Chups SourBelt 1m trái cây 55g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Custas 12P",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 67000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "GOKOCHI vị muối tự nhiên 65g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Goute 4P",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Karamucho vị cay đặc biệt 85g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo dẻo Burger khổng lồ Funmore 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 33000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo dẻo Con mắt Funmore 18g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo Jackpot Slot Machine 20g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 42000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo socola Snicker 51g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo the Playmore vị nho 22g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kinh Đô Snack vị cua 29g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "KitKat socola 2F (17g)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lay's khoai tây tự nhiên 90g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lay's khoai tây vị tảo biển 90g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lay's wavy tôm hùm sốt trứng muối hoàng kim 90g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "O'star phô mai trứng muối 56g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "O'star Kimchi 108g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "O'star phô mai trứng muối 90g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oishi bánh phồng mực Indo chips 110g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oishi bánh phồng tôm hùm Indo chips 68g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oishi Snack bí đỏ 110g",
+    "origin": "Việt Nam ",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oishi Snack tôm cay đặc biệt 68g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oishi Snack tôm cay nồng 70g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Oreo kem vani 119.6g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pillows nhân socola vj hazelnut 85g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pinattsu vị mực cay 85g (party size)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pinattsu vị nước cốt dừa 85g (party size)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack Poca bị bò lúc lắc 65g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack Poca vị mực lăn muối ớt 65g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Socola viên Milo Nuggets 25g ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Swing vị bò bít tết 108g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Swing vị phô mai hai lớp 95g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lotte kẹo mút Lollipop Ice 11g (1 cây)",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 4000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kẹo the Playmore vị dưa hấu 22g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Bánh kẹo",
+      "type": "product"
+    }
+  },
+  {
+    "name": "DG Pantene ngăn rụng tóc 150g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 49000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "DG Rejoce siêu mượt 170ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 59000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Diana Sensi Cool Fresh SMC 8m",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Dove tẩy tế bào chết 298g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 205000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "DX Pantene 3PDK ngăn rụng tóc 150ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 55000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gatsby Pomade vuốt tóc Perfect Raise 75",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 69000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gatsby Wax tóc M&H giữ nếp&dày tóc-đen 75g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 64000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Giấy ăn E\"mos Premium 100t 1 lớp",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Giấy LETGREEN hộp 160 tờ 521514",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Giấy lựa Pulppy hộp 180 tờ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hazeline SRM Matcha Trầm Trà 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hazeline SRM Nghệ Hoa Cúc 50g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "KĐR Colgate Maxfresh Bạc Hà 180g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 44000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "KĐR Sensodyne - Bạc Hà",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 74000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kem chống nắng Super Block SPF 81",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 108000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kem chống nắng Super Block SPF 81",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 108000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kem rửa mặt Oxy làm sạch sâu có hạt 100g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 89000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khăn tẩy trang và lau mặt Acnes 20m",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 70000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khăn ướt cồn Letgreen 50 miếng",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 51000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khăn ướt Letgreen mini lốc 6",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 34000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khẩu trang 3D ngăn khói bụi",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khẩu trang Unicharm 3D Mask Virus Block",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khẩu trang y tế 3 lớp Dr.Mask 10pcs ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Listerine NSM coolmint 250ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 79000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "LNM Nivea nam làm sáng 50ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 76000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "LNM Nivea nam ngăn ố vàng B&W 50ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 109000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ Avif Biocell dưỡng trắng da 23g ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ Biocell dưỡng ẩm da 23g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ Detox Dưa Leo & Chanh Tươi 21g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ Detox Lựu Đỏ & Chanh Tây",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ dừa sinh học Dưỡng mịn",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ dưỡng ẩm cho mắt",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ dưỡng ẩm cho môi",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mặt nạ Relaxing trà xanh 21g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "MIENG DAN MUI LOT MUN BIORE - NAM 5M ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "MIENG DAN MUI LOT MUN BIORE 5M",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước súc miệng Dr. Muối truyền thống 500m",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tẩy trang Micellar Senka 230ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 119000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tẩy trang Simple micellar 400ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 199000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Romano - Sua tam Shower foam - classic",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 65000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "XNM Nivea nam phân tử bạc 150ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 121000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Vitamin dưỡng tóc Ellips phục hồi hư tổn 6v",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sáp thơm Glade S.G Lavender 180g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 69000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Vitamin dưỡng tóc Ellips duy trì độ ẩm 6v ",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Senka mặt nạ dưỡng ẩm sáng mịn 25ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 32000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Vim BC & NT xanh 500ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Vaseline Lip dưỡng môi hồng xinh 7g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 90000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa rửa mặt Simple 150ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 145000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Tăm bông kháng khuẩn SAKURA 200pcs",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sunsilk xịt dưỡng tóc tinh dầu bưởi 12x100ml",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 103000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa rửa mặt tẩy trang Hatomugi 130g",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 89000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hàng tiêu dùng",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Chiên Gà nướng phô mai cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2026-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2030-09-29T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 10000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cháo Thịt Kho Nấm",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-27T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 1,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cháo Gà Xé Phay",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-01-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cháo Bò Bằm Đậu Xanh",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-01-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 22000,
+    "amount": 1,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack Da cá hồi vị Mala",
+    "origin": "Việt Nam",
+    "expiryDate": "2029-02-27T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 1,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trứng gà luộc (new)",
+    "origin": "Việt Nam",
+    "expiryDate": "2029-01-31T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 6000,
+    "amount": 1,
+    "categoryId": {
+      "name": "Thức ăn phụ",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Snack Da cá hồi vị phô mai 25g",
+    "origin": "Việt Nam",
+    "expiryDate": "2029-01-31T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên gà nướng sate",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-25T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên gà nướng vị Tomyum",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-12T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bò Lá Lốt",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-17T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Hotteok - Bánh Rán Bắp Xúc Xích Phô Mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-12T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Corndog Crouton - Xúc Xích Phô Mai Hokkaido",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-24T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cá viên chiên (5viên/xiên)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-18T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Miếng gà xốt Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-17T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 33000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên Nem Nướng",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-16T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên tim mề gà nướng sate",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-17T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gà popcorn vị phô mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 33000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Khoai tây viên phô mai Mozzarella(3pcs/set)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-16T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gà xiên que xốt Teriyaki",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-17T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bánh Sầu Riêng",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-10T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Lạp xưởng nướng",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đùi Gà Giòn Cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-18T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Cà Ri Nhật & Ức Gà Áp Chảo",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-25T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Cơm hộp",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê đen đá - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-25T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mooping - Xiên thịt heo nướng",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-02-25T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 21000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Đồ chiên",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Combo Mì Lẩu",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả cá Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả hải sản định hình",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mì ly hotpot",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chân cua hoàng đế",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên nấm đông cô",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chikuwa (renew)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả cá thanh cua",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 7000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Viên hải sản xốt chua ngọt",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả xiên 2 vị: Nấm & tôm hùm",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chả bạch tuộc hình con gấu",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bò viên gân sụn hảo hạng",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Surimi nhân trứng cá hình tôm hùm",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 8000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Boss cà phê sữa 235ml",
+    "origin": "Boss cà phê sữa 235ml",
+    "expiryDate": "2027-03-16T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long Xanh Tea Plus 450ml",
+    "origin": "Trà Ô long Xanh Tea Plus 450ml",
+    "expiryDate": "2027-03-24T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long Tea plus 450ml",
+    "origin": "Trà Ô long Tea plus 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long vị chanh Tea + Plus 450ml",
+    "origin": "Trà Ô long vị chanh Tea + Plus 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà olong vị chanh Tea+Plus 1L",
+    "origin": "Trà olong vị chanh Tea+Plus 1L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà OLong đào nhiệt đới Tea+plus 1L",
+    "origin": "Trà OLong đào nhiệt đới Tea+plus 1L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô Long Không Đường Tea+  plus 450ml",
+    "origin": "Trà Ô Long Không Đường Tea+  plus 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long Tea plus Táo 450ml",
+    "origin": "Trà Ô long Tea plus Táo 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "TEA + Plus Trà ô long 1L",
+    "origin": "TEA + Plus Trà ô long 1L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 24000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long Tea plus 320ml",
+    "origin": "Trà Ô long Tea plus 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà Ô long đào nhiệt đới Tea+plus 320ml",
+    "origin": "Trà Ô long đào nhiệt đới Tea+plus 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước có gaz Aquafina soda lon 320ml",
+    "origin": "Nước có gaz Aquafina soda lon 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 9000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Goodmood – Nước uống vị dâu 450ml",
+    "origin": "Goodmood – Nước uống vị dâu 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Goodmood – Nước uống vị dâu 450ml",
+    "origin": "Goodmood – Nước uống vị dâu 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Goodmood – Nước uống vị sữa chua 450ml",
+    "origin": "Goodmood – Nước uống vị sữa chua 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Twister Cam chai 1L",
+    "origin": "Twister Cam chai 1L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 29000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Twister Cam chai 450ml",
+    "origin": "Twister Cam chai 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi pet 1.5L",
+    "origin": "Pepsi pet 1.5L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi Pet 390ml",
+    "origin": "Pepsi Pet 390ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi không calo lon cao 320ml",
+    "origin": "Pepsi không calo lon cao 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi lon cao 320ml",
+    "origin": "Pepsi lon cao 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi vị chanh không calo lon cao 320ml",
+    "origin": "Pepsi vị chanh không calo lon cao 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi vị chanh không calo 390ml",
+    "origin": "Pepsi vị chanh không calo 390ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 10000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi Cola chai 600ml",
+    "origin": "Pepsi Cola chai 600ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 12000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi vị chanh không calo 1.5L",
+    "origin": "Pepsi vị chanh không calo 1.5L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pepsi phúc bồn tử không calo lon 320ml",
+    "origin": "Pepsi phúc bồn tử không calo lon 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "7 UP 1.5L",
+    "origin": "7 UP 1.5L",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 26000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "7 Up soda chanh lon 320ml",
+    "origin": "7 Up soda chanh lon 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "7 Up lon 320ml",
+    "origin": "7 Up lon 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "7up 600ml",
+    "origin": "7up 600ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 13000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mirinda Xá xị pet 390ml",
+    "origin": "Mirinda Xá xị pet 390ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 11000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Revive pet 500ml",
+    "origin": "Revive pet 500ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Revive chanh muối 390ml",
+    "origin": "Revive chanh muối 390ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước uống điện giải Revive thể thao 450ml",
+    "origin": "Nước uống điện giải Revive thể thao 450ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting Straw Pet 330 ml",
+    "origin": "Sting Straw Pet 330 ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting Vàng  pet 330ml",
+    "origin": "Sting Vàng  pet 330ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting dâu lon cao 320ml",
+    "origin": "Sting dâu lon cao 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nước tăng lực Rockstar lon 250ml",
+    "origin": "Nước tăng lực Rockstar lon 250ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 14000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting cú hích vị việt quất lon 320ml",
+    "origin": "Sting cú hích vị việt quất lon 320ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sting dâu chai 500ml",
+    "origin": "Sting dâu chai 500ml",
+    "expiryDate": "2027-03-30T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 100,
+    "categoryId": {
+      "name": "Hotpot",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Trứng Cá Tuyết",
+    "origin": "Việt Nam",
+    "expiryDate": "2028-03-10T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "JIKAMAKI OMUSUBI TÔM CHIÊN XỐT TARTAR",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Mơ Muối",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Cá Ngừ Mayonnaise Và Cơm Gia Vị Rong Biển",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 17000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Bò Sốt Vang",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Jikamaki Omusubi Hamburg Phô Mai Hokkaido Cube Và M&G",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kimono Omusubi Tôm Chiên",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Kimono Omusubi Tôm Và Trứng Cá Chuồn (New 13/04)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pizubi Cơm Chiên Bắp Phô Mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pizubi Cơm Gà Nướng Cay Hàn Quốc Phô Mai",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Temaki Omusubi Gà Karaage Xốt Tương Ớt Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bạc xỉu - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa tươi - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Matcha Latte - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa ôlong lài - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa thái xanh - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Matcha Latte - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa ôlong lài - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa thái đỏ - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chocomint - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà tắc thái xanh - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa tươi - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Banana Socola - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa đậu nành - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 20000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Americano đá - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Sữa đậu nành - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bạc xỉu - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà măng cụt - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà táo xanh hạt chia - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa nóng - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà mận - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà tắc thái đỏ - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea Trà đào - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê đen nóng - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Americano nóng - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Nestea Trà đào - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 16000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Matcha Latte dâu - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà sữa ôlong sen dứa - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá Nestle - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 23000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá Nestle - size S",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bạc xỉu yến mạch - size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Bạc xỉu Socola Yến mạch – size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 27000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Mint Matcha Latte – size L",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 28000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà măng cụt - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà tắc thái xanh - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Trà tắc thái đỏ - size XL",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-23T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 35000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm Tháng 4",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm Nghêu và thịt xào cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm thịt heo xào cay Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 41000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm cà ri Nhật & ức gà áp chảo",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 39000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm gà chiên sốt bơ tỏi",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 37000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cơm trộn Hàn Quốc",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 40000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Gà xiên que xốt Teriyaki",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Xiên gà nướng Sate",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 18000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Đùi gà giòn cay",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 31000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Pe-po-chi",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cá viên chiên",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 15000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá (size L)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa đá (size S)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê đen đá (size S)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 19000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê đen đá (L)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 25000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Cà phê sữa tươi (size L)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 32000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Chocomint (size L)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  },
+  {
+    "name": "Matcha Latte (size L)",
+    "origin": "Việt Nam",
+    "expiryDate": "2027-03-11T17:00:00.000Z",
+    "inStockStatus": true,
+    "price": 30000,
+    "amount": 1000,
+    "categoryId": {
+      "name": "Sản Phẩm FamilyMart Collection",
+      "type": "product"
+    }
+  }
+]
