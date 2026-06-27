@@ -186,6 +186,84 @@ section[data-testid="stSidebarNav"] {display: none;}
     font-size: 0.82rem;
     margin-top: 0.4rem;
 }
+.map-panel {
+    background: #102A1E;
+    color: #FFFFFF;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+.map-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(31,191,117,0.28), rgba(246,200,95,0.22));
+}
+.map-panel > * {
+    position: relative;
+    z-index: 1;
+}
+.filter-bar {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem;
+    margin-bottom: 0.9rem;
+}
+.result-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.result-title {
+    font-weight: 800;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+}
+.result-meta {
+    color: var(--text-gray);
+    font-size: 0.82rem;
+    margin-top: 0.2rem;
+}
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+}
+.rescue-price {
+    color: var(--primary-dark);
+    font-size: 1.12rem;
+    font-weight: 800;
+}
+.original-price {
+    color: #9CA3AF;
+    font-size: 0.82rem;
+    text-decoration: line-through;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+}
+.info-pill {
+    background: #F9FAFB;
+    border: 1px solid #EEF2F7;
+    border-radius: 9px;
+    padding: 0.5rem;
+    font-size: 0.78rem;
+    color: #374151;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -206,6 +284,8 @@ if "user_lat" not in st.session_state:
     st.session_state.user_lat = 10.7769
 if "user_lng" not in st.session_state:
     st.session_state.user_lng = 106.7009
+if "selected_food" not in st.session_state:
+    st.session_state.selected_food = None
 
 
 def navigate(page_name: str):
@@ -224,6 +304,119 @@ def set_mode(mode_name: str):
 def set_user_search_query(term: str):
     """Set the search field from a quick-search button."""
     st.session_state.user_search_query = term
+
+def vnd(amount):
+    """Display VND without relying on special currency glyphs."""
+    try:
+        return f"{int(float(amount)):,} VND"
+    except (TypeError, ValueError):
+        return "0 VND"
+
+
+def category_icon(category):
+    cat = (category or "").lower()
+    if any(word in cat for word in ["pastry", "bread", "bakery", "croissant"]):
+        return "BA"
+    if any(word in cat for word in ["noodle", "meal", "bento", "rice"]):
+        return "ME"
+    if any(word in cat for word in ["snack", "sweet"]):
+        return "SN"
+    return "FD"
+
+
+def demo_results(keyword):
+    """Reliable fallback data for the hackathon demo."""
+    base = [
+        {
+            "id": "mock-pastry-1",
+            "name": "Butter Croissant Rescue Box",
+            "category": "Pastry",
+            "store_name": "Sunrise Bakery",
+            "store_address": "18 Le Loi, District 1",
+            "distance_km": 0.6,
+            "price": 18000,
+            "original_price": 42000,
+            "quantity": 5,
+            "pickup_window": "Today 20:00-21:30",
+            "best_before": "Best before 22:30",
+            "quality_note": "Baked this morning, packed after display period.",
+            "source": "mock",
+        },
+        {
+            "id": "mock-bread-1",
+            "name": "Assorted Bread Bag",
+            "category": "Bread",
+            "store_name": "FamilyMart District 1",
+            "store_address": "20 Le Thanh Ton, District 1",
+            "distance_km": 0.9,
+            "price": 22000,
+            "original_price": 50000,
+            "quantity": 3,
+            "pickup_window": "Today 21:00-22:00",
+            "best_before": "Best before tonight",
+            "quality_note": "Sealed packaged bread, still within best-before window.",
+            "source": "mock",
+        },
+        {
+            "id": "mock-snack-1",
+            "name": "Late-night Snack Bundle",
+            "category": "Snacks",
+            "store_name": "Mini Stop Nguyen Hue",
+            "store_address": "45 Nguyen Hue, District 1",
+            "distance_km": 1.4,
+            "price": 15000,
+            "original_price": 33000,
+            "quantity": 7,
+            "pickup_window": "Today 22:00-23:30",
+            "best_before": "Best before tomorrow",
+            "quality_note": "Low-risk packaged items selected for quick pickup.",
+            "source": "mock",
+        },
+    ]
+    needle = (keyword or "").lower().strip()
+    if not needle or needle == "pastry":
+        return base
+    matches = [item for item in base if needle in item["name"].lower() or needle in item["category"].lower()]
+    return matches or base
+
+
+def flatten_search_results(search_response, keyword):
+    """Convert backend grouped search response into card-friendly rows."""
+    rows = []
+    for group in (search_response or {}).get("results", []):
+        merchant = group.get("merchant") or {}
+        for food in group.get("foods") or []:
+            price = food.get("price") or 0
+            rows.append(
+                {
+                    "id": food.get("id") or f"api-{len(rows)}",
+                    "name": food.get("name", "Rescue food item"),
+                    "category": food.get("category") or "Rescue Food",
+                    "store_name": merchant.get("name") or "Nearby merchant",
+                    "store_address": merchant.get("address") or "District 1 pickup point",
+                    "distance_km": float(merchant.get("distance_km") or 1.0),
+                    "price": price,
+                    "original_price": int(float(price or 0) * 1.8) if price else 0,
+                    "quantity": food.get("quantity") or 1,
+                    "pickup_window": "Today 20:00-22:00",
+                    "best_before": api.time_until(food.get("expiry_time")) if food.get("expiry_time") else "Best before tonight",
+                    "quality_note": "Merchant-confirmed rescue item available for pickup.",
+                    "source": "api",
+                }
+            )
+    if keyword.lower().strip() == "pastry" and not any("pastry" in item["category"].lower() or "pastry" in item["name"].lower() or "croissant" in item["name"].lower() for item in rows):
+        rows = demo_results(keyword) + rows
+    return rows or demo_results(keyword)
+
+
+def load_nearby_results(keyword):
+    response = api.search_foods(keyword, st.session_state.user_lat, st.session_state.user_lng)
+    return flatten_search_results(response, keyword)
+
+
+def choose_food(item):
+    st.session_state.selected_food = item
+    navigate("FoodDetail")
 
 def render_mode_switch():
     st.markdown(
@@ -322,33 +515,147 @@ def page_user_home():
 
 
 # ============================================================
-# PAGE: USER RESULTS PLACEHOLDER
+# PAGE: USER RESULTS
 # ============================================================
 def page_user_results():
+    keyword = st.session_state.user_search_query.strip() or "pastry"
+    results = load_nearby_results(keyword)
+
     st.markdown(
-        """
+        f"""
 <div class="user-hero">
     <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
     <h1>Nearby rescue food</h1>
-    <p>The next MVP slice will turn this into map and list results.</p>
+    <p>Showing affordable {keyword.title()} options near District 1.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        f"""
+<div class="map-panel">
+    <div>
+        <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Demo map area</div>
+        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup zone</div>
+    </div>
+    <div style="font-size:0.86rem; opacity:0.9;">{len(results)} rescue options around ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    with st.container():
+        st.markdown('<div class="filter-bar">', unsafe_allow_html=True)
+        category_options = ["All"] + sorted({item["category"] for item in results})
+        col1, col2 = st.columns(2)
+        with col1:
+            category_filter = st.selectbox("Category", category_options, key="result_category_filter")
+        with col2:
+            max_distance = st.slider("Distance", min_value=1, max_value=5, value=3, format="%d km")
+        col3, col4 = st.columns(2)
+        with col3:
+            max_price = st.slider("Max price", min_value=10000, max_value=60000, value=50000, step=5000, format="%d VND")
+        with col4:
+            min_quantity = st.selectbox("Quantity", [1, 2, 3, 5], key="result_quantity_filter")
+        col5, col6 = st.columns(2)
+        with col5:
+            pickup_filter = st.selectbox("Pickup time", ["Any", "20:00", "21:00", "22:00"], key="result_pickup_filter")
+        with col6:
+            best_before_filter = st.selectbox("Best-before", ["Any", "Tonight", "Tomorrow"], key="result_best_before_filter")
+        st.caption("Filters are intentionally simple for the MVP demo.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    filtered = [
+        item
+        for item in results
+        if (category_filter == "All" or item["category"] == category_filter)
+        and item["distance_km"] <= max_distance
+        and item["price"] <= max_price
+        and item["quantity"] >= min_quantity
+        and (pickup_filter == "Any" or pickup_filter.lower() in item["pickup_window"].lower())
+        and (best_before_filter == "Any" or best_before_filter.lower() in item["best_before"].lower())
+    ]
+
+    if not filtered:
+        st.info("No rescue food matches those filters. Try expanding distance or price.")
+
+    for index, item in enumerate(filtered):
+        savings = max(0, int(item["original_price"] or 0) - int(item["price"] or 0))
+        st.markdown(
+            f"""
+<div class="result-card">
+    <div style="display:flex; gap:0.8rem; align-items:flex-start;">
+        <div style="width:3.2rem; height:3.2rem; border-radius:12px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800; flex:0 0 auto;">{category_icon(item['category'])}</div>
+        <div style="flex:1; min-width:0;">
+            <div class="result-title">{item['name']}</div>
+            <div class="result-meta">{item['store_name']} - {item['distance_km']:.1f} km away</div>
+            <div class="price-row">
+                <span class="rescue-price">{vnd(item['price'])}</span>
+                <span class="original-price">{vnd(item['original_price'])}</span>
+            </div>
+            <div class="result-meta">Save {vnd(savings)}</div>
+        </div>
+    </div>
+    <div class="info-grid">
+        <div class="info-pill">Pickup: {item['pickup_window']}</div>
+        <div class="info-pill">{item['best_before']}</div>
+        <div class="info-pill">Qty left: {item['quantity']}</div>
+        <div class="info-pill">{item['category']}</div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        if st.button("View rescue item", key=f"view_user_result_{item['id']}_{index}", use_container_width=True):
+            choose_food(item)
+
+    if st.button("Back to search", use_container_width=True):
+        navigate("UserHome")
+
+
+# ============================================================
+# PAGE: FOOD DETAIL LANDING
+# ============================================================
+def page_food_detail():
+    item = st.session_state.selected_food
+    if not item:
+        st.warning("Choose a rescue food item first.")
+        if st.button("Back to results", use_container_width=True):
+            navigate("UserResults")
+        return
+
+    st.markdown(
+        f"""
+<div class="user-hero">
+    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
+    <h1>{item['name']}</h1>
+    <p>{item['store_name']} - {item['distance_km']:.1f} km away</p>
 </div>
 """,
         unsafe_allow_html=True,
     )
     st.markdown(
         f"""
-<div class="food-card">
-    <div style="font-size:0.8rem; color:#6B7280; font-weight:700; text-transform:uppercase;">Search ready</div>
-    <div style="font-size:1.2rem; font-weight:700; margin-top:0.25rem;">{st.session_state.user_search_query.title()}</div>
-    <div style="font-size:0.88rem; color:#6B7280; margin-top:0.25rem;">Location: District 1 demo coordinates ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
+<div class="result-card">
+    <div class="result-title">Food Detail starts here</div>
+    <div class="result-meta" style="margin-top:0.35rem;">Task 3 will expand this into the full item detail and reservation entry screen.</div>
+    <div class="price-row">
+        <span class="rescue-price">{vnd(item['price'])}</span>
+        <span class="original-price">{vnd(item['original_price'])}</span>
+    </div>
+    <div class="info-grid">
+        <div class="info-pill">Pickup: {item['pickup_window']}</div>
+        <div class="info-pill">{item['best_before']}</div>
+        <div class="info-pill">Qty left: {item['quantity']}</div>
+        <div class="info-pill">{item['category']}</div>
+    </div>
 </div>
 """,
         unsafe_allow_html=True,
     )
-    st.info("Results, filters, and food detail cards are planned next. This screen confirms the search entry flow is wired.")
-    if st.button("Back to search", use_container_width=True):
-        navigate("UserHome")
-
+    if st.button("Back to results", use_container_width=True):
+        navigate("UserResults")
 
 # ============================================================
 # BOTTOM NAV
@@ -799,12 +1106,13 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
-USER_ROUTES = {"UserHome", "UserResults"}
+USER_ROUTES = {"UserHome", "UserResults", "FoodDetail"}
 MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
 
 ROUTES = {
     "UserHome": page_user_home,
     "UserResults": page_user_results,
+    "FoodDetail": page_food_detail,
     "Dashboard": page_dashboard,
     "Post": page_post,
     "Published": page_published,

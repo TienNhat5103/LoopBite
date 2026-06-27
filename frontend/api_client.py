@@ -6,8 +6,8 @@ import os
 import requests
 from typing import List, Optional, Dict, Any
 
-API_BASE = os.environ.get("FAMILYMART_API", "http://127.0.0.1:8001")
-TIMEOUT = 8
+API_BASE = os.environ.get("LOOPBITE_API", os.environ.get("FAMILYMART_API", "http://127.0.0.1:8000"))
+TIMEOUT = 2
 
 
 def _url(path: str) -> str:
