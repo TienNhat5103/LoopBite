@@ -12,7 +12,6 @@ router = APIRouter(
 @router.get("/", response_model=List[Food])
 def get_all_food():
     try:
-        print()
         response = supabase.table("food").select("*").execute()
         return response.data
     except Exception as e:
