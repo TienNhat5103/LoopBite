@@ -14,3 +14,10 @@ class Food(BaseModel):
 
     class Config:
         from_attributes = True
+        
+class FoodUpdate(BaseModel):
+    price: float
+    quantity: int
+
+    class Config:
+        from_attributes = True

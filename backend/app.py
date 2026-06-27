@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from middlewares.cors import apply_cors_middleware
 from routers import api_router
 from database import supabase
+from fastapi.security import HTTPBearer
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,7 +24,9 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     # Gắn lifespan vào đây để FastAPI kích hoạt khi chạy uvicorn
     app = FastAPI(lifespan=lifespan) 
-    
+    security = HTTPBearer()
     app = apply_cors_middleware(app)
     app.include_router(api_router)
+
     return app
+    

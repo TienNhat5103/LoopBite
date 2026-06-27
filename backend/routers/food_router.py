@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, status
 from typing import List
 from database import supabase
-from models import Food  # Import class Food đã sửa từ folder models
+from models import Food,FoodUpdate  # Import class Food và FoodUpdate từ folder models
+import random  # Import thư viện random để sử dụng trong logic random merchant_id
 
 router = APIRouter(
     prefix="/api/v1/food",
@@ -40,27 +41,37 @@ def get_food_by_id(food_id: int):
         )
 
 # 3. CREATE - Nhập món ăn mới (POST)
-@router.post("/", response_model=Food, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=Food, status_code=201)
 def create_food(food_data: Food):
     try:
-        # Chuyển đổi Model thành Dict, loại bỏ ID để Postgres tự tăng
-        food_dict = food_data.model_dump(exclude_none=True)
+        # 1. Chuyển đổi dữ liệu model sang định dạng json-safe dictionary
+        food_dict = food_data.model_dump(mode="json", exclude_none=True)
+        
+        # 2. Xóa trường id ra khỏi payload để kích hoạt tự động tăng dưới DB
         if "id" in food_dict:
             del food_dict["id"]
             
+        # 3. LOGIC RANDOM MERCHANT_ID: Nếu nhập vào bằng 0, bốc ngẫu nhiên từ 2 đến 71
+        if food_dict.get("merchant_id") == 0:
+            food_dict["merchant_id"] = random.randint(2, 71)
+            
+        # 4. Gửi dữ liệu xuống Supabase
         response = supabase.table("food").insert(food_dict).execute()
         return response.data[0]
+        
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, 
+            status_code=400, 
             detail=f"Lỗi thêm món ăn: {str(e)}"
         )
 
 # 4. UPDATE - Sửa đổi thông tin món ăn (PUT)
+from models import Food, FoodUpdate  # <-- Nhớ import thêm FoodUpdate ở đầu file
+
 @router.put("/{food_id}", response_model=Food)
-def update_food(food_id: int, food_data: Food):
+def update_food(food_id: int, food_data: FoodUpdate):  # <-- Đổi ở đây thành FoodUpdate
     try:
-        # Kiểm tra xem món đó có tồn tại không trước khi sửa
+        # 1. Kiểm tra xem món ăn có tồn tại không
         check_exist = supabase.table("food").select("id").eq("id", food_id).execute()
         if not check_exist.data:
             raise HTTPException(
@@ -68,9 +79,15 @@ def update_food(food_id: int, food_data: Food):
                 detail=f"Món ăn ID = {food_id} không tồn tại để cập nhật"
             )
 
-        food_dict = food_data.model_dump(exclude_none=True, exclude={"id"})
-        response = supabase.table("food").update(food_dict).eq("id", food_id).execute()
+        # 2. Dump data an toàn dưới dạng JSON (Lúc này mặc định chỉ có đúng price và quantity)
+        update_payload = food_data.model_dump(mode="json", exclude_none=True)
+
+        # 3. Tiến hành cập nhật lên Supabase
+        response = supabase.table("food").update(update_payload).eq("id", food_id).execute()
+        
+        # Trả về bản ghi đầy đủ sau khi sửa
         return response.data[0]
+        
     except HTTPException as http_ex:
         raise http_ex
     except Exception as e:
