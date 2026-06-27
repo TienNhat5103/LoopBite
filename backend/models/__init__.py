@@ -1,6 +1,6 @@
 from .merchants import Merchants
-from .profiles import Profiles
-from .food import Food
+from .profiles import Profiles, UserRegister, UserLogin, ProfileUpdate
+from .food import Food,FoodUpdate
 from .orders import Orders
 from .order_items import OrderItems
 
@@ -8,7 +8,9 @@ from .order_items import OrderItems
 __all__ = [
     "Merchants",
     "Profiles",
+    "ProfileUpdate",
     "Food",
+    "FoodUpdate",
     "Orders",
     "OrderItems"
 ]
