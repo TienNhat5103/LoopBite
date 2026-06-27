@@ -1,23 +1,24 @@
 ## Why
 
-Build a demo-stable hackathon MVP that shows the full loop between users and merchants: merchants publish impact-driven campaigns, users support them through a mock order, and users receive a simple impact receipt.
+Build a demo-stable LoopBite hackathon MVP that shows the full loop between users and merchants: merchants publish low-risk rescue food listings, users reserve affordable nearby items, and merchants confirm pickup with a pickup code.
 
 ## What Changes
 
-- Add a public campaign browsing flow with campaign cards and campaign detail pages.
-- Add a mock support/order flow that creates an order and impact event in Supabase.
-- Add a receipt flow showing campaign, merchant, amount, impact message, and thank-you message.
-- Add a merchant flow for creating, publishing, and viewing own campaigns with simple order counts.
-- Use Supabase for database, auth if needed, and API access.
-- Do not add FastAPI, real payment, Grab integration, admin dashboards, analytics, recommendations, or inventory sync.
+- Add a public LoopBite user flow for keyword search, geolocation, nearby rescue food Map + List results, item detail, checkout, and receipt.
+- Add a LoopBite Merchant flow for My Listings, posting low-risk rescue items, publishing listings, seeing reserved orders, and confirming pickup.
+- Finalize the Supabase database contract for both apps around `merchants`, `listings`, and `orders`.
+- Limit MVP food scope to low-risk / quality-based categories only.
+- Keep payment and delivery mock-only.
+- Do not add FastAPI, real payment, real delivery integration, Grab/Ahamove integration, admin dashboards, impact dashboards, analytics, recommendations, or high-risk food categories.
 
 ## Capabilities
 
 ### New Capabilities
 
-- `user-flow`: User browsing and campaign detail experience.
-- `merchant-flow`: Merchant campaign creation, publishing, listing, and order count experience.
-- `order-flow`: Mock order creation, impact event creation, and receipt experience.
+- `user-flow`: User search, nearby rescue food discovery, item detail, and checkout entry experience.
+- `merchant-flow`: Merchant listing creation, publishing, order visibility, and pickup confirmation experience.
+- `order-flow`: Reservation creation, pickup code generation, receipt, and pickup completion experience.
+- `database`: Shared Supabase data contract for the user app and merchant app.
 
 ### Modified Capabilities
 
@@ -25,6 +26,6 @@ Build a demo-stable hackathon MVP that shows the full loop between users and mer
 
 ## Impact
 
-- Frontend routes: `/`, `/campaign/:id`, `/receipt/:orderId`, `/merchant`, `/merchant/campaigns/new`.
-- Supabase tables: `profiles`, `merchants`, `campaigns`, `orders`, `impact_events`.
-- Supabase RLS policies for public campaign reads, user order creation, merchant campaign management, and merchant order visibility.
+- Frontend routes: `/`, `/item/:id`, `/checkout/:itemId`, `/receipt/:orderId`, plus LoopBite Merchant listing and order-management surfaces.
+- Supabase tables: `merchants`, `listings`, and `orders`; optional `profiles` only if Supabase Auth is introduced.
+- Supabase policies or demo access rules for public eligible listing reads, user order creation, merchant listing management, merchant order visibility, and pickup confirmation.
