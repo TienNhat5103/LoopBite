@@ -60,6 +60,14 @@ The system SHALL show a receipt for the rescue food order.
 - **WHEN** a user opens `/receipt/:orderId`
 - **THEN** the system shows a clear not-found or unavailable receipt state.
 
+### Requirement: Order fields are constrained
+The system SHALL store the required LoopBite order fields for each reservation.
+
+#### Scenario: Required order fields are present
+- **GIVEN** a user reserves a rescue food listing
+- **WHEN** the order is saved
+- **THEN** the order includes `id`, `listing_id`, `quantity`, `amount`, `fulfillment_method`, `payment_method`, `payment_status`, `order_status`, and `pickup_code`.
+
 ### Requirement: Order statuses are constrained
 The system SHALL use only the supported LoopBite order statuses for the MVP.
 
@@ -67,6 +75,19 @@ The system SHALL use only the supported LoopBite order statuses for the MVP.
 - **GIVEN** an order exists
 - **WHEN** the system displays or updates the order status
 - **THEN** the status is one of `reserved`, `picked_up`, `cancelled`, or `expired`.
+
+### Requirement: Merchant can complete pickup orders
+The system SHALL allow a merchant to confirm pickup for a reserved order using the user's pickup code.
+
+#### Scenario: Merchant confirms pickup code
+- **GIVEN** an order has `order_status = reserved`
+- **WHEN** the merchant checks the user's `pickup_code` and confirms pickup
+- **THEN** the system updates `order_status = picked_up`.
+
+#### Scenario: Pickup confirmation updates listing availability
+- **GIVEN** a merchant confirms pickup for a reserved order
+- **WHEN** the order status becomes `picked_up`
+- **THEN** the system decreases listing quantity by the order quantity and sets listing status to `sold_out` if quantity reaches zero.
 
 ### Requirement: MVP excludes real payment and delivery integrations
 The system SHALL keep checkout integrations mock-only for the MVP.

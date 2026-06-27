@@ -3,9 +3,16 @@
 ## 1. Actors
 
 - **User**: A student, low-income user, late-night eater, or nearby food seeker looking for affordable rescue food.
-- **Merchant**: A participating seller that provides available low-risk, quality-based food items for pickup.
+- **Merchant**: A mini supermarket, bakery, convenience store, or small shop selling low-risk packaged or dry food.
 
-## 2. Food Scope
+## 2. Target Merchants
+
+- mini supermarkets
+- bakeries
+- convenience stores
+- small shops selling low-risk packaged or dry food
+
+## 3. Food Scope
 
 LoopBite MVP supports only low-risk, quality-based food items:
 
@@ -20,14 +27,14 @@ LoopBite MVP supports only low-risk, quality-based food items:
 
 The MVP excludes high-risk fresh cooked meals, raw meat, seafood, dairy-heavy items, and unsafe perishables.
 
-## 3. Routes
+## 4. Routes
 
 - `/`: Search, geolocation request, and nearby rescue food Map + List view.
 - `/item/:id`: Rescue food item detail page.
 - `/checkout/:itemId`: Checkout for fulfillment and payment method selection.
 - `/receipt/:orderId`: Receipt with pickup code and order status.
 
-## 4. User Discovery Flow
+## 5. User Discovery Flow
 
 1. User opens LoopBite at `/`.
 2. User searches for food by keyword.
@@ -54,7 +61,7 @@ The MVP excludes high-risk fresh cooked meals, raw meat, seafood, dairy-heavy it
    - `best_before` / `consume_before`
    - short quality note
 
-## 5. Checkout and Receipt Flow
+## 6. User Checkout and Receipt Flow
 
 1. User opens `/checkout/:itemId` from an eligible rescue food item.
 2. User chooses `fulfillment_method`:
@@ -68,14 +75,87 @@ The MVP excludes high-risk fresh cooked meals, raw meat, seafood, dairy-heavy it
 6. App redirects to `/receipt/:orderId`.
 7. User sees a receipt with pickup code, pickup time, merchant address, amount, and order status.
 
-## 6. Order Statuses
+## 7. Merchant Listing Flow
+
+1. Merchant opens LoopBite Merchant.
+2. Merchant opens My Listings.
+3. Merchant clicks "Post rescue item".
+4. Merchant enters:
+   - `item_name`
+   - `image_url`
+   - `food_category`
+   - `quantity`
+   - `original_price`
+   - `rescue_price`
+   - `pickup_start_time`
+   - `pickup_end_time`
+   - `best_before` / `consume_before`
+   - `quality_note`
+   - `merchant_note`
+   - `fulfillment_options`
+   - `payment_options`
+5. Merchant publishes the item.
+6. Item appears in the user app only if:
+   - `status = published`
+   - `quantity > 0`
+   - pickup window is still valid
+   - item belongs to a low-risk / quality-based category
+7. When a user reserves the item, merchant sees the new order.
+8. Merchant checks the `pickup_code` from the user.
+9. Merchant clicks "Confirm pickup".
+10. System updates:
+    - `order_status = picked_up`
+    - quantity decreases
+    - if `quantity = 0`, listing status becomes `sold_out`
+
+## 8. Listing Fields
+
+- `id`
+- `merchant_id`
+- `item_name`
+- `image_url`
+- `food_category`
+- `risk_group` default `"low_risk_quality_based"`
+- `quantity`
+- `original_price`
+- `rescue_price`
+- `pickup_start_time`
+- `pickup_end_time`
+- `best_before`
+- `consume_before`
+- `quality_note`
+- `status`
+
+## 9. Food Category Enum
+
+- `bakery`
+- `packaged_food`
+- `dry_noodles`
+- `cereal`
+- `snack`
+- `sealed_drink`
+- `other_low_risk`
+
+## 10. Order Fields
+
+- `id`
+- `listing_id`
+- `quantity`
+- `amount`
+- `fulfillment_method`
+- `payment_method`
+- `payment_status`
+- `order_status`
+- `pickup_code`
+
+## 11. Order Statuses
 
 - `reserved`
 - `picked_up`
 - `cancelled`
 - `expired`
 
-## 7. Edge Cases
+## 12. Edge Cases
 
 - **Missing item**: Show a not-found state and allow navigation back to `/`.
 - **Unavailable item**: Prevent checkout when availability is false, quantity is zero, or the pickup window has passed.
@@ -83,8 +163,10 @@ The MVP excludes high-risk fresh cooked meals, raw meat, seafood, dairy-heavy it
 - **Location denied**: Keep keyword search available and show a clear state explaining that nearby sorting requires location.
 - **Failed order creation**: Show an error state, do not redirect to receipt, and allow retry.
 - **Expired reservation**: Show the order as `expired` and do not allow pickup confirmation.
+- **Invalid pickup code**: Merchant cannot confirm pickup until the provided code matches the reserved order.
+- **Sold-out listing**: When confirmed pickups reduce quantity to zero, the listing is marked `sold_out` and no longer appears as orderable.
 
-## 8. Explicit Non-Goals
+## 13. Explicit Non-Goals
 
 - No real payment.
 - No real delivery integration.
