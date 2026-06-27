@@ -304,6 +304,38 @@ section[data-testid="stSidebarNav"] {display: none;}
     font-weight: 700;
     text-align: right;
 }
+.pickup-code {
+    background: #102A1E;
+    color: #FFFFFF;
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    margin-bottom: 0.85rem;
+}
+.pickup-code-value {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+}
+.reservation-card {
+    background: #FFFFFF;
+    border: 1px solid #BFEBD1;
+    border-left: 5px solid var(--primary);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.empty-state {
+    background: #F9FAFB;
+    border: 1px dashed #CBD5E1;
+    border-radius: 12px;
+    padding: 1rem;
+    color: #475569;
+    font-size: 0.9rem;
+    margin-bottom: 0.85rem;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -808,9 +840,59 @@ def page_reservation_review():
                 "total": total,
                 "customer": "Demo customer",
             }
-            st.success(f"Reserved. Pickup code: {st.session_state.active_reservation['pickup_code']}")
-            st.info("Task 5 will turn this into the full confirmation page.")
+            navigate("PickupConfirmation")
 
+
+# ============================================================
+# PAGE: CONFIRMATION / PICKUP CODE
+# ============================================================
+def page_pickup_confirmation():
+    reservation = st.session_state.active_reservation
+    if not reservation:
+        st.warning("No active reservation yet.")
+        if st.button("Back to search", use_container_width=True):
+            navigate("UserHome")
+        return
+
+    item = reservation["item"]
+
+    st.markdown(
+        """
+<div class="user-hero">
+    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
+    <h1>Reservation confirmed</h1>
+    <p>Show this pickup code at the counter during the pickup window.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        f"""
+<div class="pickup-code">
+    <div style="font-size:0.82rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Pickup code</div>
+    <div class="pickup-code-value">{reservation['pickup_code']}</div>
+</div>
+<div class="result-card">
+    <div class="result-title">{item['name']}</div>
+    <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
+    <div class="review-row"><span class="review-label">Pickup time</span><span class="review-value">{item['pickup_window']}</span></div>
+    <div class="review-row"><span class="review-label">Quantity</span><span class="review-value">{reservation['quantity']}</span></div>
+    <div class="review-row"><span class="review-label">Total price</span><span class="review-value">{vnd(reservation['total'])}</span></div>
+    <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
+    <div class="review-row"><span class="review-label">Order status</span><span class="review-value">{reservation['status']}</span></div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Back to Search", use_container_width=True):
+            navigate("UserHome")
+    with c2:
+        if st.button("Open Merchant Portal", type="primary", use_container_width=True):
+            set_mode("Merchant Portal")
 # ============================================================
 # BOTTOM NAV
 # ============================================================
@@ -883,6 +965,44 @@ def page_dashboard():
         st.metric("Active Listings", str(len(available_foods)), "")
     with c4:
         st.metric("Low Stock", str(len(low_stock)), "")
+
+    st.divider()
+
+    # New reservation queue from the user demo flow
+    st.markdown("### New Reservation")
+    reservation = st.session_state.active_reservation
+    if reservation:
+        order_item = reservation["item"]
+        st.markdown(
+            f"""
+<div class="reservation-card">
+    <div style="display:flex; justify-content:space-between; gap:0.75rem; align-items:flex-start;">
+        <div style="flex:1; min-width:0;">
+            <div style="font-size:0.78rem; color:#007A2F; font-weight:800; text-transform:uppercase;">Pickup code {reservation['pickup_code']}</div>
+            <div class="result-title" style="margin-top:0.25rem;">{order_item['name']}</div>
+            <div class="result-meta">{reservation['customer']} - Qty {reservation['quantity']}</div>
+        </div>
+        <span class="badge badge-active">{reservation['status']}</span>
+    </div>
+    <div class="info-grid">
+        <div class="info-pill">Pickup: {order_item['pickup_window']}</div>
+        <div class="info-pill">Total: {vnd(reservation['total'])}</div>
+        <div class="info-pill">Payment: {reservation['payment_method']}</div>
+        <div class="info-pill">Store pickup</div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            """
+<div class="empty-state">
+    No new reservations yet. Create a reservation from the User App to show the merchant handoff in the demo.
+</div>
+""",
+            unsafe_allow_html=True,
+        )
 
     st.divider()
 
@@ -1260,7 +1380,7 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
-USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview"}
+USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation"}
 MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
 
 ROUTES = {
@@ -1268,6 +1388,7 @@ ROUTES = {
     "UserResults": page_user_results,
     "FoodDetail": page_food_detail,
     "ReservationReview": page_reservation_review,
+    "PickupConfirmation": page_pickup_confirmation,
     "Dashboard": page_dashboard,
     "Post": page_post,
     "Published": page_published,
