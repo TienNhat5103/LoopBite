@@ -1,13 +1,13 @@
 """
-API client for FamilyMart Rescue backend.
+API client for LoopBite backend.
 Talks to FastAPI at http://127.0.0.1:8000
 """
 import os
 import requests
 from typing import List, Optional, Dict, Any
 
-API_BASE = os.environ.get("FAMILYMART_API", "http://127.0.0.1:8001")
-TIMEOUT = 8
+API_BASE = os.environ.get("LOOPBITE_API", os.environ.get("FAMILYMART_API", "http://127.0.0.1:8000"))
+TIMEOUT = 2
 
 
 def _url(path: str) -> str:
@@ -116,10 +116,11 @@ def search_foods(keyword: str, user_lat: float, user_lng: float) -> Dict[str, An
 
 # ---------- HELPERS ----------
 def fmt_vnd(amount: float) -> str:
-    """Format VND: 15000 -> '15,000đ'."""
+    """Format VND without special currency glyphs."""
     if amount is None:
-        return "0đ"
-    return f"{int(amount):,}".replace(",", ",") + "đ"
+        return "0 VND"
+    return f"{int(amount):,} VND"
+
 
 
 def fmt_vnd_short(amount: float) -> str:
@@ -135,30 +136,23 @@ def fmt_vnd_short(amount: float) -> str:
 
 
 def category_emoji(category: str) -> str:
-    if not category:
-        return "🍱"
-    cat = category.lower()
-    if any(k in cat for k in ["onigiri", "cơm", "rice"]):
-        return "🍙"
-    if any(k in cat for k in ["sandwich", "bánh mì"]):
-        return "🥪"
-    if any(k in cat for k in ["bento", "cơm hộp"]):
-        return "🍱"
-    if any(k in cat for k in ["salad", "rau"]):
-        return "🥗"
-    if any(k in cat for k in ["bread", "bánh", "melon"]):
-        return "🍞"
-    if any(k in cat for k in ["drink", "nước", "trà", "tea", "coffee"]):
-        return "🥤"
-    if any(k in cat for k in ["chocolate"]):
-        return "🍫"
-    return "🍱"
+    cat = (category or "").lower()
+    if any(k in cat for k in ["pastry", "bread", "bakery", "croissant"]):
+        return "BA"
+    if any(k in cat for k in ["sandwich", "snack"]):
+        return "SN"
+    if any(k in cat for k in ["bento", "rice", "noodle", "meal"]):
+        return "ME"
+    if any(k in cat for k in ["drink", "tea", "coffee"]):
+        return "DR"
+    return "FD"
+
 
 
 def time_until(exp_str: Optional[str]) -> str:
     """Returns 'Xh left' or 'expired' from ISO datetime string."""
     if not exp_str:
-        return "—"
+        return "-"
     try:
         from datetime import datetime, timezone
         # Backend returns timezone-aware ISO like "2026-03-30T17:00:00Z"
@@ -177,4 +171,4 @@ def time_until(exp_str: Optional[str]) -> str:
         days = hours // 24
         return f"{days}d left"
     except Exception:
-        return "—"
+        return "-"
