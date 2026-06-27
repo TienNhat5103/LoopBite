@@ -1,6 +1,7 @@
 from fastapi import APIRouter
+from .food_router import router as food_router  # Import router vừa viết từ file food_router.py
 
+api_router = APIRouter()
 
-api_router = APIRouter(prefix="/api/v1")
-
-
+# Đăng ký router đồ ăn vào hệ thống API chính
+api_router.include_router(food_router)
