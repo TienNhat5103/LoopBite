@@ -1,6 +1,5 @@
 """
-FamilyMart Rescue - Merchant Dashboard
-Mobile-first Streamlit UI for merchants to manage rescue food listings.
+LoopBite MVP - Streamlit demo for users and merchants.
 """
 import streamlit as st
 from datetime import datetime, timedelta
@@ -29,8 +28,8 @@ def _cached_merchants():
 # PAGE CONFIG
 # ============================================================
 st.set_page_config(
-    page_title="FamilyMart Rescue",
-    page_icon="🟢",
+    page_title="LoopBite",
+    page_icon="LB",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
@@ -120,6 +119,73 @@ header {visibility: hidden;}
 
 /* Hide default sidebar nav */
 section[data-testid="stSidebarNav"] {display: none;}
+/* MVP mode switch */
+.mode-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+.mode-label {
+    font-size: 0.78rem;
+    color: var(--text-gray);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* User home */
+.user-hero {
+    background: linear-gradient(135deg, #0F8A4B 0%, #1FBF75 52%, #F6C85F 100%);
+    color: #FFFFFF;
+    padding: 1.15rem;
+    border-radius: 0 0 18px 18px;
+    margin: -1rem -1rem 1rem -1rem;
+}
+.user-hero h1 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.05;
+    letter-spacing: 0;
+}
+.user-hero p {
+    margin: 0.5rem 0 0 0;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95rem;
+}
+.search-panel {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.location-ready {
+    background: #E6F7EE;
+    border: 1px solid #BFEBD1;
+    color: #075C2D;
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-size: 0.88rem;
+    margin: 0.5rem 0 0.75rem 0;
+}
+.location-missing {
+    background: #FFF7E0;
+    border: 1px solid #F6D58A;
+    color: #6B4B00;
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-size: 0.88rem;
+    margin: 0.5rem 0 0.75rem 0;
+}
+.demo-note {
+    color: var(--text-gray);
+    font-size: 0.82rem;
+    margin-top: 0.4rem;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -128,14 +194,160 @@ section[data-testid="stSidebarNav"] {display: none;}
 # ============================================================
 # SESSION STATE
 # ============================================================
+if "mode" not in st.session_state:
+    st.session_state.mode = "User App"
 if "page" not in st.session_state:
-    st.session_state.page = "Dashboard"
+    st.session_state.page = "UserHome"
+if "user_search_query" not in st.session_state:
+    st.session_state.user_search_query = "pastry"
+if "location_allowed" not in st.session_state:
+    st.session_state.location_allowed = False
+if "user_lat" not in st.session_state:
+    st.session_state.user_lat = 10.7769
+if "user_lng" not in st.session_state:
+    st.session_state.user_lng = 106.7009
 
 
 def navigate(page_name: str):
     """Change current page."""
     st.session_state.page = page_name
     st.rerun()
+
+
+def set_mode(mode_name: str):
+    """Switch between the user demo and merchant portal."""
+    st.session_state.mode = mode_name
+    st.session_state.page = "UserHome" if mode_name == "User App" else "Dashboard"
+    st.rerun()
+
+
+def set_user_search_query(term: str):
+    """Set the search field from a quick-search button."""
+    st.session_state.user_search_query = term
+
+def render_mode_switch():
+    st.markdown(
+        """
+<div class="mode-card">
+    <div class="mode-label">Demo mode</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    user_col, merchant_col = st.columns(2)
+    with user_col:
+        user_label = "User App active" if st.session_state.mode == "User App" else "User App"
+        if st.button(user_label, key="mode_user", use_container_width=True):
+            set_mode("User App")
+    with merchant_col:
+        merchant_label = "Merchant active" if st.session_state.mode == "Merchant Portal" else "Merchant Portal"
+        if st.button(merchant_label, key="mode_merchant", use_container_width=True):
+            set_mode("Merchant Portal")
+
+
+# ============================================================
+# PAGE: USER HOME / SEARCH
+# ============================================================
+def page_user_home():
+    st.markdown(
+        """
+<div class="user-hero">
+    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
+    <h1>Find rescue food nearby</h1>
+    <p>Affordable food before it goes to waste. Built for students, late-night eaters, and anyone watching their budget.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown('<div class="search-panel">', unsafe_allow_html=True)
+    st.markdown("### What are you craving?")
+    st.text_input(
+        "Search food",
+        key="user_search_query",
+        placeholder="Try pastry, bread, noodles, snacks...",
+        label_visibility="collapsed",
+    )
+
+    st.markdown("Quick searches")
+    quick_terms = ["bread", "pastry", "noodles", "snacks", "late-night food"]
+    quick_cols = st.columns(3)
+    for index, term in enumerate(quick_terms):
+        with quick_cols[index % 3]:
+            st.button(
+                term.title(),
+                key=f"quick_{term}",
+                use_container_width=True,
+                on_click=set_user_search_query,
+                args=(term,),
+            )
+
+    st.markdown("### Location")
+    if st.session_state.location_allowed:
+        st.markdown(
+            """
+<div class="location-ready">
+    Demo location is ready: District 1, Ho Chi Minh City.
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            """
+<div class="location-missing">
+    Use a demo location to find nearby rescue food.
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+
+    if st.button("Use my demo location", key="allow_location", use_container_width=True):
+        st.session_state.location_allowed = True
+        st.session_state.user_lat = 10.7769
+        st.session_state.user_lng = 106.7009
+        st.rerun()
+
+    query = st.session_state.user_search_query.strip()
+    if st.button("Search nearby food", key="search_nearby", type="primary", use_container_width=True):
+        if not query:
+            st.warning("Enter a food keyword first.")
+        elif not st.session_state.location_allowed:
+            st.warning("Use the demo location first so LoopBite can sort nearby food.")
+        else:
+            navigate("UserResults")
+
+    st.markdown('<div class="demo-note">MVP demo tip: use Pastry to follow the short flow from search to pickup code.</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+# ============================================================
+# PAGE: USER RESULTS PLACEHOLDER
+# ============================================================
+def page_user_results():
+    st.markdown(
+        """
+<div class="user-hero">
+    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
+    <h1>Nearby rescue food</h1>
+    <p>The next MVP slice will turn this into map and list results.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        f"""
+<div class="food-card">
+    <div style="font-size:0.8rem; color:#6B7280; font-weight:700; text-transform:uppercase;">Search ready</div>
+    <div style="font-size:1.2rem; font-weight:700; margin-top:0.25rem;">{st.session_state.user_search_query.title()}</div>
+    <div style="font-size:0.88rem; color:#6B7280; margin-top:0.25rem;">Location: District 1 demo coordinates ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    st.info("Results, filters, and food detail cards are planned next. This screen confirms the search entry flow is wired.")
+    if st.button("Back to search", use_container_width=True):
+        navigate("UserHome")
 
 
 # ============================================================
@@ -587,7 +799,12 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
+USER_ROUTES = {"UserHome", "UserResults"}
+MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
+
 ROUTES = {
+    "UserHome": page_user_home,
+    "UserResults": page_user_results,
     "Dashboard": page_dashboard,
     "Post": page_post,
     "Published": page_published,
@@ -596,5 +813,12 @@ ROUTES = {
 }
 
 # Render selected page
-page_fn = ROUTES.get(st.session_state.page, page_dashboard)
+if st.session_state.mode == "User App" and st.session_state.page not in USER_ROUTES:
+    st.session_state.page = "UserHome"
+elif st.session_state.mode == "Merchant Portal" and st.session_state.page not in MERCHANT_ROUTES:
+    st.session_state.page = "Dashboard"
+
+render_mode_switch()
+page_fn = ROUTES.get(st.session_state.page, page_user_home)
 page_fn()
+
