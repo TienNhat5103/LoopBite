@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FamilyMart - Tìm cửa hàng gần nhất</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #header {
+            background: linear-gradient(135deg, #0066b3 0%, #004a82 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        #header h1 {
+            font-size: 1.5em;
+        }
+        #header .subtitle {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        #main-container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+        #sidebar {
+            width: 380px;
+            background: #f8f9fa;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+        #search-section {
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        #search-section h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1em;
+        }
+        .search-box {
+            display: flex;
+            gap: 8px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #0066b3;
+        }
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #0066b3;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #004a82;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        #location-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+        #results-section {
+            padding: 15px;
+        }
+        #results-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        .store-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid #0066b3;
+        }
+        .store-card:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            transform: translateX(3px);
+        }
+        .store-card.nearest {
+            border-left-color: #28a745;
+            background: #f8fff8;
+        }
+        .store-card .rank {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #0066b3;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .store-card.nearest .rank {
+            background: #28a745;
+        }
+        .store-card .name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+        .store-card .address {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+        .store-card .meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+        }
+        .store-card .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .store-card .distance {
+            color: #0066b3;
+            font-weight: 600;
+        }
+        .store-card .direction {
+            color: #666;
+        }
+        .store-card .instructions {
+            background: #f0f7ff;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: #444;
+        }
+        .store-card .instructions li {
+            margin: 4px 0;
+        }
+        #map {
+            flex: 1;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0066b3;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .user-marker {
+            background: #ff4757;
+            border: 3px solid white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            box-shadow: 0 2px 8px rgba(255,71,87,0.4);
+        }
+        .custom-marker {
+            background: #0066b3;
+            border: 3px solid white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .leaflet-popup-content-wrapper {
+            border-radius: 10px;
+        }
+        .popup-content h3 {
+            color: #0066b3;
+            margin-bottom: 8px;
+        }
+        .popup-content p {
+            margin: 4px 0;
+            color: #555;
+        }
+        #instructions-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            max-width: 320px;
+            z-index: 1000;
+            display: none;
+        }
+        #instructions-panel.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #instructions-panel h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        #instructions-panel .step {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+            align-items: flex-start;
+        }
+        #instructions-panel .step-num {
+            background: #0066b3;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        #instructions-panel .step-text {
+            font-size: 0.9em;
+            color: #333;
+        }
+        #close-instructions {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+        }
+        #close-instructions:hover {
+            color: #333;
+        }
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        .no-results p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div>
+            <h1>🏪 FamilyMart Vietnam</h1>
+            <div class="subtitle">Tìm cửa hàng gần nhất</div>
+        </div>
+        <div id="stats">
+            <span id="store-count">70</span> cửa hàng
+        </div>
+    </div>
+
+    <div id="main-container">
+        <div id="sidebar">
+            <div id="search-section">
+                <h3>📍 Tìm vị trí của bạn</h3>
+                <div class="search-box">
+                    <input type="text" id="lat-input" placeholder="Vĩ độ (VD: 10.776889)">
+                    <input type="text" id="lng-input" placeholder="Kinh độ (VD: 106.700897)">
+                    <button class="btn btn-primary" onclick="findNearby()">Tìm</button>
+                </div>
+                <button class="btn btn-secondary" id="location-btn" onclick="getCurrentLocation()">
+                    📍 Dùng vị trí hiện tại
+                </button>
+            </div>
+
+            <div id="results-section">
+                <h3>📋 Kết quả</h3>
+                <div id="results-list">
+                    <div class="no-results">
+                        <p>Nhập vị trí để tìm cửa hàng gần nhất</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <div id="instructions-panel">
+        <button id="close-instructions" onclick="closeInstructions()">×</button>
+        <h4>🧭 Hướng dẫn đường đi</h4>
+        <div id="instructions-content"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        
+        // Initialize map
+        const map = L.map('map').setView([10.776889, 106.700897], 12);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap',
+            maxZoom: 19
+        }).addTo(map);
+
+        let userMarker = null;
+        let storeMarkers = [];
+        let allStores = [];
+
+        // Custom icons
+        const userIcon = L.divIcon({
+            className: 'user-marker',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        const storeIcon = L.divIcon({
+            className: 'custom-marker',
+            html: '🏪',
+            iconSize: [36, 36],
+            iconAnchor: [18, 18],
+            popupAnchor: [0, -18]
+        });
+
+        // Load all stores
+        async function loadStores() {
+            try {
+                const response = await fetch(`${API_URL}/api/stores`);
+                const data = await response.json();
+                if (data.success) {
+                    allStores = data.data;
+                    document.getElementById('store-count').textContent = allStores.length;
+                    // Add all markers
+                    allStores.forEach(store => {
+                        L.marker([store.lat, store.lng], { icon: storeIcon })
+                            .addTo(map)
+                            .bindPopup(`<div class="popup-content"><h3>${store.name}</h3><p>${store.address}</p></div>`);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading stores:', error);
+            }
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        document.getElementById('lat-input').value = lat.toFixed(6);
+                        document.getElementById('lng-input').value = lng.toFixed(6);
+                        findNearby();
+                    },
+                    (error) => {
+                        alert('Không thể lấy vị trí: ' + error.message);
+                    }
+                );
+            } else {
+                alert('Trình duyệt không hỗ trợ Geolocation');
+            }
+        }
+
+        // Find nearby stores
+        async function findNearby() {
+            const lat = parseFloat(document.getElementById('lat-input').value);
+            const lng = parseFloat(document.getElementById('lng-input').value);
+
+            if (isNaN(lat) || isNaN(lng)) {
+                alert('Vui lòng nhập vĩ độ và kinh độ hợp lệ');
+                return;
+            }
+
+            const resultsList = document.getElementById('results-list');
+            resultsList.innerHTML = '<div class="loading"><div class="spinner"></div><p>Đang tìm cửa hàng...</p></div>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/directions?lat=${lat}&lng=${lng}&limit=10`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResults(data.nearestStores, lat, lng);
+                }
+            } catch (error) {
+                resultsList.innerHTML = '<div class="no-results"><p>Không thể kết nối API. Vui lòng chạy server: <code>npm start</code></p></div>';
+                console.error('Error:', error);
+            }
+        }
+
+        // Display results
+        function displayResults(stores, userLat, userLng) {
+            const resultsList = document.getElementById('results-list');
+            resultsList.innerHTML = '';
+
+            // Clear existing markers
+            storeMarkers.forEach(m => map.removeLayer(m));
+            storeMarkers = [];
+
+            // Add user marker
+            if (userMarker) map.removeLayer(userMarker);
+            userMarker = L.marker([userLat, userLng], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<b>📍 Vị trí của bạn</b>');
+
+            // Fit bounds
+            const bounds = L.latLngBounds([[userLat, userLng]]);
+            stores.forEach((store, index) => {
+                const marker = L.marker([store.lat, store.lng], { icon: storeIcon })
+                    .addTo(map)
+                    .bindPopup(`
+                        <div class="popup-content">
+                            <h3>${store.name}</h3>
+                            <p><strong>Địa chỉ:</strong> ${store.address}</p>
+                            <p><strong>Khoảng cách:</strong> ${store.distanceKm} km</p>
+                            <p><strong>Hướng:</strong> ${store.direction}</p>
+                        </div>
+                    `);
+                storeMarkers.push(marker);
+                bounds.extend([store.lat, store.lng]);
+            });
+
+            map.fitBounds(bounds.pad(0.1));
+
+            // Display store cards
+            stores.forEach((store, index) => {
+                const card = document.createElement('div');
+                card.className = 'store-card' + (index === 0 ? ' nearest' : '');
+                card.onclick = () => {
+                    map.setView([store.lat, store.lng], 16);
+                    storeMarkers[index].openPopup();
+                };
+
+                card.innerHTML = `
+                    <div class="name"><span class="rank">${index + 1}</span>${store.name}</div>
+                    <div class="address">${store.address}</div>
+                    <div class="meta">
+                        <span class="distance">📏 ${store.distanceKm} km</span>
+                        <span class="direction">🧭 ${store.direction}</span>
+                    </div>
+                    ${index === 0 ? `
+                        <ul class="instructions">
+                            <li>🔹 Từ vị trí của bạn, đi theo hướng <strong>${store.direction}</strong> (${store.bearing}°)</li>
+                            <li>🔹 Di chuyển khoảng <strong>${store.distanceKm} km</strong></li>
+                            <li>🔹 Đến địa chỉ: ${store.address}</li>
+                        </ul>
+                    ` : ''}
+                `;
+                resultsList.appendChild(card);
+            });
+
+            // Show instructions panel for nearest store
+            if (stores.length > 0) {
+                showInstructions(stores[0]);
+            }
+        }
+
+        // Show instructions panel
+        function showInstructions(store) {
+            const panel = document.getElementById('instructions-panel');
+            const content = document.getElementById('instructions-content');
+            
+            content.innerHTML = `
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <span class="step-text">Từ vị trí của bạn, đi theo hướng <strong>${store.direction}</strong></span>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <span class="step-text">Di chuyển khoảng <strong>${store.distanceKm} km</strong></span>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <span class="step-text">Đến <strong>${store.name}</strong></span>
+                </div>
+            `;
+            panel.classList.add('show');
+        }
+
+        // Close instructions
+        function closeInstructions() {
+            document.getElementById('instructions-panel').classList.remove('show');
+        }
+
+        // Load stores on init
+        loadStores();
+    </script>
+</body>
+</html>
