@@ -357,6 +357,64 @@ section[data-testid="stSidebarNav"] {display: none;}
     color: var(--text-dark);
     text-align: center;
 }
+.delivery-panel {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem;
+    margin: 0.9rem 0 0.75rem 0;
+}
+.delivery-provider-row {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 0.95rem;
+    flex-wrap: nowrap;
+}
+.delivery-provider-card {
+    flex: 1 1 0;
+    min-width: 0;
+    background: #F9FAFB;
+    border: 1px solid #E7ECF3;
+    border-radius: 14px;
+    padding: 0.9rem 0.6rem 0.75rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+}
+.delivery-provider-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+.delivery-provider-logo.grab {
+    background: linear-gradient(135deg, #E7FFF2 0%, #C8F8DD 100%);
+    color: #00A040;
+}
+.delivery-provider-logo.be {
+    background: linear-gradient(135deg, #FFF6D6 0%, #FFE48A 100%);
+    color: #20252E;
+    font-size: 1.25rem;
+}
+.delivery-provider-logo.ahamove {
+    background: linear-gradient(135deg, #FFF0EE 0%, #FFD8D2 100%);
+    color: #D84C3F;
+}
+.delivery-provider-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    text-align: center;
+    line-height: 1.2;
+}
 .result-title {
     font-weight: 800;
     color: var(--text-dark);
@@ -516,6 +574,26 @@ section[data-testid="stSidebarNav"] {display: none;}
     .search-panel h3 {
         font-size: 1.2rem;
         margin-bottom: 0.6rem;
+    }
+
+    .delivery-provider-row {
+        gap: 0.6rem;
+    }
+
+    .delivery-provider-card {
+        padding: 0.75rem 0.45rem 0.65rem 0.45rem;
+        border-radius: 12px;
+    }
+
+    .delivery-provider-logo {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 14px;
+        font-size: 1.28rem;
+    }
+
+    .delivery-provider-logo.be {
+        font-size: 1.05rem;
     }
 
     div[data-testid="stHorizontalBlock"] {
@@ -1236,9 +1314,18 @@ def page_reservation_review():
     <div class="result-title" style="font-size:0.98rem;">Choose delivery partner</div>
     <div class="result-meta">A nearby driver will be matched for this demo reservation.</div>
     <div class="delivery-provider-row">
-        <div class="delivery-provider-card"><div class="delivery-provider-logo">G</div><div class="delivery-provider-name">Grab</div></div>
-        <div class="delivery-provider-card"><div class="delivery-provider-logo">be</div><div class="delivery-provider-name">Be</div></div>
-        <div class="delivery-provider-card"><div class="delivery-provider-logo">A</div><div class="delivery-provider-name">AhaMove</div></div>
+        <div class="delivery-provider-card">
+            <div class="delivery-provider-logo grab">G</div>
+            <div class="delivery-provider-name">Grab</div>
+        </div>
+        <div class="delivery-provider-card">
+            <div class="delivery-provider-logo be">B</div>
+            <div class="delivery-provider-name">Be</div>
+        </div>
+        <div class="delivery-provider-card">
+            <div class="delivery-provider-logo ahamove">A</div>
+            <div class="delivery-provider-name">AhaMove</div>
+        </div>
     </div>
 </div>
 """,
