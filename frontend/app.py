@@ -579,9 +579,27 @@ def set_mode(mode_name: str):
     st.rerun()
 
 
-def set_user_search_query(term: str):
-    """Set the search field from a quick-search button."""
-    st.session_state.user_search_query = term
+def get_query_param(name: str, default=None):
+    """Read a query param across Streamlit versions."""
+    if hasattr(st, "query_params"):
+        value = st.query_params.get(name, default)
+        if isinstance(value, list):
+            return value[0] if value else default
+        return value
+    if hasattr(st, "experimental_get_query_params"):
+        value = st.experimental_get_query_params().get(name, [default])
+        return value[0] if value else default
+    return default
+
+
+def clear_query_params():
+    """Clear query params across Streamlit versions."""
+    if hasattr(st, "query_params"):
+        st.query_params.clear()
+        return
+    if hasattr(st, "experimental_set_query_params"):
+        st.experimental_set_query_params()
+
 
 def vnd(amount):
     """Display VND without relying on special currency glyphs."""
@@ -693,10 +711,15 @@ def dish_image_src(value):
 def render_quick_search_card(term):
     st.markdown(
         f"""
-<div class="quick-search-card">
-    <img class="quick-search-image" src="{dish_image_src(term)}" alt="{term.title()}" />
-    <div class="quick-search-title">{term.title()}</div>
-</div>
+<form method="get" style="margin:0;">
+    <input type="hidden" name="quick_search" value="{term}" />
+    <button type="submit" style="all:unset; display:block; width:100%; cursor:pointer;">
+        <div class="quick-search-card">
+            <img class="quick-search-image" src="{dish_image_src(term)}" alt="{term.title()}" />
+            <div class="quick-search-title">{term.title()}</div>
+        </div>
+    </button>
+</form>
 """,
         unsafe_allow_html=True,
     )
@@ -963,6 +986,11 @@ def confirm_pickup():
 # PAGE: USER HOME / SEARCH
 # ============================================================
 def page_user_home():
+    quick_search = get_query_param("quick_search")
+    if quick_search:
+        st.session_state.user_search_query = quick_search
+        clear_query_params()
+
     st.markdown(
         """
 <div class="user-hero">
@@ -988,13 +1016,6 @@ def page_user_home():
     for index, term in enumerate(quick_terms):
         with quick_cols[index % 3]:
             render_quick_search_card(term)
-            st.button(
-                "Search",
-                key=f"quick_{term}",
-                use_container_width=True,
-                on_click=set_user_search_query,
-                args=(term,),
-            )
 
     st.markdown("### Location")
     if st.session_state.location_allowed:
