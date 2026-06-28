@@ -8,27 +8,14 @@
 
 ## 1. System Overview
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                  📱 Frontend (Streamlit)                     │
-│  app.py — ~1973 lines, mobile-first, port 8081               │
-│  Pages: User Home, Merchant, Auth (Login / Register)         │
-└──────────────────────┬───────────────────────────────────────┘
-                       │ HTTP / JSON (requests)
-                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│                  ⚙️ Backend (FastAPI)                       │
-│  7 routers, JWT auth (HTTPBearer), port 8000               │
-│  Routers: merchants, food, orders, order_items, profiles,  │
-│           auth, search_engines                               │
-└──────────────────────┬───────────────────────────────────────┘
-                       │ supabase-py (PostgREST)
-                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│              🗄️ Supabase (Postgres + Auth + Storage)        │
-│  Tables: merchants, food, orders, order_items, profiles     │
-│  Auth: auth.users (Supabase built-in)                       │
-└──────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    FE["Frontend (Streamlit)<br/>app.py<br/>Mobile-first UI, port 8081<br/>Pages: User Home, Merchant, Auth"]
+    BE["Backend (FastAPI)<br/>7 routers, JWT auth via HTTPBearer<br/>Port 8000<br/>Routers: merchants, food, orders, order_items, profiles, auth, search_engines"]
+    SB["Supabase<br/>Postgres + Auth + Storage<br/>Tables: merchants, food, orders, order_items, profiles<br/>Auth: auth.users"]
+
+    FE -->|"HTTP / JSON (requests)"| BE
+    BE -->|"supabase-py (PostgREST)"| SB
 ```
 
 ---
@@ -228,45 +215,65 @@ Logic:
 
 ### 5.1 ER Diagram
 
-```
-┌──────────────┐         ┌──────────────┐         ┌──────────────┐
-│  merchants   │ 1     N │     food     │         │   orders     │
-│──────────────│─────────│──────────────│         │──────────────│
-│ id (PK)     │         │ id (PK)     │    N   1 │ id (PK)     │
-│ name         │         │ merchant_id  │─────────►│ user_id (FK) │
-│ address      │         │ name         │         │ amount       │
-│ latitude     │         │ category     │         │ purchase_type│
-│ longitude    │         │ price        │         │ status       │
-└──────────────┘         │ quantity     │         └──────┬───────┘
-                         │ status       │                │
-                         │ expiry_time  │                │ 1
-                         │ best_before  │                ▼
-                         │ (image_url)  │         ┌──────────────┐
-                         └──────────────┘         │ order_items  │
-                                                 │──────────────│
-                                                 │ id (PK)     │
-                                                 │ order_id(FK) │
-                                                 │ food_id (FK) │
-                                                 │ quantity     │
-                                                 │ total_price  │
-                                                 └──────────────┘
+```mermaid
+erDiagram
+    MERCHANTS ||--o{ FOOD : "has"
+    FOOD ||--o{ ORDER_ITEMS : "appears in"
+    ORDERS ||--o{ ORDER_ITEMS : "contains"
+    PROFILES ||--o{ ORDERS : "places"
+    AUTH_USERS ||--|| PROFILES : "maps to"
 
-┌──────────────────────────────────────────────────────────────────┐
-│                 auth.users (Supabase built-in)                   │
-│──────────────────────────────────────────────────────────────────│
-│  id (uuid, PK)  ──────────── FK ────────────► profiles.id (uuid) │
-│  email           ──────────────────────────► profiles.email     │
-└──────────────────────────────────────────────────────────────────┘
+    MERCHANTS {
+        int8 id PK
+        text name
+        text address
+        float8 latitude
+        float8 longitude
+    }
 
-┌──────────────┐
-│   profiles   │
-│──────────────│
-│ id (uuid,PK) │
-│ email        │
-│ role         │  ← "customer" | "merchant"
-│ full_name    │
-│ created_at   │
-└──────────────┘
+    FOOD {
+        int8 id PK
+        int8 merchant_id FK
+        text name
+        text category
+        numeric price
+        int4 quantity
+        text status
+        timestamptz expiry_time
+        time best_before_time
+        text image_url_planned
+        numeric original_price_planned
+        timestamptz pickup_start_end_planned
+    }
+
+    ORDERS {
+        int8 id PK
+        uuid user_id FK
+        numeric amount
+        text purchase_type
+        text status
+    }
+
+    ORDER_ITEMS {
+        int8 id PK
+        int8 order_id FK
+        int8 food_id FK
+        int4 quantity
+        numeric total_price
+    }
+
+    AUTH_USERS {
+        uuid id PK
+        text email
+    }
+
+    PROFILES {
+        uuid id PK
+        text email
+        text role
+        text full_name
+        timestamptz created_at
+    }
 ```
 
 ### 5.2 Table: `merchants`
@@ -326,77 +333,97 @@ Logic:
 ## 6. Data Flows
 
 ### 6.1 Authentication Flow
-```
-User                      Frontend                    Backend                    Supabase
- │                           │                           │                           │
- │── Register ──────────────►│                           │                           │
- │                           │── POST /auth/register ──►│                           │
- │                           │                           │── sign_up ───────────────►│
- │                           │                           │   (DB trigger: insert     │
- │                           │                           │    profiles.id=auth.uid)   │
- │◄── "Check email" ─────────│                           │◄─────────────────────────│
- │                           │                           │                           │
- │── Login ────────────────►│                           │                           │
- │                           │── POST /auth/login ──────►│                           │
- │                           │                           │── sign_in_with_password ─►│
- │                           │                           │◄── access_token (JWT) ────│
- │                           │◄── { access_token, ... }│                           │
- │                           │                           │                           │
- │  [Store token in st.session_state.token]             │                           │
- │                           │                           │                           │
- │── GET /auth/me ──────────────────────────────────►│                           │
- │                           │                           │── get_user(token) ───────►│
- │                           │                           │◄── user.id ───────────────│
- │                           │                           │── profiles.select(id) ──►│
- │                           │◄── { auth_id, profile } ─│                           │
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant Backend
+    participant Supabase
+
+    User->>Frontend: Register
+    Frontend->>Backend: POST /auth/register
+    Backend->>Supabase: sign_up
+    Note over Backend,Supabase: DB trigger inserts profiles.id = auth.uid
+    Supabase-->>Backend: Sign-up result
+    Backend-->>Frontend: Check email
+    Frontend-->>User: Check email
+
+    User->>Frontend: Login
+    Frontend->>Backend: POST /auth/login
+    Backend->>Supabase: sign_in_with_password
+    Supabase-->>Backend: access_token (JWT)
+    Backend-->>Frontend: access_token and profile data
+    Note over Frontend: Store token in st.session_state.token
+
+    Frontend->>Backend: GET /auth/me
+    Backend->>Supabase: get_user(token)
+    Supabase-->>Backend: user.id
+    Backend->>Supabase: profiles.select(id)
+    Supabase-->>Backend: profile
+    Backend-->>Frontend: auth_id and profile
 ```
 
 ### 6.2 Order Creation Flow (Server-Side Price Protection)
-```
-Customer                  Frontend                    Backend                    Supabase
-  │                           │                           │                           │
-  │── Submit cart ───────────►│                           │                           │
-  │   items=[{food_id,qty}]   │                           │                           │
-  │                           │── POST /orders ─────────►│                           │
-  │                           │  Bearer token             │                           │
-  │                           │                           │── JWT decode ────────────►│
-  │                           │                           │◄── user.id ───────────────│
-  │                           │                           │                           │
-  │                           │                           │── for each item:          │
-  │                           │                           │    food.select(price) ───►│
-  │                           │                           │◄── price ─────────────────│
-  │                           │                           │    total += price × qty    │
-  │                           │                           │                           │
-  │                           │                           │── orders.insert({amount})►│
-  │                           │                           │── order_items.bulk_insert  │
-  │                           │                           │   ([{food_id,qty,total}])  │
-  │                           │◄── { order_id, amount } │                           │
+```mermaid
+sequenceDiagram
+    actor Customer
+    participant Frontend
+    participant Backend
+    participant Supabase
+
+    Customer->>Frontend: Submit cart items with food_id and qty
+    Frontend->>Backend: POST /orders (Bearer token)
+    Backend->>Supabase: JWT decode
+    Supabase-->>Backend: user.id
+
+    loop For each cart item
+        Backend->>Supabase: food.select(price)
+        Supabase-->>Backend: price
+        Note over Backend: total += price x qty
+    end
+
+    Backend->>Supabase: orders.insert(amount)
+    Backend->>Supabase: order_items.bulk_insert(food_id, qty, total)
+    Backend-->>Frontend: order_id and amount
 ```
 
 ### 6.3 Merchant Creates Food Item
-```
-Merchant                  Frontend                    Backend                    Supabase
-  │                           │                           │                           │
-  │── Fill form ─────────────►│                           │                           │
-  │   POST /api/v1/food/       │                           │                           │
-  │                           │── POST /food/ ──────────►│                           │
-  │                           │                           │── insert ────────────────►│
-  │                           │◄── { id, ... } ─────────│                           │
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+    participant Supabase
+
+    Merchant->>Frontend: Fill form
+    Note over Frontend: POST /api/v1/food/
+    Frontend->>Backend: POST /food/
+    Backend->>Supabase: insert
+    Supabase-->>Backend: created food item
+    Backend-->>Frontend: created food item
 ```
 
 ### 6.4 Merchant Updates Food (with Role Check)
-```
-Merchant                  Frontend                    Backend                    Supabase
-  │                           │                           │                           │
-  │── PUT /food/{id} ────────►│── PUT /food/{id} ───────►│                           │
-  │   Bearer token             │  Bearer token             │                           │
-  │                           │                           │── verify_merchant_role:   │
-  │                           │                           │    JWT decode ───────────►│
-  │                           │                           │    profiles.select(role)──►│
-  │                           │                           │    if role != "merchant"  │
-  │                           │                           │       → 403 Forbidden     │
-  │                           │                           │── update food ───────────►│
-  │                           │◄── { id, price, qty } ──│                           │
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+    participant Supabase
+
+    Merchant->>Frontend: PUT /food/{id}
+    Frontend->>Backend: PUT /food/{id} (Bearer token)
+    Backend->>Supabase: JWT decode
+    Supabase-->>Backend: user id
+    Backend->>Supabase: profiles.select(role)
+    Supabase-->>Backend: role
+    alt role != merchant
+        Backend-->>Frontend: 403 Forbidden
+    else role == merchant
+        Backend->>Supabase: update food
+        Supabase-->>Backend: updated food item
+        Backend-->>Frontend: updated food item
+    end
 ```
 
 ---
@@ -451,32 +478,32 @@ See `tests/README.md` for details. Test structure:
 
 ## 10. Deployment (Physical)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Windows Laptop (Dev)                                       │
-│                                                             │
-│  Terminal 1:  python backend/main.py  → FastAPI :8000       │
-│  Terminal 2:  streamlit run frontend/app.py → :8081        │
-│  Terminal 3:  pytest tests/                                 │
-│                                                             │
-│  Browser:  http://localhost:8081   (Streamlit UI)           │
-│                                                             │
-└────────────────────────┬────────────────────────────────────┘
-                         │ HTTPS / PostgREST
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Supabase Cloud                                            │
-│  tgvtlfzkjbzakdkaapfk.supabase.co                         │
-│                                                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-│  │  Auth    │  │ Profiles  │  │ Orders   │  │  Food    │     │
-│  │ (JWT)    │  │ (RLS opt.) │  │          │  │          │     │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
-│                                                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                   │
-│  │Merchants │  │OrderItems │  │ Storage  │ (planned)        │
-│  └──────────┘  └──────────┘  └──────────┘                   │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph DEV["Windows Laptop (Dev)"]
+        T1["Terminal 1<br/>python backend/main.py<br/>FastAPI :8000"]
+        T2["Terminal 2<br/>streamlit run frontend/app.py<br/>Streamlit :8081"]
+        T3["Terminal 3<br/>pytest tests/"]
+        Browser["Browser<br/>http://localhost:8081"]
+    end
+
+    subgraph CLOUD["Supabase Cloud"]
+        Auth["Auth (JWT)"]
+        Profiles["Profiles (RLS opt.)"]
+        Orders["Orders"]
+        Food["Food"]
+        Merchants["Merchants"]
+        OrderItems["OrderItems"]
+        Storage["Storage (planned)"]
+    end
+
+    Browser -->|"Streamlit UI"| T2
+    T2 -->|"HTTP / JSON"| T1
+    T1 -->|"HTTPS / PostgREST"| CLOUD
+    Auth --- Profiles
+    Orders --- OrderItems
+    Food --- Merchants
+    Food --- Storage
 ```
 
 ---
