@@ -406,6 +406,71 @@ section[data-testid="stSidebarNav"] {display: none;}
     font-size: 0.9rem;
     margin-bottom: 0.85rem;
 }
+.delivery-panel {
+    background: #F3FAF6;
+    border: 1px solid #BFEBD1;
+    border-radius: 12px;
+    padding: 0.9rem;
+    margin: 0.55rem 0 1rem 0;
+}
+.delivery-provider-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+}
+.delivery-provider-card {
+    background: #FFFFFF;
+    border: 1px solid #DDEBE3;
+    border-radius: 10px;
+    padding: 0.65rem 0.5rem;
+    text-align: center;
+}
+.delivery-provider-logo {
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 999px;
+    background: #102A1E;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 850;
+    margin-bottom: 0.35rem;
+}
+.delivery-provider-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.delivery-status {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    margin-top: 0.75rem;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 0.7rem;
+}
+.delivery-pulse {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: #1FBF75;
+    box-shadow: 0 0 0 6px rgba(31, 191, 117, 0.14);
+    flex: 0 0 auto;
+}
+.delivery-status-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #075C2D;
+}
+.delivery-status-copy {
+    font-size: 0.78rem;
+    color: var(--text-gray);
+    margin-top: 0.12rem;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -440,6 +505,8 @@ if "mock_listings" not in st.session_state:
     st.session_state.mock_listings = []
 if "quantity_overrides" not in st.session_state:
     st.session_state.quantity_overrides = {}
+if "delivery_provider" not in st.session_state:
+    st.session_state.delivery_provider = "Grab"
 
 
 def navigate(page_name: str):
@@ -498,6 +565,11 @@ FOOD_ART = {
 <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f0fff6"/><stop offset="1" stop-color="#fff7d8"/></linearGradient></defs>
 <rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="45" y="28" width="70" height="68" rx="12" fill="#f6c85f"/><path d="M45 43h70v18H45z" fill="#1fbf75"/><circle cx="66" cy="74" r="9" fill="#ffffff" opacity=".75"/><circle cx="91" cy="74" r="9" fill="#ffffff" opacity=".75"/><path d="M57 28l-10-13M103 28l10-13" stroke="#102a1e" stroke-width="5" stroke-linecap="round" opacity=".18"/></svg>
 """,
+    "late_night": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#eaf2ff"/><stop offset="1" stop-color="#fff2bf"/></linearGradient><linearGradient id="bag" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#243b7a"/><stop offset="1" stop-color="#1fbf75"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><circle cx="118" cy="28" r="15" fill="#f6c85f"/><circle cx="124" cy="23" r="15" fill="#eaf2ff"/><path d="M49 46h62l-6 48H55z" fill="url(#bag)"/><path d="M62 47c0-15 36-15 36 0" fill="none" stroke="#102a1e" stroke-width="7" stroke-linecap="round" opacity=".2"/><rect x="56" y="58" width="48" height="11" rx="5" fill="#f6c85f"/><circle cx="70" cy="81" r="7" fill="#fff6d6"/><circle cx="91" cy="81" r="7" fill="#fff6d6"/><path d="M31 33l5 7 8-3-5 7 5 7-8-3-5 7 1-8-7-4 8-1z" fill="#ffffff" opacity=".85"/></svg>
+""",
     "meal": """
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
 <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff6d6"/><stop offset="1" stop-color="#e5f7ee"/></linearGradient></defs>
@@ -515,7 +587,9 @@ def food_art_key(value):
         return "bread"
     if any(word in text for word in ["noodle", "rice", "meal", "bento"]):
         return "noodles" if "noodle" in text else "meal"
-    if any(word in text for word in ["snack", "late-night", "sweet"]):
+    if "late-night" in text or "late night" in text:
+        return "late_night"
+    if any(word in text for word in ["snack", "sweet"]):
         return "snacks"
     return "meal"
 
@@ -1046,14 +1120,39 @@ def page_reservation_review():
 
     pickup_options = ["Pick up at store", "Mock delivery (demo only)"]
     st.radio("Pickup method", pickup_options, key="pickup_method")
+
     if st.session_state.pickup_method.startswith("Mock delivery"):
-        st.info("Delivery is shown for demo only. Store pickup is the MVP path.")
-
-    payment_options = ["Pay at counter", "Mock online payment"]
-    st.radio("Payment method", payment_options, key="payment_method")
-    if st.session_state.payment_method == "Mock online payment":
-        st.info("Online payment is mocked for the hackathon demo.")
-
+        st.markdown(
+            """
+<div class="delivery-panel">
+    <div class="result-title" style="font-size:0.98rem;">Choose delivery partner</div>
+    <div class="result-meta">A nearby driver will be matched for this demo reservation.</div>
+    <div class="delivery-provider-row">
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">G</div><div class="delivery-provider-name">Grab</div></div>
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">be</div><div class="delivery-provider-name">Be</div></div>
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">A</div><div class="delivery-provider-name">AhaMove</div></div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        st.radio("Delivery partner", ["Grab", "Be", "AhaMove"], key="delivery_provider", horizontal=True)
+        st.session_state.payment_method = "Mock online payment"
+        st.markdown(
+            f"""
+<div class="delivery-status">
+    <div class="delivery-pulse"></div>
+    <div>
+        <div class="delivery-status-title">Waiting for {st.session_state.delivery_provider} driver...</div>
+        <div class="delivery-status-copy">Estimated match: 2-4 minutes. Driver will collect the rescue item during the pickup window.</div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+    else:
+        payment_options = ["Pay at counter", "Mock online payment"]
+        st.radio("Payment method", payment_options, key="payment_method")
     existing = st.session_state.active_reservation
     if existing and existing.get("item", {}).get("id") == item.get("id"):
         st.success(f"Reservation held. Pickup code: {existing['pickup_code']}")
@@ -1071,6 +1170,7 @@ def page_reservation_review():
                 "quantity": quantity,
                 "pickup_method": st.session_state.pickup_method,
                 "payment_method": st.session_state.payment_method,
+                "delivery_provider": st.session_state.delivery_provider if st.session_state.pickup_method.startswith("Mock delivery") else None,
                 "total": total,
                 "customer": "Demo customer",
             }
@@ -1113,6 +1213,7 @@ def page_pickup_confirmation():
     <div class="review-row"><span class="review-label">Pickup time</span><span class="review-value">{item['pickup_window']}</span></div>
     <div class="review-row"><span class="review-label">Quantity</span><span class="review-value">{reservation['quantity']}</span></div>
     <div class="review-row"><span class="review-label">Total price</span><span class="review-value">{vnd(reservation['total'])}</span></div>
+    <div class="review-row"><span class="review-label">Method</span><span class="review-value">{reservation['pickup_method']}</span></div>
     <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
     <div class="review-row"><span class="review-label">Order status</span><span class="review-value">{reservation['status']}</span></div>
 </div>
