@@ -239,6 +239,59 @@ section[data-testid="stSidebarNav"] {display: none;}
     margin-bottom: 0.8rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
+.dish-image-wrap {
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    flex: 0 0 auto;
+    background: #F3F7F4;
+    border: 1px solid #E8F0EA;
+}
+.dish-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.dish-index {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.35rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: #102A1E;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.quick-search-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #FFFFFF;
+    margin-bottom: 0.45rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.quick-search-image {
+    width: 100%;
+    height: 4.2rem;
+    object-fit: cover;
+    display: block;
+}
+.quick-search-title {
+    padding: 0.45rem 0.55rem 0.55rem 0.55rem;
+    font-size: 0.82rem;
+    font-weight: 750;
+    color: var(--text-dark);
+    text-align: center;
+}
 .result-title {
     font-weight: 800;
     color: var(--text-dark);
@@ -280,16 +333,18 @@ section[data-testid="stSidebarNav"] {display: none;}
     color: #374151;
 }
 .detail-photo {
-    min-height: 10rem;
+    height: 12rem;
     border-radius: 12px;
-    background: linear-gradient(135deg, #E6F7EE 0%, #FFF7E0 100%);
-    color: #007A2F;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: 900;
+    overflow: hidden;
+    background: #F3F7F4;
     margin-bottom: 0.85rem;
+    border: 1px solid #E8F0EA;
+}
+.detail-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 .note-box {
     background: #FFFDF5;
@@ -422,6 +477,68 @@ def category_icon(category):
         return "SN"
     return "FD"
 
+FOOD_ART = {
+    "pastry": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff4cf"/><stop offset="1" stop-color="#dff7ea"/></linearGradient><linearGradient id="cr" x1="0" x2="1"><stop stop-color="#f7c45f"/><stop offset="1" stop-color="#b96a2f"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><circle cx="124" cy="23" r="28" fill="#1fbf75" opacity=".16"/><path d="M30 70c12-33 55-45 91-19-11 30-56 43-91 19z" fill="url(#cr)"/><path d="M43 66c13-11 29-14 49-9M61 79c18-5 32-13 45-28" stroke="#fff0c0" stroke-width="6" stroke-linecap="round" opacity=".7"/><ellipse cx="73" cy="91" rx="45" ry="8" fill="#102a1e" opacity=".12"/></svg>
+""",
+    "bread": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff8dd"/><stop offset="1" stop-color="#e6f7ee"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="34" y="42" width="92" height="44" rx="20" fill="#c47a35"/><path d="M43 49c9-23 31-25 38 0 8-24 34-22 39 2" fill="#e7a85e"/><path d="M54 61h53M52 73h55" stroke="#fff1c9" stroke-width="6" stroke-linecap="round" opacity=".65"/><ellipse cx="80" cy="93" rx="48" ry="7" fill="#102a1e" opacity=".12"/></svg>
+""",
+    "noodles": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#e9fff3"/><stop offset="1" stop-color="#fff0c6"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><path d="M37 64h86l-10 31H47z" fill="#1fbf75"/><path d="M43 64c5 17 69 17 76 0" fill="#f6c85f"/><path d="M50 55c18-13 39 11 58-2M48 45c20 12 42-11 62 1M60 35c11 8 26-6 38 2" fill="none" stroke="#d98b3a" stroke-width="5" stroke-linecap="round"/><circle cx="108" cy="57" r="8" fill="#ef4444" opacity=".82"/></svg>
+""",
+    "snacks": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f0fff6"/><stop offset="1" stop-color="#fff7d8"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="45" y="28" width="70" height="68" rx="12" fill="#f6c85f"/><path d="M45 43h70v18H45z" fill="#1fbf75"/><circle cx="66" cy="74" r="9" fill="#ffffff" opacity=".75"/><circle cx="91" cy="74" r="9" fill="#ffffff" opacity=".75"/><path d="M57 28l-10-13M103 28l10-13" stroke="#102a1e" stroke-width="5" stroke-linecap="round" opacity=".18"/></svg>
+""",
+    "meal": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff6d6"/><stop offset="1" stop-color="#e5f7ee"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="34" y="33" width="92" height="58" rx="14" fill="#102a1e" opacity=".9"/><rect x="43" y="42" width="37" height="40" rx="10" fill="#ffffff"/><rect x="86" y="42" width="31" height="18" rx="8" fill="#1fbf75"/><rect x="86" y="64" width="31" height="18" rx="8" fill="#f6c85f"/><circle cx="62" cy="62" r="12" fill="#f4a261"/></svg>
+""",
+}
+
+
+def food_art_key(value):
+    text = value.get("category", "") if isinstance(value, dict) else str(value or "")
+    text = text.lower()
+    if any(word in text for word in ["pastry", "croissant", "bakery"]):
+        return "pastry"
+    if "bread" in text:
+        return "bread"
+    if any(word in text for word in ["noodle", "rice", "meal", "bento"]):
+        return "noodles" if "noodle" in text else "meal"
+    if any(word in text for word in ["snack", "late-night", "sweet"]):
+        return "snacks"
+    return "meal"
+
+
+def svg_data_uri(svg):
+    encoded = svg.strip().replace("#", "%23").replace("\n", "").replace('"', "'").replace(" ", "%20")
+    return f"data:image/svg+xml;utf8,{encoded}"
+
+
+def dish_image_src(value):
+    return svg_data_uri(FOOD_ART[food_art_key(value)])
+
+
+def render_quick_search_card(term):
+    st.markdown(
+        f"""
+<div class="quick-search-card">
+    <img class="quick-search-image" src="{dish_image_src(term)}" alt="{term.title()}" />
+    <div class="quick-search-title">{term.title()}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
 def demo_results(keyword):
     """Reliable fallback data for the hackathon demo."""
@@ -517,11 +634,13 @@ def flatten_search_results(search_response, keyword):
 
 
 def map_marker_rows(results):
+    sorted_results = sorted(results, key=lambda item: item.get("distance_km", 999))
     markers = [
         {
             "lat": st.session_state.user_lat,
             "lng": st.session_state.user_lng,
             "label": "You are here",
+            "map_label": "",
             "detail": "Demo location: District 1",
             "price": "",
             "color": [246, 200, 95, 235],
@@ -529,7 +648,8 @@ def map_marker_rows(results):
         }
     ]
     seen = set()
-    for item in results:
+    pickup_number = 1
+    for item in sorted_results:
         lat = item.get("lat")
         lng = item.get("lng")
         if lat is None or lng is None:
@@ -542,13 +662,15 @@ def map_marker_rows(results):
             {
                 "lat": float(lat),
                 "lng": float(lng),
-                "label": item.get("store_name", "Rescue store"),
+                "label": f"{pickup_number}. {item.get('store_name', 'Rescue store')}",
+                "map_label": str(pickup_number),
                 "detail": f"{item.get('name', 'Rescue item')} - {item.get('distance_km', 0):.1f} km away",
                 "price": vnd(item.get("price", 0)),
-                "color": [31, 191, 117, 220],
-                "radius": 85,
+                "color": [31, 191, 117, 230],
+                "radius": 110,
             }
         )
+        pickup_number += 1
     return markers
 
 
@@ -557,7 +679,7 @@ def render_map_legend():
         """
 <div class="map-legend">
     <span class="legend-item"><span class="legend-dot legend-user"></span>Your demo location</span>
-    <span class="legend-item"><span class="legend-dot legend-store"></span>Rescue pickup point</span>
+    <span class="legend-item"><span class="legend-dot legend-store"></span>Numbered rescue pickup point</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -572,9 +694,9 @@ def render_results_map(results):
 <div class="map-panel">
     <div>
         <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Nearby map</div>
-        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup zone</div>
+        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup route</div>
     </div>
-    <div style="font-size:0.86rem; opacity:0.9;">{max(0, len(markers) - 1)} rescue options around ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
+    <div style="font-size:0.86rem; opacity:0.9;">{max(0, len(markers) - 1)} numbered rescue stops sorted by distance.</div>
 </div>
 """,
             unsafe_allow_html=True,
@@ -591,16 +713,16 @@ def render_results_map(results):
         pickable=True,
         auto_highlight=True,
     )
-    label_layer = pdk.Layer(
+    number_layer = pdk.Layer(
         "TextLayer",
         data=markers,
         get_position="[lng, lat]",
-        get_text="label",
-        get_size=12,
-        get_color=[16, 42, 30, 230],
+        get_text="map_label",
+        get_size=16,
+        get_color=[255, 255, 255, 255],
         get_text_anchor="middle",
-        get_alignment_baseline="top",
-        get_pixel_offset=[0, 12],
+        get_alignment_baseline="center",
+        font_weight=800,
     )
     deck = pdk.Deck(
         map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -610,7 +732,7 @@ def render_results_map(results):
             zoom=13.4,
             pitch=0,
         ),
-        layers=[layer, label_layer],
+        layers=[layer, number_layer],
         tooltip={"html": "<b>{label}</b><br/>{detail}<br/>{price}", "style": {"fontSize": "12px"}},
     )
     st.pydeck_chart(deck, use_container_width=True)
@@ -704,8 +826,9 @@ def page_user_home():
     quick_cols = st.columns(3)
     for index, term in enumerate(quick_terms):
         with quick_cols[index % 3]:
+            render_quick_search_card(term)
             st.button(
-                term.title(),
+                "Search",
                 key=f"quick_{term}",
                 use_container_width=True,
                 on_click=set_user_search_query,
@@ -781,7 +904,10 @@ def page_user_results():
             f"""
 <div class="result-card">
     <div style="display:flex; gap:0.8rem; align-items:flex-start;">
-        <div style="width:3.2rem; height:3.2rem; border-radius:12px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800; flex:0 0 auto;">{category_icon(item['category'])}</div>
+        <div class="dish-image-wrap">
+            <img class="dish-thumb" src="{dish_image_src(item)}" alt="{item['name']}" />
+            <div class="dish-index">{index + 1}</div>
+        </div>
         <div style="flex:1; min-width:0;">
             <div class="result-title">{item['name']}</div>
             <div class="result-meta">{item['store_name']} - {item['distance_km']:.1f} km away</div>
@@ -841,7 +967,7 @@ def page_food_detail():
     st.markdown(
         f"""
 <div class="result-card">
-    <div class="detail-photo">{category_icon(item['category'])}</div>
+    <div class="detail-photo"><img src="{dish_image_src(item)}" alt="{item['name']}" /></div>
     <div class="result-title">{item['name']}</div>
     <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
     <div class="price-row">
