@@ -471,6 +471,64 @@ section[data-testid="stSidebarNav"] {display: none;}
     color: var(--text-gray);
     margin-top: 0.12rem;
 }
+.driver-hero-card {
+    background: linear-gradient(135deg, #102A1E 0%, #0F8A4B 58%, #F6C85F 100%);
+    color: #FFFFFF;
+    border-radius: 16px;
+    padding: 1.15rem;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 10px 26px rgba(16, 42, 30, 0.18);
+}
+.driver-hero-card h2 {
+    margin: 0.35rem 0 0 0;
+    font-size: 1.55rem;
+    line-height: 1.08;
+    letter-spacing: 0;
+}
+.driver-route-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.driver-step-row {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    align-items: flex-start;
+}
+.driver-step-dot {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    background: #E6F7EE;
+    color: #007A2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+    flex: 0 0 auto;
+}
+.driver-step-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.driver-step-copy {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-top: 0.1rem;
+}
+.driver-waiting-panel {
+    background: #F3FAF6;
+    border: 1px solid #BFEBD1;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.9rem;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -1138,18 +1196,6 @@ def page_reservation_review():
         )
         st.radio("Delivery partner", ["Grab", "Be", "AhaMove"], key="delivery_provider", horizontal=True)
         st.session_state.payment_method = "Mock online payment"
-        st.markdown(
-            f"""
-<div class="delivery-status">
-    <div class="delivery-pulse"></div>
-    <div>
-        <div class="delivery-status-title">Waiting for {st.session_state.delivery_provider} driver...</div>
-        <div class="delivery-status-copy">Estimated match: 2-4 minutes. Driver will collect the rescue item during the pickup window.</div>
-    </div>
-</div>
-""",
-            unsafe_allow_html=True,
-        )
     else:
         payment_options = ["Pay at counter", "Mock online payment"]
         st.radio("Payment method", payment_options, key="payment_method")
@@ -1174,7 +1220,10 @@ def page_reservation_review():
                 "total": total,
                 "customer": "Demo customer",
             }
-            navigate("PickupConfirmation")
+            if st.session_state.pickup_method.startswith("Mock delivery"):
+                navigate("DeliveryTracking")
+            else:
+                navigate("PickupConfirmation")
 
 
 # ============================================================
@@ -1216,6 +1265,74 @@ def page_pickup_confirmation():
     <div class="review-row"><span class="review-label">Method</span><span class="review-value">{reservation['pickup_method']}</span></div>
     <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
     <div class="review-row"><span class="review-label">Order status</span><span class="review-value">{reservation['status']}</span></div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Back to Search", use_container_width=True):
+            navigate("UserHome")
+    with c2:
+        if st.button("Open Merchant Portal", type="primary", use_container_width=True):
+            set_mode("Merchant Portal")
+# ============================================================
+# PAGE: DELIVERY TRACKING
+# ============================================================
+def page_delivery_tracking():
+    reservation = st.session_state.active_reservation
+    if not reservation:
+        st.warning("No active reservation yet.")
+        if st.button("Back to search", use_container_width=True):
+            navigate("UserHome")
+        return
+
+    item = reservation["item"]
+    provider = reservation.get("delivery_provider") or st.session_state.delivery_provider
+
+    st.markdown(
+        f"""
+<div class="driver-hero-card">
+    <div style="font-size:0.78rem; font-weight:800; opacity:0.9; text-transform:uppercase;">Delivery match</div>
+    <h2>Waiting for {provider} driver...</h2>
+    <div style="font-size:0.9rem; opacity:0.9; margin-top:0.55rem;">Your rescue order is held while we match a nearby driver.</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        f"""
+<div class="driver-waiting-panel">
+    <div class="delivery-status" style="margin-top:0;">
+        <div class="delivery-pulse"></div>
+        <div>
+            <div class="delivery-status-title">Finding the best driver nearby</div>
+            <div class="delivery-status-copy">Estimated match: 2-4 minutes. Pickup window: {item['pickup_window']}.</div>
+        </div>
+    </div>
+</div>
+<div class="driver-route-card">
+    <div class="result-title">{item['name']}</div>
+    <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
+    <div class="review-row"><span class="review-label">Delivery partner</span><span class="review-value">{provider}</span></div>
+    <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
+    <div class="review-row"><span class="review-label">Total</span><span class="review-value">{vnd(reservation['total'])}</span></div>
+</div>
+<div class="driver-route-card">
+    <div class="driver-step-row">
+        <div class="driver-step-dot">1</div>
+        <div><div class="driver-step-title">Driver accepts order</div><div class="driver-step-copy">LoopBite is checking nearby delivery partners.</div></div>
+    </div>
+    <div class="driver-step-row">
+        <div class="driver-step-dot">2</div>
+        <div><div class="driver-step-title">Pickup at merchant</div><div class="driver-step-copy">Driver shows the pickup code to collect the rescue item.</div></div>
+    </div>
+    <div class="driver-step-row">
+        <div class="driver-step-dot">3</div>
+        <div><div class="driver-step-title">Deliver to customer</div><div class="driver-step-copy">The item goes straight from store counter to customer.</div></div>
+    </div>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1708,7 +1825,7 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
-USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation"}
+USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation", "DeliveryTracking"}
 MERCHANT_ROUTES = {"Dashboard", "Create", "Published", "Completed", "Profile", "Post"}
 
 ROUTES = {
@@ -1717,6 +1834,7 @@ ROUTES = {
     "FoodDetail": page_food_detail,
     "ReservationReview": page_reservation_review,
     "PickupConfirmation": page_pickup_confirmation,
+    "DeliveryTracking": page_delivery_tracking,
     "Dashboard": page_dashboard,
     "Create": page_post,
     "Post": page_post,
