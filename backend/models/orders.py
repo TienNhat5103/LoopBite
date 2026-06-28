@@ -20,3 +20,6 @@ class CartItemInput(BaseModel):
 class OrderCreateRequest(BaseModel):
     purchase_type: Optional[str] = "delivery"  # Mặc định là giao hàng, hoặc 'takeaway'...
     items: List[CartItemInput]
+    
+class UpdateStatusRequest(BaseModel):
+    status: str

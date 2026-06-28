@@ -109,7 +109,7 @@ DEFAULT_USER_LNG=106.7009
 
 ```bash
 cd backend
-uvicorn main:app --reload
+python main.py
 ```
 
 ### 4. Run the frontend
