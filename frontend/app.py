@@ -5,6 +5,11 @@ import streamlit as st
 from datetime import datetime, timedelta
 import random
 
+try:
+    import pydeck as pdk
+except ImportError:
+    pdk = None
+
 # ============================================================
 # API CLIENT (talks to FastAPI at http://127.0.0.1:8000)
 # ============================================================
@@ -257,6 +262,33 @@ section[data-testid="stSidebarNav"] {display: none;}
     position: relative;
     z-index: 1;
 }
+.map-legend {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.65rem 0.75rem;
+    margin: -0.25rem 0 0.9rem 0;
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--text-gray);
+    font-size: 0.78rem;
+}
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 650;
+}
+.legend-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    display: inline-block;
+}
+.legend-user { background: #F6C85F; }
+.legend-store { background: #1FBF75; }
 .filter-bar {
     background: #FFFFFF;
     border: 1px solid var(--border);
@@ -271,6 +303,59 @@ section[data-testid="stSidebarNav"] {display: none;}
     padding: 1rem;
     margin-bottom: 0.8rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.dish-image-wrap {
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    flex: 0 0 auto;
+    background: #F3F7F4;
+    border: 1px solid #E8F0EA;
+}
+.dish-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.dish-index {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.35rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: #102A1E;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.quick-search-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #FFFFFF;
+    margin-bottom: 0.45rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.quick-search-image {
+    width: 100%;
+    height: 4.2rem;
+    object-fit: cover;
+    display: block;
+}
+.quick-search-title {
+    padding: 0.45rem 0.55rem 0.55rem 0.55rem;
+    font-size: 0.82rem;
+    font-weight: 750;
+    color: var(--text-dark);
+    text-align: center;
 }
 .result-title {
     font-weight: 800;
@@ -313,16 +398,18 @@ section[data-testid="stSidebarNav"] {display: none;}
     color: #374151;
 }
 .detail-photo {
-    min-height: 10rem;
+    height: 12rem;
     border-radius: 12px;
-    background: linear-gradient(135deg, #E6F7EE 0%, #FFF7E0 100%);
-    color: #007A2F;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: 900;
+    overflow: hidden;
+    background: #F3F7F4;
     margin-bottom: 0.85rem;
+    border: 1px solid #E8F0EA;
+}
+.detail-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 .note-box {
     background: #FFFDF5;
@@ -475,6 +562,8 @@ if "mock_listings" not in st.session_state:
     st.session_state.mock_listings = []
 if "quantity_overrides" not in st.session_state:
     st.session_state.quantity_overrides = {}
+if "delivery_provider" not in st.session_state:
+    st.session_state.delivery_provider = "Grab"
 
 
 def navigate(page_name: str):
@@ -501,6 +590,36 @@ def vnd(amount):
     except (TypeError, ValueError):
         return "0 VND"
 
+def short_vnd(amount):
+    try:
+        value = int(float(amount))
+    except (TypeError, ValueError):
+        return "0 VND"
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.1f}M VND"
+    if value >= 1_000:
+        return f"{value // 1_000}K VND"
+    return f"{value} VND"
+def render_app_switch():
+    st.markdown(
+        """
+<div class="app-switch">
+    <div class="app-switch-label">Choose app</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    user_col, merchant_col = st.columns(2)
+    with user_col:
+        label = "User App active" if st.session_state.mode == "User App" else "User App"
+        if st.button(label, key="switch_user_app", use_container_width=True):
+            if st.session_state.mode != "User App":
+                set_mode("User App")
+    with merchant_col:
+        label = "Merchant active" if st.session_state.mode == "Merchant Portal" else "Merchant Portal"
+        if st.button(label, key="switch_merchant_app", use_container_width=True):
+            if st.session_state.mode != "Merchant Portal":
+                set_mode("Merchant Portal")
 
 def category_icon(category):
     cat = (category or "").lower()
@@ -512,6 +631,75 @@ def category_icon(category):
         return "SN"
     return "FD"
 
+FOOD_ART = {
+    "pastry": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff4cf"/><stop offset="1" stop-color="#dff7ea"/></linearGradient><linearGradient id="cr" x1="0" x2="1"><stop stop-color="#f7c45f"/><stop offset="1" stop-color="#b96a2f"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><circle cx="124" cy="23" r="28" fill="#1fbf75" opacity=".16"/><path d="M30 70c12-33 55-45 91-19-11 30-56 43-91 19z" fill="url(#cr)"/><path d="M43 66c13-11 29-14 49-9M61 79c18-5 32-13 45-28" stroke="#fff0c0" stroke-width="6" stroke-linecap="round" opacity=".7"/><ellipse cx="73" cy="91" rx="45" ry="8" fill="#102a1e" opacity=".12"/></svg>
+""",
+    "bread": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff8dd"/><stop offset="1" stop-color="#e6f7ee"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="34" y="42" width="92" height="44" rx="20" fill="#c47a35"/><path d="M43 49c9-23 31-25 38 0 8-24 34-22 39 2" fill="#e7a85e"/><path d="M54 61h53M52 73h55" stroke="#fff1c9" stroke-width="6" stroke-linecap="round" opacity=".65"/><ellipse cx="80" cy="93" rx="48" ry="7" fill="#102a1e" opacity=".12"/></svg>
+""",
+    "noodles": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#e9fff3"/><stop offset="1" stop-color="#fff0c6"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><path d="M37 64h86l-10 31H47z" fill="#1fbf75"/><path d="M43 64c5 17 69 17 76 0" fill="#f6c85f"/><path d="M50 55c18-13 39 11 58-2M48 45c20 12 42-11 62 1M60 35c11 8 26-6 38 2" fill="none" stroke="#d98b3a" stroke-width="5" stroke-linecap="round"/><circle cx="108" cy="57" r="8" fill="#ef4444" opacity=".82"/></svg>
+""",
+    "snacks": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f0fff6"/><stop offset="1" stop-color="#fff7d8"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="45" y="28" width="70" height="68" rx="12" fill="#f6c85f"/><path d="M45 43h70v18H45z" fill="#1fbf75"/><circle cx="66" cy="74" r="9" fill="#ffffff" opacity=".75"/><circle cx="91" cy="74" r="9" fill="#ffffff" opacity=".75"/><path d="M57 28l-10-13M103 28l10-13" stroke="#102a1e" stroke-width="5" stroke-linecap="round" opacity=".18"/></svg>
+""",
+    "late_night": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#eaf2ff"/><stop offset="1" stop-color="#fff2bf"/></linearGradient><linearGradient id="bag" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#243b7a"/><stop offset="1" stop-color="#1fbf75"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><circle cx="118" cy="28" r="15" fill="#f6c85f"/><circle cx="124" cy="23" r="15" fill="#eaf2ff"/><path d="M49 46h62l-6 48H55z" fill="url(#bag)"/><path d="M62 47c0-15 36-15 36 0" fill="none" stroke="#102a1e" stroke-width="7" stroke-linecap="round" opacity=".2"/><rect x="56" y="58" width="48" height="11" rx="5" fill="#f6c85f"/><circle cx="70" cy="81" r="7" fill="#fff6d6"/><circle cx="91" cy="81" r="7" fill="#fff6d6"/><path d="M31 33l5 7 8-3-5 7 5 7-8-3-5 7 1-8-7-4 8-1z" fill="#ffffff" opacity=".85"/></svg>
+""",
+    "meal": """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff6d6"/><stop offset="1" stop-color="#e5f7ee"/></linearGradient></defs>
+<rect width="160" height="120" rx="18" fill="url(#bg)"/><rect x="34" y="33" width="92" height="58" rx="14" fill="#102a1e" opacity=".9"/><rect x="43" y="42" width="37" height="40" rx="10" fill="#ffffff"/><rect x="86" y="42" width="31" height="18" rx="8" fill="#1fbf75"/><rect x="86" y="64" width="31" height="18" rx="8" fill="#f6c85f"/><circle cx="62" cy="62" r="12" fill="#f4a261"/></svg>
+""",
+}
+
+
+def food_art_key(value):
+    text = value.get("category", "") if isinstance(value, dict) else str(value or "")
+    text = text.lower()
+    if any(word in text for word in ["pastry", "croissant", "bakery"]):
+        return "pastry"
+    if "bread" in text:
+        return "bread"
+    if any(word in text for word in ["noodle", "rice", "meal", "bento"]):
+        return "noodles" if "noodle" in text else "meal"
+    if "late-night" in text or "late night" in text:
+        return "late_night"
+    if any(word in text for word in ["snack", "sweet"]):
+        return "snacks"
+    return "meal"
+
+
+def svg_data_uri(svg):
+    encoded = svg.strip().replace("#", "%23").replace("\n", "").replace('"', "'").replace(" ", "%20")
+    return f"data:image/svg+xml;utf8,{encoded}"
+
+
+def dish_image_src(value):
+    return svg_data_uri(FOOD_ART[food_art_key(value)])
+
+
+def render_quick_search_card(term):
+    st.markdown(
+        f"""
+<div class="quick-search-card">
+    <img class="quick-search-image" src="{dish_image_src(term)}" alt="{term.title()}" />
+    <div class="quick-search-title">{term.title()}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
 def demo_results(keyword):
     """Reliable fallback data for the hackathon demo."""
@@ -523,6 +711,8 @@ def demo_results(keyword):
             "store_name": "Sunrise Bakery",
             "store_address": "18 Le Loi, District 1",
             "distance_km": 0.6,
+            "lat": 10.7793,
+            "lng": 106.7018,
             "price": 18000,
             "original_price": 42000,
             "quantity": 5,
@@ -538,6 +728,8 @@ def demo_results(keyword):
             "store_name": "FamilyMart District 1",
             "store_address": "20 Le Thanh Ton, District 1",
             "distance_km": 0.9,
+            "lat": 10.7758,
+            "lng": 106.7044,
             "price": 22000,
             "original_price": 50000,
             "quantity": 3,
@@ -553,6 +745,8 @@ def demo_results(keyword):
             "store_name": "Mini Stop Nguyen Hue",
             "store_address": "45 Nguyen Hue, District 1",
             "distance_km": 1.4,
+            "lat": 10.7732,
+            "lng": 106.6984,
             "price": 15000,
             "original_price": 33000,
             "quantity": 7,
@@ -584,6 +778,8 @@ def flatten_search_results(search_response, keyword):
                     "store_name": merchant.get("name") or "Nearby merchant",
                     "store_address": merchant.get("address") or "District 1 pickup point",
                     "distance_km": float(merchant.get("distance_km") or 1.0),
+                    "lat": float(merchant.get("latitude") or merchant.get("lat") or st.session_state.user_lat + (0.003 * (len(rows) + 1))),
+                    "lng": float(merchant.get("longitude") or merchant.get("lng") or st.session_state.user_lng + (0.003 * (len(rows) + 1))),
                     "price": price,
                     "original_price": int(float(price or 0) * 1.8) if price else 0,
                     "quantity": food.get("quantity") or 1,
@@ -597,6 +793,111 @@ def flatten_search_results(search_response, keyword):
         rows = demo_results(keyword) + rows
     return rows or demo_results(keyword)
 
+
+def map_marker_rows(results):
+    sorted_results = sorted(results, key=lambda item: item.get("distance_km", 999))
+    markers = [
+        {
+            "lat": st.session_state.user_lat,
+            "lng": st.session_state.user_lng,
+            "label": "You are here",
+            "map_label": "",
+            "detail": "Demo location: District 1",
+            "price": "",
+            "color": [246, 200, 95, 235],
+            "radius": 95,
+        }
+    ]
+    seen = set()
+    pickup_number = 1
+    for item in sorted_results:
+        lat = item.get("lat")
+        lng = item.get("lng")
+        if lat is None or lng is None:
+            continue
+        key = (round(float(lat), 5), round(float(lng), 5), item.get("store_name"))
+        if key in seen:
+            continue
+        seen.add(key)
+        markers.append(
+            {
+                "lat": float(lat),
+                "lng": float(lng),
+                "label": f"{pickup_number}. {item.get('store_name', 'Rescue store')}",
+                "map_label": str(pickup_number),
+                "detail": f"{item.get('name', 'Rescue item')} - {item.get('distance_km', 0):.1f} km away",
+                "price": vnd(item.get("price", 0)),
+                "color": [31, 191, 117, 230],
+                "radius": 110,
+            }
+        )
+        pickup_number += 1
+    return markers
+
+
+def render_map_legend():
+    st.markdown(
+        """
+<div class="map-legend">
+    <span class="legend-item"><span class="legend-dot legend-user"></span>Your demo location</span>
+    <span class="legend-item"><span class="legend-dot legend-store"></span>Numbered rescue pickup point</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def render_results_map(results):
+    markers = map_marker_rows(results)
+    if pdk is None:
+        st.markdown(
+            f"""
+<div class="map-panel">
+    <div>
+        <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Nearby map</div>
+        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup route</div>
+    </div>
+    <div style="font-size:0.86rem; opacity:0.9;">{max(0, len(markers) - 1)} numbered rescue stops sorted by distance.</div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        render_map_legend()
+        return
+
+    layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=markers,
+        get_position="[lng, lat]",
+        get_fill_color="color",
+        get_radius="radius",
+        pickable=True,
+        auto_highlight=True,
+    )
+    number_layer = pdk.Layer(
+        "TextLayer",
+        data=markers,
+        get_position="[lng, lat]",
+        get_text="map_label",
+        get_size=16,
+        get_color=[255, 255, 255, 255],
+        get_text_anchor="middle",
+        get_alignment_baseline="center",
+        font_weight=800,
+    )
+    deck = pdk.Deck(
+        map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+        initial_view_state=pdk.ViewState(
+            latitude=st.session_state.user_lat,
+            longitude=st.session_state.user_lng,
+            zoom=13.4,
+            pitch=0,
+        ),
+        layers=[layer, number_layer],
+        tooltip={"html": "<b>{label}</b><br/>{detail}<br/>{price}", "style": {"fontSize": "12px"}},
+    )
+    st.pydeck_chart(deck, use_container_width=True)
+    render_map_legend()
 
 def load_nearby_results(keyword):
     response = api.search_foods(keyword, st.session_state.user_lat, st.session_state.user_lng)
@@ -657,25 +958,6 @@ def confirm_pickup():
     if st.session_state.selected_food and str(st.session_state.selected_food.get("id")) == item_id:
         st.session_state.selected_food = item
 
-def render_mode_switch():
-    st.markdown(
-        """
-<div class="mode-card">
-    <div class="mode-label">Demo mode</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-    user_col, merchant_col = st.columns(2)
-    with user_col:
-        user_label = "User App active" if st.session_state.mode == "User App" else "User App"
-        if st.button(user_label, key="mode_user", use_container_width=True):
-            set_mode("User App")
-    with merchant_col:
-        merchant_label = "Merchant active" if st.session_state.mode == "Merchant Portal" else "Merchant Portal"
-        if st.button(merchant_label, key="mode_merchant", use_container_width=True):
-            set_mode("Merchant Portal")
-
 
 # ============================================================
 # PAGE: USER HOME / SEARCH
@@ -692,7 +974,6 @@ def page_user_home():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="search-panel">', unsafe_allow_html=True)
     st.markdown("### What are you craving?")
     st.text_input(
         "Search food",
@@ -706,8 +987,9 @@ def page_user_home():
     quick_cols = st.columns(3)
     for index, term in enumerate(quick_terms):
         with quick_cols[index % 3]:
+            render_quick_search_card(term)
             st.button(
-                term.title(),
+                "Search",
                 key=f"quick_{term}",
                 use_container_width=True,
                 on_click=set_user_search_query,
@@ -750,7 +1032,6 @@ def page_user_home():
             navigate("UserResults")
 
     st.markdown('<div class="demo-note">MVP demo tip: use Pastry to follow the short flow from search to pickup code.</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================
@@ -771,53 +1052,12 @@ def page_user_results():
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        f"""
-<div class="map-panel">
-    <div>
-        <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Demo map area</div>
-        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup zone</div>
-    </div>
-    <div style="font-size:0.86rem; opacity:0.9;">{len(results)} rescue options around ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
+    render_results_map(results)
 
-    with st.container():
-        st.markdown('<div class="filter-bar">', unsafe_allow_html=True)
-        category_options = ["All"] + sorted({item["category"] for item in results})
-        col1, col2 = st.columns(2)
-        with col1:
-            category_filter = st.selectbox("Category", category_options, key="result_category_filter")
-        with col2:
-            max_distance = st.slider("Distance", min_value=1, max_value=5, value=3, format="%d km")
-        col3, col4 = st.columns(2)
-        with col3:
-            max_price = st.slider("Max price", min_value=10000, max_value=60000, value=50000, step=5000, format="%d VND")
-        with col4:
-            min_quantity = st.selectbox("Quantity", [1, 2, 3, 5], key="result_quantity_filter")
-        col5, col6 = st.columns(2)
-        with col5:
-            pickup_filter = st.selectbox("Pickup time", ["Any", "20:00", "21:00", "22:00"], key="result_pickup_filter")
-        with col6:
-            best_before_filter = st.selectbox("Best-before", ["Any", "Tonight", "Tomorrow"], key="result_best_before_filter")
-        st.caption("Filters are intentionally simple for the MVP demo.")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    filtered = [
-        item
-        for item in results
-        if (category_filter == "All" or item["category"] == category_filter)
-        and item["distance_km"] <= max_distance
-        and item["price"] <= max_price
-        and item["quantity"] >= min_quantity
-        and (pickup_filter == "Any" or pickup_filter.lower() in item["pickup_window"].lower())
-        and (best_before_filter == "Any" or best_before_filter.lower() in item["best_before"].lower())
-    ]
+    filtered = sorted(results, key=lambda item: item.get('distance_km', 0))
 
     if not filtered:
-        st.info("No rescue food matches those filters. Try expanding distance or price.")
+        st.info("No rescue food is available nearby yet. Try another search.")
 
     for index, item in enumerate(filtered):
         savings = max(0, int(item["original_price"] or 0) - int(item["price"] or 0))
@@ -825,7 +1065,10 @@ def page_user_results():
             f"""
 <div class="result-card">
     <div style="display:flex; gap:0.8rem; align-items:flex-start;">
-        <div style="width:3.2rem; height:3.2rem; border-radius:12px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800; flex:0 0 auto;">{category_icon(item['category'])}</div>
+        <div class="dish-image-wrap">
+            <img class="dish-thumb" src="{dish_image_src(item)}" alt="{item['name']}" />
+            <div class="dish-index">{index + 1}</div>
+        </div>
         <div style="flex:1; min-width:0;">
             <div class="result-title">{item['name']}</div>
             <div class="result-meta">{item['store_name']} - {item['distance_km']:.1f} km away</div>
@@ -885,7 +1128,7 @@ def page_food_detail():
     st.markdown(
         f"""
 <div class="result-card">
-    <div class="detail-photo">{category_icon(item['category'])}</div>
+    <div class="detail-photo"><img src="{dish_image_src(item)}" alt="{item['name']}" /></div>
     <div class="result-title">{item['name']}</div>
     <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
     <div class="price-row">
@@ -964,14 +1207,27 @@ def page_reservation_review():
 
     pickup_options = ["Pick up at store", "Mock delivery (demo only)"]
     st.radio("Pickup method", pickup_options, key="pickup_method")
+
     if st.session_state.pickup_method.startswith("Mock delivery"):
-        st.info("Delivery is shown for demo only. Store pickup is the MVP path.")
-
-    payment_options = ["Pay at counter", "Mock online payment"]
-    st.radio("Payment method", payment_options, key="payment_method")
-    if st.session_state.payment_method == "Mock online payment":
-        st.info("Online payment is mocked for the hackathon demo.")
-
+        st.markdown(
+            """
+<div class="delivery-panel">
+    <div class="result-title" style="font-size:0.98rem;">Choose delivery partner</div>
+    <div class="result-meta">A nearby driver will be matched for this demo reservation.</div>
+    <div class="delivery-provider-row">
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">G</div><div class="delivery-provider-name">Grab</div></div>
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">be</div><div class="delivery-provider-name">Be</div></div>
+        <div class="delivery-provider-card"><div class="delivery-provider-logo">A</div><div class="delivery-provider-name">AhaMove</div></div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        st.radio("Delivery partner", ["Grab", "Be", "AhaMove"], key="delivery_provider", horizontal=True)
+        st.session_state.payment_method = "Mock online payment"
+    else:
+        payment_options = ["Pay at counter", "Mock online payment"]
+        st.radio("Payment method", payment_options, key="payment_method")
     existing = st.session_state.active_reservation
     if existing and existing.get("item", {}).get("id") == item.get("id"):
         st.success(f"Reservation held. Pickup code: {existing['pickup_code']}")
@@ -989,10 +1245,14 @@ def page_reservation_review():
                 "quantity": quantity,
                 "pickup_method": st.session_state.pickup_method,
                 "payment_method": st.session_state.payment_method,
+                "delivery_provider": st.session_state.delivery_provider if st.session_state.pickup_method.startswith("Mock delivery") else None,
                 "total": total,
                 "customer": "Demo customer",
             }
-            navigate("PickupConfirmation")
+            if st.session_state.pickup_method.startswith("Mock delivery"):
+                navigate("DeliveryTracking")
+            else:
+                navigate("PickupConfirmation")
 
 
 # ============================================================
@@ -1031,8 +1291,77 @@ def page_pickup_confirmation():
     <div class="review-row"><span class="review-label">Pickup time</span><span class="review-value">{item['pickup_window']}</span></div>
     <div class="review-row"><span class="review-label">Quantity</span><span class="review-value">{reservation['quantity']}</span></div>
     <div class="review-row"><span class="review-label">Total price</span><span class="review-value">{vnd(reservation['total'])}</span></div>
+    <div class="review-row"><span class="review-label">Method</span><span class="review-value">{reservation['pickup_method']}</span></div>
     <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
     <div class="review-row"><span class="review-label">Order status</span><span class="review-value">{reservation['status']}</span></div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Back to Search", use_container_width=True):
+            navigate("UserHome")
+    with c2:
+        if st.button("Open Merchant Portal", type="primary", use_container_width=True):
+            set_mode("Merchant Portal")
+# ============================================================
+# PAGE: DELIVERY TRACKING
+# ============================================================
+def page_delivery_tracking():
+    reservation = st.session_state.active_reservation
+    if not reservation:
+        st.warning("No active reservation yet.")
+        if st.button("Back to search", use_container_width=True):
+            navigate("UserHome")
+        return
+
+    item = reservation["item"]
+    provider = reservation.get("delivery_provider") or st.session_state.delivery_provider
+
+    st.markdown(
+        f"""
+<div class="driver-hero-card">
+    <div style="font-size:0.78rem; font-weight:800; opacity:0.9; text-transform:uppercase;">Delivery match</div>
+    <h2>Waiting for {provider} driver...</h2>
+    <div style="font-size:0.9rem; opacity:0.9; margin-top:0.55rem;">Your rescue order is held while we match a nearby driver.</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        f"""
+<div class="driver-waiting-panel">
+    <div class="delivery-status" style="margin-top:0;">
+        <div class="delivery-pulse"></div>
+        <div>
+            <div class="delivery-status-title">Finding the best driver nearby</div>
+            <div class="delivery-status-copy">Estimated match: 2-4 minutes. Pickup window: {item['pickup_window']}.</div>
+        </div>
+    </div>
+</div>
+<div class="driver-route-card">
+    <div class="result-title">{item['name']}</div>
+    <div class="result-meta">{item['store_name']} - {item['store_address']}</div>
+    <div class="review-row"><span class="review-label">Delivery partner</span><span class="review-value">{provider}</span></div>
+    <div class="review-row"><span class="review-label">Payment</span><span class="review-value">{reservation['payment_method']}</span></div>
+    <div class="review-row"><span class="review-label">Total</span><span class="review-value">{vnd(reservation['total'])}</span></div>
+</div>
+<div class="driver-route-card">
+    <div class="driver-step-row">
+        <div class="driver-step-dot">1</div>
+        <div><div class="driver-step-title">Driver accepts order</div><div class="driver-step-copy">LoopBite is checking nearby delivery partners.</div></div>
+    </div>
+    <div class="driver-step-row">
+        <div class="driver-step-dot">2</div>
+        <div><div class="driver-step-title">Pickup at merchant</div><div class="driver-step-copy">Driver shows the pickup code to collect the rescue item.</div></div>
+    </div>
+    <div class="driver-step-row">
+        <div class="driver-step-dot">3</div>
+        <div><div class="driver-step-title">Deliver to customer</div><div class="driver-step-copy">The item goes straight from store counter to customer.</div></div>
+    </div>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1051,7 +1380,7 @@ def page_pickup_confirmation():
 def render_bottom_nav():
     pages = [
         ("Dashboard", "Home"),
-        ("Post", "Post"),
+        ("Create", "Create"),
         ("Published", "List"),
         ("Completed", "Done"),
         ("Profile", "Profile"),
@@ -1070,10 +1399,12 @@ def page_dashboard():
 
     foods = merchant_food_items()
     available_foods = [f for f in foods if (f.get("quantity") or 0) > 0]
-    low_stock = sorted([f for f in available_foods if (f.get("quantity") or 0) <= 3], key=lambda x: x.get("quantity") or 0)
-    total_items = sum((f.get("quantity") or 0) for f in available_foods)
-    total_value = sum((f.get("price") or 0) * (f.get("quantity") or 0) for f in available_foods)
-
+    dashboard_foods = available_foods[:6]
+    low_stock = sorted([f for f in dashboard_foods if (f.get("quantity") or 0) <= 3], key=lambda x: x.get("quantity") or 0)
+    display_items = sum(min(int(f.get("quantity") or 0), 8) for f in dashboard_foods)
+    display_value = sum(int(float(f.get("price") or 0)) * min(int(f.get("quantity") or 0), 8) for f in dashboard_foods)
+    active_listing_count = len(dashboard_foods)
+    low_stock_count = len(low_stock)
     if not API_OK:
         st.warning("Backend offline. Demo data and session-state listings are still available.")
 
@@ -1092,20 +1423,39 @@ def page_dashboard():
         unsafe_allow_html=True,
     )
 
-    st.markdown("### Today Overview")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.metric("Available Items", str(total_items), f"{len(available_foods)} listings")
-    with c2:
-        st.metric("Listing Value", vnd(total_value), "")
-    c3, c4 = st.columns(2)
-    with c3:
-        st.metric("Active Listings", str(len(available_foods)), "")
-    with c4:
-        st.metric("Low Stock", str(len(low_stock)), "")
+    st.markdown(
+        f"""
+<div class="dashboard-section-title">
+    <h3>Today Overview</h3>
+    <span class="badge badge-active">Demo ready</span>
+</div>
+<div class="dashboard-grid">
+    <div class="dashboard-card primary">
+        <div class="dashboard-label">Items ready</div>
+        <div class="dashboard-value">{display_items}</div>
+        <div class="dashboard-hint">Across {active_listing_count} active listings</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Potential rescue value</div>
+        <div class="dashboard-value">{short_vnd(display_value)}</div>
+        <div class="dashboard-hint">Same-day pickup window</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Reservations</div>
+        <div class="dashboard-value">{1 if st.session_state.active_reservation else 0}</div>
+        <div class="dashboard-hint">Waiting for handoff</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Needs attention</div>
+        <div class="dashboard-value">{low_stock_count}</div>
+        <div class="dashboard-hint">Low stock listings</div>
+    </div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
-    st.divider()
-    st.markdown("### New Reservation")
+    st.markdown('<div class="dashboard-section-title"><h3>New Reservation</h3></div>', unsafe_allow_html=True)
     reservation = st.session_state.active_reservation
     if reservation:
         order_item = apply_quantity_override(reservation["item"])
@@ -1150,11 +1500,12 @@ def page_dashboard():
     st.divider()
     st.markdown("### Active Listings")
     if not available_foods:
-        st.info("No active listings yet. Use Post to create one.")
+        st.info("No active listings yet. Use Create to add one.")
     else:
-        for food in available_foods[:5]:
+        for food in dashboard_foods[:5]:
             icon = category_icon(food.get("category", ""))
             remaining = api.time_until(food.get("expiry_time"))
+            display_qty = min(int(food.get("quantity") or 0), 8)
             st.markdown(
                 f"""
 <div class="food-card">
@@ -1162,7 +1513,7 @@ def page_dashboard():
         <div style="width:2.5rem; height:2.5rem; border-radius:10px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800;">{icon}</div>
         <div style="flex:1;">
             <div style="font-weight:600;">{food.get('name', '-')}</div>
-            <div style="font-size:0.8rem; color:#6B7280;">Qty: {food.get('quantity', 0)} - {remaining}</div>
+            <div style="font-size:0.8rem; color:#6B7280;">Qty: {display_qty} - {remaining}</div>
         </div>
         <div style="text-align:right;">
             <div style="font-weight:700; color:#00A040;">{vnd(food.get('price', 0))}</div>
@@ -1206,9 +1557,9 @@ def page_post():
     st.markdown(
         """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">Post Rescue Item</h2>
+    <h2 style="margin:0; color:white;">Create Rescue Item</h2>
     <p style="margin:0.25rem 0 0 0; font-size:0.875rem; opacity:0.9;">
-        Publish surplus food in under 60 seconds.
+        Create a rescue listing in under 60 seconds.
     </p>
 </div>
 """,
@@ -1269,7 +1620,7 @@ def page_post():
         if st.button("Cancel", use_container_width=True):
             navigate("Dashboard")
     with cc:
-        if st.button("Publish Listing", type="primary", use_container_width=True):
+        if st.button("Create Listing", type="primary", use_container_width=True):
             errors = []
             if not food_name.strip():
                 errors.append("Food name is required.")
@@ -1306,7 +1657,7 @@ def page_post():
                     result["original_price"] = int(original_price)
                     result["pickup_window"] = pickup_window
                     result["quality_note"] = quality_note.strip()
-                    st.success(f"Published via API: {result.get('name')}")
+                    st.success(f"Created via API: {result.get('name')}")
                 else:
                     result = add_mock_listing(
                         payload,
@@ -1314,7 +1665,7 @@ def page_post():
                         pickup_window=pickup_window,
                         quality_note=quality_note.strip(),
                     )
-                    st.success(f"Published in demo mode: {result.get('name')}")
+                    st.success(f"Created in demo mode: {result.get('name')}")
 
                 if buyer_note.strip():
                     st.caption(f"Buyer note: {buyer_note.strip()}")
@@ -1365,7 +1716,7 @@ def page_published():
 
 def render_listings(listings, prefix=""):
     if not listings:
-        st.info("No listings yet. Use Post to create one.")
+        st.info("No listings yet. Use Create to add one.")
         return
     for item in listings:
         st.markdown(
@@ -1525,8 +1876,8 @@ def page_profile():
 # ============================================================
 # ROUTER
 # ============================================================
-USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation"}
-MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
+USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation", "DeliveryTracking"}
+MERCHANT_ROUTES = {"Dashboard", "Create", "Published", "Completed", "Profile", "Post"}
 
 ROUTES = {
     "UserHome": page_user_home,
@@ -1534,7 +1885,9 @@ ROUTES = {
     "FoodDetail": page_food_detail,
     "ReservationReview": page_reservation_review,
     "PickupConfirmation": page_pickup_confirmation,
+    "DeliveryTracking": page_delivery_tracking,
     "Dashboard": page_dashboard,
+    "Create": page_post,
     "Post": page_post,
     "Published": page_published,
     "Completed": page_completed,
@@ -1547,7 +1900,7 @@ if st.session_state.mode == "User App" and st.session_state.page not in USER_ROU
 elif st.session_state.mode == "Merchant Portal" and st.session_state.page not in MERCHANT_ROUTES:
     st.session_state.page = "Dashboard"
 
-render_mode_switch()
+render_app_switch()
 page_fn = ROUTES.get(st.session_state.page, page_user_home)
 page_fn()
 
