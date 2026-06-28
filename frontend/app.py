@@ -5,6 +5,11 @@ import streamlit as st
 from datetime import datetime, timedelta
 import random
 
+try:
+    import pydeck as pdk
+except ImportError:
+    pdk = None
+
 # ============================================================
 # API CLIENT (talks to FastAPI at http://127.0.0.1:8000)
 # ============================================================
@@ -119,23 +124,6 @@ header {visibility: hidden;}
 
 /* Hide default sidebar nav */
 section[data-testid="stSidebarNav"] {display: none;}
-/* MVP mode switch */
-.mode-card {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-}
-.mode-label {
-    font-size: 0.78rem;
-    color: var(--text-gray);
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
 /* User home */
 .user-hero {
     background: linear-gradient(135deg, #0F8A4B 0%, #1FBF75 52%, #F6C85F 100%);
@@ -209,6 +197,33 @@ section[data-testid="stSidebarNav"] {display: none;}
     position: relative;
     z-index: 1;
 }
+.map-legend {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.65rem 0.75rem;
+    margin: -0.25rem 0 0.9rem 0;
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--text-gray);
+    font-size: 0.78rem;
+}
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 650;
+}
+.legend-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    display: inline-block;
+}
+.legend-user { background: #F6C85F; }
+.legend-store { background: #1FBF75; }
 .filter-bar {
     background: #FFFFFF;
     border: 1px solid var(--border);
@@ -418,6 +433,8 @@ def demo_results(keyword):
             "store_name": "Sunrise Bakery",
             "store_address": "18 Le Loi, District 1",
             "distance_km": 0.6,
+            "lat": 10.7793,
+            "lng": 106.7018,
             "price": 18000,
             "original_price": 42000,
             "quantity": 5,
@@ -433,6 +450,8 @@ def demo_results(keyword):
             "store_name": "FamilyMart District 1",
             "store_address": "20 Le Thanh Ton, District 1",
             "distance_km": 0.9,
+            "lat": 10.7758,
+            "lng": 106.7044,
             "price": 22000,
             "original_price": 50000,
             "quantity": 3,
@@ -448,6 +467,8 @@ def demo_results(keyword):
             "store_name": "Mini Stop Nguyen Hue",
             "store_address": "45 Nguyen Hue, District 1",
             "distance_km": 1.4,
+            "lat": 10.7732,
+            "lng": 106.6984,
             "price": 15000,
             "original_price": 33000,
             "quantity": 7,
@@ -479,6 +500,8 @@ def flatten_search_results(search_response, keyword):
                     "store_name": merchant.get("name") or "Nearby merchant",
                     "store_address": merchant.get("address") or "District 1 pickup point",
                     "distance_km": float(merchant.get("distance_km") or 1.0),
+                    "lat": float(merchant.get("latitude") or merchant.get("lat") or st.session_state.user_lat + (0.003 * (len(rows) + 1))),
+                    "lng": float(merchant.get("longitude") or merchant.get("lng") or st.session_state.user_lng + (0.003 * (len(rows) + 1))),
                     "price": price,
                     "original_price": int(float(price or 0) * 1.8) if price else 0,
                     "quantity": food.get("quantity") or 1,
@@ -492,6 +515,106 @@ def flatten_search_results(search_response, keyword):
         rows = demo_results(keyword) + rows
     return rows or demo_results(keyword)
 
+
+def map_marker_rows(results):
+    markers = [
+        {
+            "lat": st.session_state.user_lat,
+            "lng": st.session_state.user_lng,
+            "label": "You are here",
+            "detail": "Demo location: District 1",
+            "price": "",
+            "color": [246, 200, 95, 235],
+            "radius": 95,
+        }
+    ]
+    seen = set()
+    for item in results:
+        lat = item.get("lat")
+        lng = item.get("lng")
+        if lat is None or lng is None:
+            continue
+        key = (round(float(lat), 5), round(float(lng), 5), item.get("store_name"))
+        if key in seen:
+            continue
+        seen.add(key)
+        markers.append(
+            {
+                "lat": float(lat),
+                "lng": float(lng),
+                "label": item.get("store_name", "Rescue store"),
+                "detail": f"{item.get('name', 'Rescue item')} - {item.get('distance_km', 0):.1f} km away",
+                "price": vnd(item.get("price", 0)),
+                "color": [31, 191, 117, 220],
+                "radius": 85,
+            }
+        )
+    return markers
+
+
+def render_map_legend():
+    st.markdown(
+        """
+<div class="map-legend">
+    <span class="legend-item"><span class="legend-dot legend-user"></span>Your demo location</span>
+    <span class="legend-item"><span class="legend-dot legend-store"></span>Rescue pickup point</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def render_results_map(results):
+    markers = map_marker_rows(results)
+    if pdk is None:
+        st.markdown(
+            f"""
+<div class="map-panel">
+    <div>
+        <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Nearby map</div>
+        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup zone</div>
+    </div>
+    <div style="font-size:0.86rem; opacity:0.9;">{max(0, len(markers) - 1)} rescue options around ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        render_map_legend()
+        return
+
+    layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=markers,
+        get_position="[lng, lat]",
+        get_fill_color="color",
+        get_radius="radius",
+        pickable=True,
+        auto_highlight=True,
+    )
+    label_layer = pdk.Layer(
+        "TextLayer",
+        data=markers,
+        get_position="[lng, lat]",
+        get_text="label",
+        get_size=12,
+        get_color=[16, 42, 30, 230],
+        get_text_anchor="middle",
+        get_alignment_baseline="top",
+        get_pixel_offset=[0, 12],
+    )
+    deck = pdk.Deck(
+        map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+        initial_view_state=pdk.ViewState(
+            latitude=st.session_state.user_lat,
+            longitude=st.session_state.user_lng,
+            zoom=13.4,
+            pitch=0,
+        ),
+        layers=[layer, label_layer],
+        tooltip={"html": "<b>{label}</b><br/>{detail}<br/>{price}", "style": {"fontSize": "12px"}},
+    )
+    st.pydeck_chart(deck, use_container_width=True)
+    render_map_legend()
 
 def load_nearby_results(keyword):
     response = api.search_foods(keyword, st.session_state.user_lat, st.session_state.user_lng)
@@ -552,25 +675,6 @@ def confirm_pickup():
     if st.session_state.selected_food and str(st.session_state.selected_food.get("id")) == item_id:
         st.session_state.selected_food = item
 
-def render_mode_switch():
-    st.markdown(
-        """
-<div class="mode-card">
-    <div class="mode-label">Demo mode</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-    user_col, merchant_col = st.columns(2)
-    with user_col:
-        user_label = "User App active" if st.session_state.mode == "User App" else "User App"
-        if st.button(user_label, key="mode_user", use_container_width=True):
-            set_mode("User App")
-    with merchant_col:
-        merchant_label = "Merchant active" if st.session_state.mode == "Merchant Portal" else "Merchant Portal"
-        if st.button(merchant_label, key="mode_merchant", use_container_width=True):
-            set_mode("Merchant Portal")
-
 
 # ============================================================
 # PAGE: USER HOME / SEARCH
@@ -587,7 +691,6 @@ def page_user_home():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="search-panel">', unsafe_allow_html=True)
     st.markdown("### What are you craving?")
     st.text_input(
         "Search food",
@@ -645,7 +748,6 @@ def page_user_home():
             navigate("UserResults")
 
     st.markdown('<div class="demo-note">MVP demo tip: use Pastry to follow the short flow from search to pickup code.</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================
@@ -666,53 +768,12 @@ def page_user_results():
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        f"""
-<div class="map-panel">
-    <div>
-        <div style="font-size:0.78rem; opacity:0.82; font-weight:700; text-transform:uppercase;">Demo map area</div>
-        <div style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">District 1 pickup zone</div>
-    </div>
-    <div style="font-size:0.86rem; opacity:0.9;">{len(results)} rescue options around ({st.session_state.user_lat:.4f}, {st.session_state.user_lng:.4f})</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
+    render_results_map(results)
 
-    with st.container():
-        st.markdown('<div class="filter-bar">', unsafe_allow_html=True)
-        category_options = ["All"] + sorted({item["category"] for item in results})
-        col1, col2 = st.columns(2)
-        with col1:
-            category_filter = st.selectbox("Category", category_options, key="result_category_filter")
-        with col2:
-            max_distance = st.slider("Distance", min_value=1, max_value=5, value=3, format="%d km")
-        col3, col4 = st.columns(2)
-        with col3:
-            max_price = st.slider("Max price", min_value=10000, max_value=60000, value=50000, step=5000, format="%d VND")
-        with col4:
-            min_quantity = st.selectbox("Quantity", [1, 2, 3, 5], key="result_quantity_filter")
-        col5, col6 = st.columns(2)
-        with col5:
-            pickup_filter = st.selectbox("Pickup time", ["Any", "20:00", "21:00", "22:00"], key="result_pickup_filter")
-        with col6:
-            best_before_filter = st.selectbox("Best-before", ["Any", "Tonight", "Tomorrow"], key="result_best_before_filter")
-        st.caption("Filters are intentionally simple for the MVP demo.")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    filtered = [
-        item
-        for item in results
-        if (category_filter == "All" or item["category"] == category_filter)
-        and item["distance_km"] <= max_distance
-        and item["price"] <= max_price
-        and item["quantity"] >= min_quantity
-        and (pickup_filter == "Any" or pickup_filter.lower() in item["pickup_window"].lower())
-        and (best_before_filter == "Any" or best_before_filter.lower() in item["best_before"].lower())
-    ]
+    filtered = sorted(results, key=lambda item: item.get('distance_km', 0))
 
     if not filtered:
-        st.info("No rescue food matches those filters. Try expanding distance or price.")
+        st.info("No rescue food is available nearby yet. Try another search.")
 
     for index, item in enumerate(filtered):
         savings = max(0, int(item["original_price"] or 0) - int(item["price"] or 0))
@@ -946,7 +1007,7 @@ def page_pickup_confirmation():
 def render_bottom_nav():
     pages = [
         ("Dashboard", "Home"),
-        ("Post", "Post"),
+        ("Create", "Create"),
         ("Published", "List"),
         ("Completed", "Done"),
         ("Profile", "Profile"),
@@ -1045,7 +1106,7 @@ def page_dashboard():
     st.divider()
     st.markdown("### Active Listings")
     if not available_foods:
-        st.info("No active listings yet. Use Post to create one.")
+        st.info("No active listings yet. Use Create to add one.")
     else:
         for food in available_foods[:5]:
             icon = category_icon(food.get("category", ""))
@@ -1101,9 +1162,9 @@ def page_post():
     st.markdown(
         """
 <div class="top-bar">
-    <h2 style="margin:0; color:white;">Post Rescue Item</h2>
+    <h2 style="margin:0; color:white;">Create Rescue Item</h2>
     <p style="margin:0.25rem 0 0 0; font-size:0.875rem; opacity:0.9;">
-        Publish surplus food in under 60 seconds.
+        Create a rescue listing in under 60 seconds.
     </p>
 </div>
 """,
@@ -1164,7 +1225,7 @@ def page_post():
         if st.button("Cancel", use_container_width=True):
             navigate("Dashboard")
     with cc:
-        if st.button("Publish Listing", type="primary", use_container_width=True):
+        if st.button("Create Listing", type="primary", use_container_width=True):
             errors = []
             if not food_name.strip():
                 errors.append("Food name is required.")
@@ -1201,7 +1262,7 @@ def page_post():
                     result["original_price"] = int(original_price)
                     result["pickup_window"] = pickup_window
                     result["quality_note"] = quality_note.strip()
-                    st.success(f"Published via API: {result.get('name')}")
+                    st.success(f"Created via API: {result.get('name')}")
                 else:
                     result = add_mock_listing(
                         payload,
@@ -1209,7 +1270,7 @@ def page_post():
                         pickup_window=pickup_window,
                         quality_note=quality_note.strip(),
                     )
-                    st.success(f"Published in demo mode: {result.get('name')}")
+                    st.success(f"Created in demo mode: {result.get('name')}")
 
                 if buyer_note.strip():
                     st.caption(f"Buyer note: {buyer_note.strip()}")
@@ -1260,7 +1321,7 @@ def page_published():
 
 def render_listings(listings, prefix=""):
     if not listings:
-        st.info("No listings yet. Use Post to create one.")
+        st.info("No listings yet. Use Create to add one.")
         return
     for item in listings:
         st.markdown(
@@ -1421,7 +1482,7 @@ def page_profile():
 # ROUTER
 # ============================================================
 USER_ROUTES = {"UserHome", "UserResults", "FoodDetail", "ReservationReview", "PickupConfirmation"}
-MERCHANT_ROUTES = {"Dashboard", "Post", "Published", "Completed", "Profile"}
+MERCHANT_ROUTES = {"Dashboard", "Create", "Published", "Completed", "Profile", "Post"}
 
 ROUTES = {
     "UserHome": page_user_home,
@@ -1430,6 +1491,7 @@ ROUTES = {
     "ReservationReview": page_reservation_review,
     "PickupConfirmation": page_pickup_confirmation,
     "Dashboard": page_dashboard,
+    "Create": page_post,
     "Post": page_post,
     "Published": page_published,
     "Completed": page_completed,
@@ -1442,7 +1504,6 @@ if st.session_state.mode == "User App" and st.session_state.page not in USER_ROU
 elif st.session_state.mode == "Merchant Portal" and st.session_state.page not in MERCHANT_ROUTES:
     st.session_state.page = "Dashboard"
 
-render_mode_switch()
 page_fn = ROUTES.get(st.session_state.page, page_user_home)
 page_fn()
 
