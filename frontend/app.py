@@ -42,8 +42,8 @@ st.markdown(
 <style>
 /* Mobile-first container */
 .main .block-container {
-    max-width: 480px;
-    padding: 1rem 1rem 6rem 1rem;
+    max-width: 960px;
+    padding: 2rem 1.5rem 6rem 1.5rem;
 }
 
 /* Hide Streamlit branding */
@@ -115,6 +115,19 @@ header {visibility: hidden;}
     border-radius: 8px;
     height: 2.75rem;
     font-weight: 600;
+    border: 1px solid #D6DCE5;
+    background: #FFFFFF;
+    color: #374151;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.stButton > button:hover {
+    border-color: #B9C3D3;
+    color: #111827;
+}
+.stButton > button[kind="primary"] {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #FFFFFF;
 }
 
 /* Hide default sidebar nav */
@@ -130,8 +143,7 @@ section[data-testid="stSidebarNav"] {display: none;}
 .mode-label {
     font-size: 0.78rem;
     color: var(--text-gray);
-    font-weight: 700;
-    margin-bottom: 0.4rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
@@ -140,28 +152,64 @@ section[data-testid="stSidebarNav"] {display: none;}
 .user-hero {
     background: linear-gradient(135deg, #0F8A4B 0%, #1FBF75 52%, #F6C85F 100%);
     color: #FFFFFF;
-    padding: 1.15rem;
-    border-radius: 0 0 18px 18px;
-    margin: -1rem -1rem 1rem -1rem;
+    padding: 1.5rem;
+    border-radius: 0 0 24px 24px;
+    margin: 0 0 1.15rem 0;
 }
 .user-hero h1 {
     margin: 0;
-    font-size: 2rem;
-    line-height: 1.05;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.08;
     letter-spacing: 0;
+    max-width: 16ch;
+}
+.user-hero .hero-title-wide {
+    max-width: none;
+    font-size: clamp(1.7rem, 3.6vw, 3rem);
 }
 .user-hero p {
-    margin: 0.5rem 0 0 0;
+    margin: 1rem 0 0 0;
     color: rgba(255,255,255,0.9);
-    font-size: 0.95rem;
+    font-size: 1rem;
+    max-width: 52rem;
 }
 .search-panel {
     background: #FFFFFF;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 18px;
+    padding: 1.25rem;
     margin-bottom: 1rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.search-panel h3 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    color: #2F3447;
+}
+.search-panel p {
+    color: #3F475A;
+}
+.search-panel .stTextInput input {
+    min-height: 3rem;
+    border-radius: 12px;
+    background: #F3F6FA;
+    border: 1px solid #E6EBF2;
+}
+.search-panel .stTextInput input::placeholder {
+    color: #8A93A7;
+}
+.search-panel .stButton {
+    margin-top: 0.35rem;
+}
+.mode-card + div[data-testid="stHorizontalBlock"] {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+.mode-card + div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+    width: auto !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
 }
 .location-ready {
     background: #E6F7EE;
@@ -335,6 +383,63 @@ section[data-testid="stSidebarNav"] {display: none;}
     color: #475569;
     font-size: 0.9rem;
     margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+    .main .block-container {
+        max-width: 100%;
+        padding: 0.9rem 1rem 5rem 1rem;
+    }
+
+    .mode-card {
+        margin-bottom: 0.85rem;
+    }
+
+    .mode-card + div[data-testid="stHorizontalBlock"] {
+        gap: 0.5rem;
+    }
+
+    .user-hero {
+        padding: 1.15rem;
+        border-radius: 0 0 20px 20px;
+        margin-bottom: 1rem;
+    }
+
+    .user-hero h1 {
+        font-size: 1.55rem;
+        line-height: 1.14;
+        max-width: none;
+    }
+
+    .user-hero .hero-title-wide {
+        font-size: 1.55rem;
+        line-height: 1.12;
+    }
+
+    .user-hero p {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+    .search-panel {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .search-panel h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] {
+        gap: 0.75rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 100% !important;
+    }
 }
 </style>
 """,
@@ -581,7 +686,7 @@ def page_user_home():
 <div class="user-hero">
     <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
     <h1>Find rescue food nearby</h1>
-    <p>Affordable food before it goes to waste. Built for students, late-night eaters, and anyone watching their budget.</p>
+    <p>Built for students, and anyone watching their budget.</p>
 </div>
 """,
         unsafe_allow_html=True,
@@ -659,7 +764,7 @@ def page_user_results():
         f"""
 <div class="user-hero">
     <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase; letter-spacing:0.04em;">LoopBite</div>
-    <h1>Nearby rescue food</h1>
+    <h1 class="hero-title-wide">Nearby rescue food</h1>
     <p>Showing affordable {keyword.title()} options near District 1.</p>
 </div>
 """,
