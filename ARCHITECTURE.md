@@ -10,7 +10,7 @@
 
 ```mermaid
 flowchart TD
-    FE["Frontend (Streamlit)<br/>app.py - ~1973 lines<br/>Mobile-first UI, port 8081<br/>Pages: User Home, Merchant, Auth"]
+    FE["Frontend (Streamlit)<br/>app.py<br/>Mobile-first UI, port 8081<br/>Pages: User Home, Merchant, Auth"]
     BE["Backend (FastAPI)<br/>7 routers, JWT auth via HTTPBearer<br/>Port 8000<br/>Routers: merchants, food, orders, order_items, profiles, auth, search_engines"]
     SB["Supabase<br/>Postgres + Auth + Storage<br/>Tables: merchants, food, orders, order_items, profiles<br/>Auth: auth.users"]
 
@@ -487,7 +487,7 @@ flowchart TD
         Browser["Browser<br/>http://localhost:8081"]
     end
 
-    subgraph CLOUD["Supabase Cloud<br/>tgvtlfzkjbzakdkaapfk.supabase.co"]
+    subgraph CLOUD["Supabase Cloud"]
         Auth["Auth (JWT)"]
         Profiles["Profiles (RLS opt.)"]
         Orders["Orders"]
