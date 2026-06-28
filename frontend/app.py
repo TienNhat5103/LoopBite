@@ -529,6 +529,71 @@ section[data-testid="stSidebarNav"] {display: none;}
     padding: 1rem;
     margin-bottom: 0.9rem;
 }
+.app-switch {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.55rem;
+    margin: 0 0 0.9rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.app-switch-label {
+    color: var(--text-gray);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin: 0.75rem 0 1.1rem 0;
+}
+.dashboard-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.dashboard-card.primary {
+    background: #F3FAF6;
+    border-color: #BFEBD1;
+}
+.dashboard-label {
+    color: var(--text-gray);
+    font-size: 0.74rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+}
+.dashboard-value {
+    color: var(--text-dark);
+    font-size: 1.55rem;
+    font-weight: 900;
+    line-height: 1.05;
+    margin-top: 0.35rem;
+}
+.dashboard-hint {
+    color: #007A2F;
+    font-size: 0.78rem;
+    font-weight: 750;
+    margin-top: 0.35rem;
+}
+.dashboard-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+}
+.dashboard-section-title h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -591,6 +656,36 @@ def vnd(amount):
     except (TypeError, ValueError):
         return "0 VND"
 
+def short_vnd(amount):
+    try:
+        value = int(float(amount))
+    except (TypeError, ValueError):
+        return "0 VND"
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.1f}M VND"
+    if value >= 1_000:
+        return f"{value // 1_000}K VND"
+    return f"{value} VND"
+def render_app_switch():
+    st.markdown(
+        """
+<div class="app-switch">
+    <div class="app-switch-label">Choose app</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    user_col, merchant_col = st.columns(2)
+    with user_col:
+        label = "User App active" if st.session_state.mode == "User App" else "User App"
+        if st.button(label, key="switch_user_app", use_container_width=True):
+            if st.session_state.mode != "User App":
+                set_mode("User App")
+    with merchant_col:
+        label = "Merchant active" if st.session_state.mode == "Merchant Portal" else "Merchant Portal"
+        if st.button(label, key="switch_merchant_app", use_container_width=True):
+            if st.session_state.mode != "Merchant Portal":
+                set_mode("Merchant Portal")
 
 def category_icon(category):
     cat = (category or "").lower()
@@ -1370,10 +1465,12 @@ def page_dashboard():
 
     foods = merchant_food_items()
     available_foods = [f for f in foods if (f.get("quantity") or 0) > 0]
-    low_stock = sorted([f for f in available_foods if (f.get("quantity") or 0) <= 3], key=lambda x: x.get("quantity") or 0)
-    total_items = sum((f.get("quantity") or 0) for f in available_foods)
-    total_value = sum((f.get("price") or 0) * (f.get("quantity") or 0) for f in available_foods)
-
+    dashboard_foods = available_foods[:6]
+    low_stock = sorted([f for f in dashboard_foods if (f.get("quantity") or 0) <= 3], key=lambda x: x.get("quantity") or 0)
+    display_items = sum(min(int(f.get("quantity") or 0), 8) for f in dashboard_foods)
+    display_value = sum(int(float(f.get("price") or 0)) * min(int(f.get("quantity") or 0), 8) for f in dashboard_foods)
+    active_listing_count = len(dashboard_foods)
+    low_stock_count = len(low_stock)
     if not API_OK:
         st.warning("Backend offline. Demo data and session-state listings are still available.")
 
@@ -1392,20 +1489,39 @@ def page_dashboard():
         unsafe_allow_html=True,
     )
 
-    st.markdown("### Today Overview")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.metric("Available Items", str(total_items), f"{len(available_foods)} listings")
-    with c2:
-        st.metric("Listing Value", vnd(total_value), "")
-    c3, c4 = st.columns(2)
-    with c3:
-        st.metric("Active Listings", str(len(available_foods)), "")
-    with c4:
-        st.metric("Low Stock", str(len(low_stock)), "")
+    st.markdown(
+        f"""
+<div class="dashboard-section-title">
+    <h3>Today Overview</h3>
+    <span class="badge badge-active">Demo ready</span>
+</div>
+<div class="dashboard-grid">
+    <div class="dashboard-card primary">
+        <div class="dashboard-label">Items ready</div>
+        <div class="dashboard-value">{display_items}</div>
+        <div class="dashboard-hint">Across {active_listing_count} active listings</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Potential rescue value</div>
+        <div class="dashboard-value">{short_vnd(display_value)}</div>
+        <div class="dashboard-hint">Same-day pickup window</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Reservations</div>
+        <div class="dashboard-value">{1 if st.session_state.active_reservation else 0}</div>
+        <div class="dashboard-hint">Waiting for handoff</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="dashboard-label">Needs attention</div>
+        <div class="dashboard-value">{low_stock_count}</div>
+        <div class="dashboard-hint">Low stock listings</div>
+    </div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
-    st.divider()
-    st.markdown("### New Reservation")
+    st.markdown('<div class="dashboard-section-title"><h3>New Reservation</h3></div>', unsafe_allow_html=True)
     reservation = st.session_state.active_reservation
     if reservation:
         order_item = apply_quantity_override(reservation["item"])
@@ -1452,9 +1568,10 @@ def page_dashboard():
     if not available_foods:
         st.info("No active listings yet. Use Create to add one.")
     else:
-        for food in available_foods[:5]:
+        for food in dashboard_foods[:5]:
             icon = category_icon(food.get("category", ""))
             remaining = api.time_until(food.get("expiry_time"))
+            display_qty = min(int(food.get("quantity") or 0), 8)
             st.markdown(
                 f"""
 <div class="food-card">
@@ -1462,7 +1579,7 @@ def page_dashboard():
         <div style="width:2.5rem; height:2.5rem; border-radius:10px; background:#E6F7EE; color:#007A2F; display:flex; align-items:center; justify-content:center; font-weight:800;">{icon}</div>
         <div style="flex:1;">
             <div style="font-weight:600;">{food.get('name', '-')}</div>
-            <div style="font-size:0.8rem; color:#6B7280;">Qty: {food.get('quantity', 0)} - {remaining}</div>
+            <div style="font-size:0.8rem; color:#6B7280;">Qty: {display_qty} - {remaining}</div>
         </div>
         <div style="text-align:right;">
             <div style="font-weight:700; color:#00A040;">{vnd(food.get('price', 0))}</div>
@@ -1849,6 +1966,7 @@ if st.session_state.mode == "User App" and st.session_state.page not in USER_ROU
 elif st.session_state.mode == "Merchant Portal" and st.session_state.page not in MERCHANT_ROUTES:
     st.session_state.page = "Dashboard"
 
+render_app_switch()
 page_fn = ROUTES.get(st.session_state.page, page_user_home)
 page_fn()
 
